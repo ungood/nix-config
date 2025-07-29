@@ -8,13 +8,18 @@
   # TODO: Check that 1Password SSH Agent is running (that agent.sock exists)
   # See: http://github.com/mrjones2014/dotfiles
   home.sessionVariables = {
-    SSH_AUTH_SOCK = "${config.home.homeDirectory}/.1password/agent.sock";
+    #SSH_AUTH_SOCK = "${config.home.homeDirectory}/.1password/agent.sock";
   };
 
   programs.ssh = {
     enable = true;
     forwardAgent = true;
-    #identityAgent =
+    matchBlocks = {
+      "*" = {
+        identityAgent = "${config.home.homeDirectory}/.1password/agent.sock";
+      };
+    };
+
     # TODO: Setup forwarding AuthSock for servers
   };
 }
