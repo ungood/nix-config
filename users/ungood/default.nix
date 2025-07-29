@@ -47,6 +47,7 @@
       ../../modules/home/fish.nix
       ../../modules/home/git.nix
       ../../modules/home/ssh.nix
+      ../../modules/home/vs-code.nix
     ];
 
   };

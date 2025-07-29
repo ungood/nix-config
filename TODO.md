@@ -1,5 +1,6 @@
-* Install 1password and use for ssh/git keys
-* Create initial git commit!
+* Install and configure vs code to use nix
+* Setup an AI agent to help write this package
+* Clean up folder structure and imports (create lib function to importing of a directory)
 * Configure firefox
 * Login with firefox
 * set users.mutableUsers to false (requires setting passwd!)
