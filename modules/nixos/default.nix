@@ -4,7 +4,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   imports = [
-    ./desktop/kde
+    ./desktop/cosmic.nix
     ./nix
     ./home-manager
     ./firefox.nix
