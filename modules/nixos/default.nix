@@ -7,7 +7,7 @@
     ./desktop/kde
     ./nix
     ./home-manager
-    ./firefox
+    ./firefox.nix
     ./1password
   ];
 

@@ -1,4 +1,3 @@
-* Install and configure vs code to use nix
 * Setup an AI agent to help write this package
 * Clean up folder structure and imports (create lib function to importing of a directory)
 * Configure firefox
@@ -9,3 +8,4 @@
 * configure numlock
 * nix-direnv integration (or mise or something)
 * some build system (justfile or mise)
+* Better fonts

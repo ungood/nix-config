@@ -7,5 +7,7 @@
   home-manager = {
    useGlobalPkgs = true;
    useUserPackages = true;
+   # Automatically backup files that home manager replaces.
+   backupFileExtension = "hm-backup";
   };
 }
