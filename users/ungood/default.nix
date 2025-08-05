@@ -3,9 +3,6 @@
     inputs.home-manager.nixosModules.home-manager
   ];
 
-  # Install fish system-wide
-  programs.fish.enable = true;
-
   # NixOS Configuration
   users.users.ungood = {
     isNormalUser = true;
@@ -17,9 +14,7 @@
 
     shell = pkgs.fish;
 
-    packages = with pkgs; [
-      kdePackages.kate
-    ];
+    packages = with pkgs; [];
   };
 
   home-manager.users.ungood = {

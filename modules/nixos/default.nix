@@ -6,7 +6,7 @@
   imports = [
     ./desktop/plasma.nix
     ./nix.nix
-    #./home-manager.nix
+    ./home-manager.nix
     ./firefox.nix
     ./1password.nix
   ];
@@ -19,10 +19,16 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     curl
-    git
     vim
     wget
   ];
+
+  programs.git = {
+    enable = true;
+    lfs.enable = true;    
+  };
+
+  programs.fish.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

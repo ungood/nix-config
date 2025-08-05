@@ -13,3 +13,5 @@
 * nix-direnv integration (or mise or something)
 * some build system (justfile or mise)
 * Better fonts
+* Maybe neovim?
+* Maybe tmux or zellig?
