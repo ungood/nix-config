@@ -1,6 +1,6 @@
 {
   imports = [
-    ./base.nix
+    ./wayland.nix
   ];
 
   # Enable the KDE Plasma Desktop Environment.

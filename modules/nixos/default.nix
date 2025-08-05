@@ -4,11 +4,11 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   imports = [
-    ./desktop/cosmic.nix
-    ./nix
-    ./home-manager
+    ./desktop/plasma.nix
+    ./nix.nix
+    #./home-manager.nix
     ./firefox.nix
-    ./1password
+    ./1password.nix
   ];
 
 

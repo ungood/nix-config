@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./base.nix
+    ./xserver.nix
   ];
 
   # Enable ElementaryOS Pantheon

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./base.nix
+    ./wayland.nix
   ];
 
   services.displayManager.cosmic-greeter.enable = true;
