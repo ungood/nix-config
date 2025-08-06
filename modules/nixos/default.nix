@@ -1,10 +1,13 @@
 
 # Common configuration across all roles.
-{pkgs, lib, ...}: {
+{pkgs, inputs, ...}: {
   i18n.defaultLocale = "en_US.UTF-8";
 
   imports = [
+    inputs.catppuccin.nixosModules.catppuccin
+
     ./desktop/plasma.nix
+    ./catppuccin.nix
     ./nix.nix
     ./home-manager.nix
     ./firefox.nix
@@ -20,6 +23,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     curl
+    unzip
     vim
     wget
   ];

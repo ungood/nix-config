@@ -39,6 +39,9 @@
     };
 
     imports = [
+      inputs.catppuccin.homeModules.catppuccin
+      ../../modules/home/catppuccin.nix
+
       ../../modules/home/firefox.nix
       ../../modules/home/fish.nix
       ../../modules/home/ghostty.nix

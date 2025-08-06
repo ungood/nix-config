@@ -15,6 +15,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Catpuccin themes
+    catppuccin.url = "github:catppuccin/nix";
+
     # Third-party programs, packaged with nix.
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
