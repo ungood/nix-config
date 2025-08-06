@@ -41,6 +41,7 @@
     imports = [
       ../../modules/home/firefox.nix
       ../../modules/home/fish.nix
+      ../../modules/home/ghostty.nix
       ../../modules/home/git.nix
       ../../modules/home/gnome-dark.nix
       ../../modules/home/ssh.nix
