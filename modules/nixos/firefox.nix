@@ -17,13 +17,13 @@ in
       DisableTelemtry = true;
       DisablePocket = true;
       EnableTrackingProtection = {
-        Value= true;
+        Value = true;
         Locked = true;
         Cryptomining = true;
         Fingerprinting = true;
       };
       DontCheckDefaultBrowser = true;
-      
+
       Preferences = {
         "extensions.pocket.enabled" = locked false;
 
@@ -48,7 +48,7 @@ in
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = locked false;
       };
 
-      /* ---- EXTENSIONS ---- */
+      # ---- EXTENSIONS ----
       # Check about:support for extension/add-on ID strings.
       # Valid strings for installation_mode are "allowed", "blocked",
       # "force_installed" and "normal_installed".

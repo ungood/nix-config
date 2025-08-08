@@ -1,4 +1,5 @@
-{pkgs, inputs,...}: {
+{ pkgs, inputs, ... }:
+{
   imports = [
     inputs.home-manager.nixosModules.home-manager
   ];
@@ -13,8 +14,6 @@
     ];
 
     shell = pkgs.fish;
-
-    packages = with pkgs; [];
   };
 
   home-manager.users.ungood = {
@@ -33,21 +32,26 @@
       stateVersion = "25.05";
     };
 
+    home.packages = with pkgs; [
+      claude-code
+      jq
+      just
+    ];
+
     programs = {
       # Let Home Manager install and manage itself.
       home-manager.enable = true;
     };
 
     imports = [
-      inputs.catppuccin.homeModules.catppuccin
-      ../../modules/home/catppuccin.nix
-
       ../../modules/home/firefox.nix
       ../../modules/home/fish.nix
       ../../modules/home/ghostty.nix
       ../../modules/home/git.nix
-      ../../modules/home/gnome-dark.nix
+      ../../modules/home/gnome.nix
+      ../../modules/home/plasma/example.nix
       ../../modules/home/ssh.nix
+      ../../modules/home/stylix.nix
       ../../modules/home/vs-code
     ];
 

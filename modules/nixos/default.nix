@@ -1,20 +1,19 @@
-
 # Common configuration across all roles.
-{pkgs, inputs, ...}: {
+{ pkgs, inputs, ... }:
+{
   i18n.defaultLocale = "en_US.UTF-8";
 
   imports = [
-    inputs.catppuccin.nixosModules.catppuccin
+    inputs.stylix.nixosModules.stylix
 
     ./desktop/plasma.nix
-    ./catppuccin.nix
+    ./stylix.nix
     ./nix.nix
     ./home-manager.nix
     ./firefox.nix
     ./1password.nix
     ./steam.nix
   ];
-
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -30,7 +29,7 @@
 
   programs.git = {
     enable = true;
-    lfs.enable = true;    
+    lfs.enable = true;
   };
 
   programs.fish.enable = true;
@@ -53,7 +52,5 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-
-
 
 }

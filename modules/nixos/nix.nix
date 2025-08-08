@@ -7,7 +7,7 @@
         "flakes"
       ];
 
-      trusted-users = ["@wheel"];
+      trusted-users = [ "@wheel" ];
     };
 
     # do garbage collection weekly to keep disk usage low

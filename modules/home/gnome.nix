@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 {
   dconf = {
     enable = true;
@@ -10,7 +10,6 @@
           #gsconnect.extensionUuid
         ];
       };
-      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
     };
   };
 }

@@ -1,4 +1,4 @@
-{pkgs,...}:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     # Nil Nix language server
@@ -19,7 +19,7 @@
           # check https://github.com/oxalica/nil/blob/main/docs/configuration.md for all options available
           "nil" = {
             "formatting" = {
-              "command" = ["nixfmt"];
+              "command" = [ "nixfmt" ];
             };
           };
         };

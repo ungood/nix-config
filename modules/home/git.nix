@@ -1,4 +1,4 @@
-{...}:
+_:
 
 # TODO: Add a way to configure git for work
 {

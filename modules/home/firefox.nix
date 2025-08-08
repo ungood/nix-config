@@ -11,11 +11,15 @@
         force = true;
         default = "kagi";
         privateDefault = "ddg";
-        order = ["kagi" "ddg" "google"];
+        order = [
+          "kagi"
+          "ddg"
+          "google"
+        ];
         engines = {
           kagi = {
             name = "Kagi";
-            urls = [{template = "https://kagi.com/search?q={searchTerms}";}];
+            urls = [ { template = "https://kagi.com/search?q={searchTerms}"; } ];
             icon = "https://kagi.com/favicon.ico";
           };
           bing.metaData.hidden = true;
@@ -26,7 +30,7 @@
       #extensions.packages = with inputs.firefox-addons; [
       #  ublock-origin
       #];
-      
+
       settings = {
         "browser.aboutConfig.showWarning" = false;
 
@@ -84,7 +88,7 @@
 
         # Disable "save password" prompt
         "signon.rememberSignons" = false;
-        
+
         # Harden
         "privacy.trackingprotection.enabled" = true;
         "dom.security.https_only_mode" = true;
@@ -93,9 +97,9 @@
   };
 
   xdg.mimeApps.defaultApplications = {
-    "text/html" = ["firefox.desktop"];
-    "text/xml" = ["firefox.desktop"];
-    "x-scheme-handler/http" = ["firefox.desktop"];
-    "x-scheme-handler/https" = ["firefox.desktop"];
+    "text/html" = [ "firefox.desktop" ];
+    "text/xml" = [ "firefox.desktop" ];
+    "x-scheme-handler/http" = [ "firefox.desktop" ];
+    "x-scheme-handler/https" = [ "firefox.desktop" ];
   };
 }
