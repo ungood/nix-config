@@ -25,34 +25,37 @@ This is a NixOS configuration repository for Jason Walker's systems, using Nix f
 
 ## Common Development Commands
 
-### Building and Testing
+### Building and Testing (using just)
 ```bash
 # Build the current system configuration
-sudo nixos-rebuild switch --flake .
+just switch
 
 # Build without applying changes (test mode)
-sudo nixos-rebuild build --flake .
+just build
 
 # Build for a specific host
-sudo nixos-rebuild switch --flake .#sparrowhawk
+just switch-host sparrowhawk
 
 # Update flake inputs
-nix flake update
+just update
 
 # Check flake for issues
-nix flake check
+just check
 ```
 
 ### Development Workflow
 ```bash
 # Enter a development shell with nix tools
-nix develop
+just dev
 
 # Test configuration changes without rebuilding
-nixos-rebuild dry-run --flake .
+just dry-run
 
 # Garbage collection to free disk space
-sudo nix-collect-garbage -d
+just gc
+
+# Build home manager configuration
+just home
 ```
 
 ## Module System

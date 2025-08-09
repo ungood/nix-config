@@ -7,8 +7,7 @@
 {
   # Host-specific configurations for sparrowhawk
   imports = [
-    inputs.self.homeModules.gnome
-    inputs.self.homeModules.plasma.example
+    inputs.self.homeModules.plasma
   ];
 
   # Host-specific packages or overrides

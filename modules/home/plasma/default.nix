@@ -10,15 +10,6 @@
     workspace = {
       clickItemTo = "select";
       lookAndFeel = "org.kde.breezedark.desktop";
-      cursor.theme = "Bibata-Modern-Ice";
-      iconTheme = "Papirus-Dark";
-      wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
-    };
-
-    hotkeys.commands."launch-konsole" = {
-      name = "Launch Konsole";
-      key = "Meta+Alt+K";
-      command = "konsole";
     };
 
     panels = [
@@ -26,18 +17,24 @@
       {
         location = "bottom";
         widgets = [
-          "org.kde.plasma.kickoff"
+          {
+            kickoff = {
+              icon = "nix-snowflake-white";
+            };
+          }
+
           "org.kde.plasma.icontasks"
-          "org.kde.plasma.marginsseparator"
-          "org.kde.plasma.systemtray"
-          "org.kde.plasma.digitalclock"
         ];
       }
       # Global menu at the top
       {
         location = "top";
         height = 26;
-        widgets = [ "org.kde.plasma.appmenu" ];
+        widgets = [
+          "org.kde.plasma.marginsseparator"
+          "org.kde.plasma.systemtray"
+          "org.kde.plasma.digitalclock"
+        ];
       }
     ];
 
@@ -67,11 +64,9 @@
     configFile = {
       "baloofilerc"."Basic Settings"."Indexing-Enabled" = false;
       "kwinrc"."org.kde.kdecoration2"."ButtonsOnLeft" = "SF";
-      "kwinrc"."Desktops"."Number" = {
-        value = 8;
-        # Forces kde to not change this value (even through the settings app).
-        immutable = true;
-      };
+      "powermanagementprofilesrc"."AC"."PowerButtonAction" = 1;
+      "powermanagementprofilesrc"."Battery"."PowerButtonAction" = 1;
+      "powermanagementprofilesrc"."LowBattery"."PowerButtonAction" = 1;
     };
   };
 }

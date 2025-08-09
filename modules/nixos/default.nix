@@ -9,6 +9,7 @@
     ./desktop/plasma.nix
     ./stylix.nix
     ./nix.nix
+    ./fonts.nix
     ./home-manager.nix
     ./firefox.nix
     ./1password.nix
@@ -22,6 +23,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     curl
+    home-manager
     unzip
     vim
     wget
