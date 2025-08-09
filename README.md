@@ -1,4 +1,8 @@
 
+# One True Nix Config
+
+Nix configurations for managing the configuration of computers in my home network: onetrue.name.
+
 # Appendix
 
 ## Inspiration
@@ -8,4 +12,4 @@
 
 ## Project Structure
 
-When in doubt, keep it simple. 
+When in doubt, keep it simple.

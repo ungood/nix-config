@@ -9,10 +9,8 @@
   };
 
   inputs = {
-    # TODO: Use unstable for desktops and stable for servers?
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,8 +27,6 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    # Third-party programs, packaged with nix.
-    # TODO: Currently not used.
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,49 +34,35 @@
   };
 
   outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      home-manager,
-      ...
-    }:
+    inputs@{ self, nixpkgs, ... }:
     let
-      inherit (nixpkgs) lib;
+      customLib = import ./lib {
+        inherit inputs;
+        inherit (nixpkgs) lib;
+      };
+      lib = nixpkgs.lib // customLib;
       system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+
+      # Auto-import modules
+      nixosModules = lib.importDir ./modules/nixos;
+      homeModules = lib.importDir ./modules/home;
     in
     {
-      nixosConfigurations = {
-        sparrowhawk = lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-            inherit lib;
-          };
+      # Auto-generate system configurations
+      nixosConfigurations = lib.flatten (lib.mkHosts ./hosts);
 
-          modules = [ ./hosts/sparrowhawk ];
-        };
-      };
+      # Auto-generate home configurations
+      homeConfigurations = lib.mkUsers ./users;
 
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          nixfmt-rfc-style
-          statix
-          pre-commit
-        ];
+      # Export modules for reuse
+      inherit nixosModules homeModules;
 
-        shellHook = ''
-          echo "NixOS Development Environment"
-          echo "Available tools:"
-          echo "  nixfmt - Format Nix files"
-          echo "  statix - Lint Nix files"
-          echo "  pre-commit - Git pre-commit hooks"
-
-          if [ ! -f .pre-commit-config.yaml ]; then
-            echo "Setting up pre-commit hooks..."
-            pre-commit install
-          fi
-        '';
-      };
+      # Development shell from shells/
+      devShells.${system}.default = import ./shells/default.nix { inherit lib pkgs; };
 
       formatter.${system} = pkgs.nixfmt-rfc-style;
     };

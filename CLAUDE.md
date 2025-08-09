@@ -9,18 +9,19 @@ This is a NixOS configuration repository for Jason Walker's systems, using Nix f
 ## Architecture
 
 - **Flake-based**: Uses `flake.nix` as the entry point with inputs for nixpkgs, home-manager, stylix, and plasma-manager
-- **Host-specific configurations**: Each system is defined in `hosts/<hostname>/` (currently only `sparrowhawk`)
+- **Host-specific configurations**: Each system is defined in `hosts/<architecture>/<hostname>/`
 - **Modular structure**: Configuration split into reusable modules in `modules/` directory
 - **User management**: User configurations in `users/` directory with home-manager integration
 
 ### Directory Structure
 
-- `flake.nix` - Main flake configuration and system definitions
-- `hosts/` - Host-specific configurations
-- `modules/nixos/` - System-wide NixOS modules
+- `flake.nix` - Main flake configuration with auto-discovery
+- `lib/` - Helper functions for auto-generating configurations
+- `hosts/x86_64-linux/` - Host-specific configurations organized by architecture
+- `users/username/` - User configurations with `default.nix` (common) and `hostname.nix` (host-specific)
+- `modules/nixos/` - System-wide NixOS modules (includes hardware configs)
 - `modules/home/` - User-specific home-manager modules
-- `users/` - User account definitions and home-manager configurations
-- `hardware/` - Hardware-specific configurations (e.g., NVIDIA drivers)
+- `shells/` - Development shell configurations
 
 ## Common Development Commands
 
@@ -56,9 +57,13 @@ sudo nix-collect-garbage -d
 
 ## Module System
 
+The configuration uses automatic module discovery via custom helper functions in `lib/`.
+
 ### NixOS Modules (`modules/nixos/`)
 - `default.nix` - Common system configuration, imports all other modules
 - `desktop/` - Desktop environment configurations (GNOME, KDE Plasma, Hyprland, etc.)
+- `nvidia/` - NVIDIA graphics card support (moved from hardware/)
+- `users.nix` - System user definitions
 - `home-manager.nix` - Home Manager integration settings
 - `nix.nix` - Nix daemon configuration with flakes enabled
 - `stylix.nix` - System-wide theming configuration
@@ -68,6 +73,11 @@ sudo nix-collect-garbage -d
 - Shell configuration (Fish shell)
 - Terminal emulator setup (Ghostty)
 - Desktop environment user settings
+
+### User Configuration Structure
+- `users/<username>/default.nix` - Common user configuration across all hosts
+- `users/<username>/<hostname>.nix` - Host-specific user configuration
+- Automatically generates `homeConfigurations.<username>@<hostname>`
 
 ## Key Configuration Points
 

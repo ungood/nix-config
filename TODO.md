@@ -18,3 +18,5 @@
 - [ ] use variety for wallpapers
 - [ ] Better font-size for vs code
 - [ ] Ligatures in terminal and vs code
+- [ ] Configure claude to notify when done - cross platform
+- [ ] Configure claude to use git (add before checking and creating commits)
