@@ -1,19 +1,23 @@
 # NixOS configuration management commands
 
+# Add all changes to git (needed for flake builds)
+git-add:
+    git add .
+
 # Check flake for issues
-check:
+check: git-add
     nix flake check
 
 # Build and switch to new configuration
-switch:
+switch: git-add
     sudo nixos-rebuild switch --flake .
 
 # Build configuration without applying changes
-build:
+build: git-add
     sudo nixos-rebuild build --flake .
 
 # Test configuration changes without rebuilding
-dry-run:
+dry-run: git-add
     nixos-rebuild dry-run --flake .
 
 # Update flake inputs
@@ -29,9 +33,9 @@ dev:
     nix develop
 
 # Build for a specific host
-switch-host HOST:
+switch-host HOST: git-add
     sudo nixos-rebuild switch --flake .#{{HOST}}
 
 # Build home manager configuration
-home:
+home: git-add
     home-manager switch --flake .

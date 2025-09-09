@@ -1,4 +1,7 @@
 {
+  "bash": {
+    "prefix": "nix develop --command"
+  },
   "permissions": {
     "allow": [
       "Bash(git status:*)",
