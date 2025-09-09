@@ -102,3 +102,39 @@ The configuration uses Stylix for system-wide theming:
 - NVIDIA graphics card support via dedicated hardware module
 - EFI boot with systemd-boot loader
 - NetworkManager for network configuration
+
+## Claude Code Slash Commands
+
+This repository includes custom slash commands for common NixOS workflows:
+
+### Build & Deploy Commands
+- `/build` - Build configuration without applying changes
+- `/switch` - Build and apply NixOS configuration  
+- `/update` - Update flake dependencies
+- `/check` - Run flake checks and validation
+
+### Development Commands
+- `/format` - Format Nix files using nixfmt
+- `/gc` - Clean up old generations and store paths
+- `/commit [message]` - Create formatted git commit
+- `/review [pattern]` - Review configuration for best practices
+
+## NixOS Configuration Best Practices
+
+### Module Organization
+- Keep modules focused on single responsibilities
+- Use `lib.mkOption` for configurable module parameters
+- Import modules in `default.nix` files for automatic discovery
+- Place hardware-specific configs in appropriate host directories
+
+### Security Considerations
+- Avoid hardcoding secrets in configuration files
+- Use `age` or `sops-nix` for secret management
+- Enable firewall by default, explicitly open needed ports
+- Regularly update dependencies with `just update`
+
+### Performance Tips
+- Use `programs.nh.enable = true` for faster rebuilds
+- Enable `nix.settings.auto-optimise-store = true` for storage efficiency
+- Consider using `nix.settings.max-jobs` to limit parallel builds
+- Use `boot.tmp.cleanOnBoot = true` for faster boots

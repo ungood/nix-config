@@ -15,6 +15,7 @@
     jq
     just
     mangohud
+    wezterm
   ];
 
   programs.home-manager.enable = true;

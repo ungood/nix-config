@@ -30,7 +30,7 @@ gc:
 
 # Enter development shell
 dev:
-    nix develop
+    nix develop -c $SHELL
 
 # Build for a specific host
 switch-host HOST: git-add
