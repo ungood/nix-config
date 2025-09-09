@@ -25,7 +25,7 @@
     inputs.self.homeModules.claude
     inputs.self.homeModules.firefox
     inputs.self.homeModules.fish
-    inputs.self.homeModules.ghostty
+    inputs.self.homeModules.wezterm
     inputs.self.homeModules.git
     inputs.self.homeModules.ssh
     inputs.self.homeModules.stylix
