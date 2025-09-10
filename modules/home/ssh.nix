@@ -13,14 +13,10 @@
 
   programs.ssh = {
     enable = true;
-    enableDefaultConfig = false;
+    forwardAgent = true;
     matchBlocks = {
       "*" = {
-        forwardAgent = true;
         identityAgent = "${config.home.homeDirectory}/.1password/agent.sock";
-        # Default SSH client options
-        compression = true;
-        serverAliveInterval = 60;
       };
     };
 

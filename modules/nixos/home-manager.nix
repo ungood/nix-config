@@ -23,7 +23,7 @@ in
     extraSpecialArgs = { inherit inputs; };
 
     sharedModules = [
-      inputs.plasma-manager.homeModules.plasma-manager
+      inputs.plasma-manager.homeManagerModules.plasma-manager
     ];
 
     # Reference user configurations from users directory
