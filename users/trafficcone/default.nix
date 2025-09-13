@@ -6,8 +6,8 @@
 }:
 {
   home = {
-    username = "ungood";
-    homeDirectory = "/home/ungood";
+    username = "trafficcone";
+    homeDirectory = "/home/trafficcone";
     stateVersion = "25.05";
   };
 

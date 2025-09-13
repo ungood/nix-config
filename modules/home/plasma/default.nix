@@ -31,6 +31,7 @@
         location = "top";
         height = 26;
         widgets = [
+          "org.kde.plasma.appmenu"
           "org.kde.plasma.marginsseparator"
           "org.kde.plasma.systemtray"
           "org.kde.plasma.digitalclock"
@@ -67,6 +68,9 @@
       "powermanagementprofilesrc"."AC"."PowerButtonAction" = 1;
       "powermanagementprofilesrc"."Battery"."PowerButtonAction" = 1;
       "powermanagementprofilesrc"."LowBattery"."PowerButtonAction" = 1;
+
+      # Global menu configuration
+      "kwinrc"."Windows"."BorderlessMaximizedWindows" = true;
     };
   };
 }

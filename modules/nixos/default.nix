@@ -13,6 +13,7 @@
     ./home-manager.nix
     ./firefox.nix
     ./1password.nix
+    ./opnix.nix
     ./steam.nix
   ];
 

@@ -31,6 +31,11 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    opnix = {
+      url = "github:mrjones2014/opnix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
