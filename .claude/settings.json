@@ -2,7 +2,34 @@
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(gh:*)",
+      "Bash(just:*)",
+      "Task(subagent_type:research-agent)",
+      "Task(subagent_type:implementation-agent)",
+      "Task(subagent_type:review-agent)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "gh issue create",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/ungood/nix-config/.claude/hooks/issue-created.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "gh pr create",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/ungood/nix-config/.claude/hooks/pr-created.sh"
+          }
+        ]
+      }
     ]
   }
 }

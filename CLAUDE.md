@@ -109,7 +109,7 @@ This repository includes custom slash commands for common NixOS workflows:
 
 ### Build & Deploy Commands
 - `/build` - Build configuration without applying changes
-- `/switch` - Build and apply NixOS configuration  
+- `/switch` - Build and apply NixOS configuration
 - `/update` - Update flake dependencies
 - `/check` - Run flake checks and validation
 
@@ -118,6 +118,14 @@ This repository includes custom slash commands for common NixOS workflows:
 - `/gc` - Clean up old generations and store paths
 - `/commit [message]` - Create formatted git commit
 - `/review [pattern]` - Review configuration for best practices
+
+### Automated Workflow Commands
+- `/ideate [feature-description]` - Start automated development workflow with brainstorming and GitHub issue creation
+- `/research [issue-number]` - Trigger research and design phase for GitHub issue
+- `/implement [issue-number]` - Trigger implementation phase for designed GitHub issue
+- `/review-pr [pr-number]` - Trigger automated review and testing for pull request
+
+See `.claude/WORKFLOW.md` for detailed documentation on the automated development workflow using subagents and GitHub integration.
 
 ## NixOS Configuration Best Practices
 
