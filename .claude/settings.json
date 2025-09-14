@@ -4,12 +4,24 @@
       "Bash(just:*)",
       "Bash(nix:*)",
       "Bash(statix:*)",
-      "Task(subagent_type:research-agent)",
+      "Task(subagent_type:product-owner)",
+      "Task(subagent_type:architect)",
       "Task(subagent_type:implementation-agent)",
       "Task(subagent_type:review-agent)"
     ]
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/ungood/nix-config/.claude/hooks/dev-shell-check.sh"
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "gh issue create",
