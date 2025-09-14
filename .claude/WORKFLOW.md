@@ -4,42 +4,72 @@ This document describes the automated development workflow using Claude Code sub
 
 ## Overview
 
-The workflow consists of 4 automated phases:
+The workflow consists of 5 phases:
 
-1. **Ideation** - Brainstorm and create GitHub issues
-2. **Research & Design** - Analyze requirements and create technical designs
-3. **Implementation** - Develop features following NixOS best practices
-4. **Review & Testing** - Automated code review and validation
+1. **Issue Creation** - Quick capture of features/bugs with minimal detail
+2. **Requirements Definition** - Analyze and define detailed requirements and scope
+3. **Technical Design** - Create implementation architecture and approach
+4. **Implementation** - Develop features following NixOS best practices
+5. **Review & Testing** - Automated code review and validation
 
 ## Commands
 
-### `/ideate [feature-description]`
-Start the development workflow by brainstorming a new feature.
+### `/suggest-feature [description]`
+Quickly suggest a new feature with minimal overhead.
 
 **Example:**
 ```bash
-/ideate Add support for Hyprland desktop environment
+/suggest-feature Add support for Wayland screen sharing
 ```
 
 **What it does:**
-- Interactive brainstorming session to refine the idea
-- Generates comprehensive GitHub issue with requirements
-- Creates feature branch
-- Automatically triggers research phase
+- Creates GitHub issue with brief feature description
+- Auto-assigns `enhancement` label
+- Minimal time investment (30 seconds)
 
-### `/research [issue-number]`
-Manually trigger research and design phase for a GitHub issue.
+### `/report-bug [description]`
+Quickly report a bug with essential triage information.
 
 **Example:**
 ```bash
-/research 42
+/report-bug KDE system tray icons disappear after sleep
 ```
 
 **What it does:**
-- Analyzes issue requirements and codebase
-- Creates technical design document
-- Generates implementation task breakdown
-- Updates GitHub issue with design documentation
+- Creates GitHub issue with bug details
+- Prompts for expected vs actual behavior
+- Auto-assigns `bug` and `needs-triage` labels
+- Gathers basic environment information
+
+### `/define [issue-number]`
+Define detailed requirements and scope for a GitHub issue.
+
+**Example:**
+```bash
+/define 42
+```
+
+**What it does:**
+- Analyzes issue and gathers additional requirements
+- Researches codebase for context and dependencies
+- Defines clear scope boundaries and constraints
+- Creates detailed acceptance criteria
+- Focuses on WHAT needs to be built
+
+### `/design [issue-number]`
+Create technical design for a well-defined GitHub issue.
+
+**Example:**
+```bash
+/design 42
+```
+
+**What it does:**
+- Reads detailed requirements from GitHub issue
+- Researches existing codebase patterns
+- Designs technical solution and implementation approach
+- Creates detailed implementation tasks
+- Focuses on HOW to build the solution
 
 ### `/implement [issue-number]`
 Manually trigger implementation phase for a designed issue.
@@ -71,15 +101,18 @@ Manually trigger review and testing for a pull request.
 
 ## Automation Flow
 
-### Complete Automated Workflow
+### Complete Workflow
 ```
-/ideate "Add feature X"
+/suggest-feature "Add feature X"
     ↓ (creates GitHub issue)
-    ↓ (hook triggers automatically)
-Research Agent analyzes and designs
-    ↓ (updates issue with design)
-    ↓ (manual or automated trigger)
-Implementation Agent builds feature
+    ↓ (manual progression)
+/define [issue-number]
+    ↓ (updates issue with detailed requirements)
+    ↓ (manual progression)
+/design [issue-number]
+    ↓ (updates issue with technical design)
+    ↓ (manual progression)
+/implement [issue-number]
     ↓ (creates pull request)
     ↓ (hook triggers automatically)
 Review Agent tests and reviews
@@ -87,18 +120,38 @@ Review Agent tests and reviews
 ✅ Feature complete
 ```
 
-### Manual Override Points
-You can manually intervene at any phase:
-- Use `/research [issue]` to re-run design phase
-- Use `/implement [issue]` to re-run implementation
-- Use `/review-pr [pr]` to re-run review process
+### Quick Bug Reporting Flow
+```
+/report-bug "Bug description"
+    ↓ (creates GitHub issue with triage info)
+    ↓ (manual triage and prioritization)
+/define [issue-number] (if needed)
+    ↓ (clarify requirements)
+/design [issue-number] (if needed)
+    ↓ (plan technical fix)
+/implement [issue-number]
+    ↓ (fix implementation and testing)
+✅ Bug resolved
+```
+
+### Manual Control Points
+Each phase is manually triggered, giving you control over:
+- When to move from initial idea to detailed requirements
+- When requirements are sufficient for technical design
+- When design is ready for implementation
+- Ability to iterate on any phase before proceeding
 
 ## Subagents
 
-### Research Agent
-- **Purpose**: Analyze GitHub issues and create technical designs
-- **Capabilities**: Codebase analysis, architecture design, task breakdown
-- **Output**: Technical design document and implementation plan
+### Product Owner Agent
+- **Purpose**: Analyze GitHub issues and define detailed requirements, scope, and acceptance criteria
+- **Capabilities**: Requirements analysis, scope definition, user story creation, acceptance criteria development
+- **Output**: Comprehensive requirements document with clear scope and success criteria
+
+### Architect Agent
+- **Purpose**: Create technical designs and implementation plans based on well-defined requirements
+- **Capabilities**: Technical architecture design, system integration analysis, implementation strategy development
+- **Output**: Technical design document with implementation approach and detailed tasks
 
 ### Implementation Agent
 - **Purpose**: Implement features based on GitHub issue designs

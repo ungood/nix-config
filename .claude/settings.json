@@ -4,7 +4,8 @@
       "Bash(just:*)",
       "Bash(nix:*)",
       "Bash(statix:*)",
-      "Task(subagent_type:research-agent)",
+      "Task(subagent_type:product-owner)",
+      "Task(subagent_type:architect)",
       "Task(subagent_type:implementation-agent)",
       "Task(subagent_type:review-agent)"
     ]
