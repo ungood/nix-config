@@ -21,6 +21,7 @@
     inputs.self.homeModules.claude
     inputs.self.homeModules.firefox
     inputs.self.homeModules.fish
+    inputs.self.homeModules.gh
     inputs.self.homeModules.ghostty
     inputs.self.homeModules.git
     inputs.self.homeModules.ssh

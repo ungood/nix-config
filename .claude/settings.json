@@ -1,10 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(gh:*)",
       "Bash(just:*)",
+      "Bash(nix:*)",
+      "Bash(statix:*)",
       "Task(subagent_type:research-agent)",
       "Task(subagent_type:implementation-agent)",
       "Task(subagent_type:review-agent)"
