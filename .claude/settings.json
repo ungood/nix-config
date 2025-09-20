@@ -11,6 +11,17 @@
     ]
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/ungood/nix-config/.claude/hooks/dev-shell-check.sh"
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "gh issue create",
