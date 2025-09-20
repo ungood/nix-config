@@ -69,6 +69,16 @@
       # Development shell from shells/
       devShells.${system}.default = import ./shells/default.nix { inherit lib pkgs; };
 
+      # NixOS testing infrastructure
+      checks.${system} = import ./tests {
+        inherit
+          inputs
+          pkgs
+          lib
+          system
+          ;
+      };
+
       formatter.${system} = pkgs.nixfmt-rfc-style;
     };
 }

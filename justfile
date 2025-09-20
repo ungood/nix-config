@@ -39,3 +39,16 @@ switch-host HOST: git-add
 # Build home manager configuration
 home: git-add
     home-manager switch --flake .
+
+# Run NixOS tests
+test: git-add
+    nix build .#checks.x86_64-linux -L
+
+# Run specific test
+test-name NAME: git-add
+    nix build .#checks.x86_64-linux.{{NAME}} -L
+
+# Run tests in interactive mode for debugging
+test-interactive: git-add
+    nix build .#checks.x86_64-linux.basic-smoke-test.driverInteractive
+    ./result/bin/nixos-test-driver
