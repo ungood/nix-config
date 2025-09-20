@@ -42,7 +42,18 @@ home: git-add
 
 # Run NixOS tests
 test: git-add
-    nix build .#checks.x86_64-linux -L
+    #!/usr/bin/env bash
+    echo "Running all NixOS tests..."
+    tests=$(nix eval .#checks.x86_64-linux --apply builtins.attrNames --json | jq -r '.[]')
+    if [ -z "$tests" ]; then
+        echo "No tests found"
+        exit 0
+    fi
+    for test in $tests; do
+        echo "Building test: $test"
+        nix build .#checks.x86_64-linux.$test -L
+    done
+    echo "✅ All tests completed successfully!"
 
 # Run specific test
 test-name NAME: git-add
