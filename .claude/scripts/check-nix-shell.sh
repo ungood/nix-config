@@ -8,7 +8,7 @@ if [[ -n "$IN_NIX_SHELL" ]]; then
     echo "✓ Claude session is running in nix shell (IN_NIX_SHELL=$IN_NIX_SHELL)"
     exit 0
 else
-    echo "✗ Claude session is NOT in a nix shell!"
-    echo "Did you forget to 'just dev'?"
+    echo "✗ Claude session is NOT in a nix shell!" >&2
+    echo "Did you forget to 'just dev'?" >&2
     exit 1
 fi
