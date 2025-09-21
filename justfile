@@ -32,6 +32,10 @@ gc:
 dev:
     nix develop -c $SHELL
 
+# Automatic format all files.
+format:
+    pre-commit run -a
+
 # Build for a specific host
 switch-host HOST: git-add
     sudo nixos-rebuild switch --flake .#{{HOST}}

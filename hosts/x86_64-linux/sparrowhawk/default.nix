@@ -1,15 +1,14 @@
 {
-  lib,
-  pkgs,
   inputs,
   ...
 }:
 {
   imports = [
     ./hardware-configuration.nix
-    ../../../modules/nixos/default.nix # Common system config
-    ../../../modules/nixos/nvidia
-    ../../../modules/nixos/users.nix # User definitions
+    inputs.self.nixosModules.base
+    inputs.self.nixosModules.desktop.plasma
+    inputs.self.nixosModules.development
+    inputs.self.nixosModules.gaming
   ];
 
   boot.loader = {

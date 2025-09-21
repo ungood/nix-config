@@ -34,7 +34,7 @@ let
   mkModuleTest = moduleName: moduleConfig: {
     name = "module-${moduleName}";
     nodes.machine =
-      { pkgs, ... }:
+      { ... }:
       {
         imports = [ moduleConfig ];
 

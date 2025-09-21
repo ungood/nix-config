@@ -1,5 +1,5 @@
 # System-wide Firefox configuration, which should restrict firefox for privacy reasons.
-{ config, pkgs, ... }:
+_:
 let
   # Function to lock configuration values.
   locked = value: {

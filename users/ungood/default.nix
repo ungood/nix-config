@@ -1,13 +1,12 @@
 {
-  lib,
-  pkgs,
   inputs,
+  lib,
   ...
 }:
 {
   home = {
     username = "ungood";
-    homeDirectory = "/home/ungood";
+    homeDirectory = lib.mkDefault "/home/ungood";
     stateVersion = "25.05";
   };
 

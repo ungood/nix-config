@@ -1,13 +1,12 @@
 {
-  lib,
-  pkgs,
   inputs,
+  lib,
   ...
 }:
 {
   home = {
     username = "trafficcone";
-    homeDirectory = "/home/trafficcone";
+    homeDirectory = lib.mkDefault "/home/trafficcone";
     stateVersion = "25.05";
   };
 

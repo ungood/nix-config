@@ -1,59 +1,8 @@
-# Common configuration across all roles.
-{ pkgs, inputs, ... }:
+# Legacy configuration - imports the gaming role which includes all components
+# This maintains backward compatibility while transitioning to role-based system
+{ inputs, ... }:
 {
-  i18n.defaultLocale = "en_US.UTF-8";
-
   imports = [
-    inputs.stylix.nixosModules.stylix
-
-    ./desktop/plasma.nix
-    ./stylix.nix
-    ./nix.nix
-    ./fonts.nix
-    ./home-manager.nix
-    ./firefox.nix
-    ./1password.nix
-    ./opnix.nix
-    ./steam.nix
+    inputs.self.nixosModules.gaming
   ];
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    curl
-    home-manager
-    unzip
-    vim
-    wget
-  ];
-
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
-  };
-
-  programs.fish.enable = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
 }

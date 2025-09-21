@@ -1,18 +1,24 @@
 repos:
   - repo: local
     hooks:
-      - id: nixfmt
-        name: nixfmt
-        entry: nixfmt
+      - id: deadnix
+        name: deadnix
+        entry: deadnix --edit
         language: system
-        files: \.nix$
+        types: [nix]
 
       - id: statix
         name: statix
         entry: statix check
         language: system
-        files: \.nix$
+        types: [nix]
         pass_filenames: false
+
+      - id: nixfmt
+        name: nixfmt
+        entry: nixfmt
+        language: system
+        types: [nix]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
