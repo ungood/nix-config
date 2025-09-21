@@ -1,8 +1,9 @@
-# Ignore build outputs from performing a nix-build or `nix build` command
+# Ignore build artifacts
 result
 result-*
+*.qcow2
 
-# Ignore test artifactes
+# Ignore test artifacts
 .nixos-test-history
 
 # Ignore automatically generated direnv output
