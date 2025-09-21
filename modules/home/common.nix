@@ -13,7 +13,9 @@
     jq
     just
     mangohud
+    spotify
     wezterm
+    zed-editor
   ];
 
   # Common module imports
