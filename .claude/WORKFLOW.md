@@ -153,10 +153,10 @@ Each phase is manually triggered, giving you control over:
 - **Capabilities**: Technical architecture design, system integration analysis, implementation strategy development
 - **Output**: Technical design document with implementation approach and detailed tasks
 
-### Implementation Agent
-- **Purpose**: Implement features based on GitHub issue designs
-- **Capabilities**: NixOS module development, testing, Git workflow
-- **Output**: Working implementation with tests and documentation
+### Software Engineer Agent
+- **Purpose**: Implement features across any technology stack by researching project conventions
+- **Capabilities**: General-purpose software development, testing, Git workflow, documentation research
+- **Output**: Working implementation with tests and documentation following project standards
 
 ### Review Agent
 - **Purpose**: Comprehensive code review and validation
@@ -196,7 +196,7 @@ Each phase is manually triggered, giving you control over:
 │   └── review-pr.md    # Review trigger
 ├── agents/
 │   ├── research-agent.md       # Research subagent config
-│   ├── implementation-agent.md # Implementation subagent config
+│   ├── software-engineer.md # Software engineer subagent config
 │   └── review-agent.md         # Review subagent config
 ├── hooks/
 │   ├── issue-created.sh     # Auto-trigger research

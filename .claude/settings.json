@@ -6,7 +6,7 @@
       "Bash(statix:*)",
       "Task(subagent_type:product-owner)",
       "Task(subagent_type:architect)",
-      "Task(subagent_type:implementation-agent)",
+      "Task(subagent_type:software-engineer)",
       "Task(subagent_type:review-agent)"
     ]
   },
