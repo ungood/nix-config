@@ -65,14 +65,24 @@ git checkout -b feature/your-feature-name
 
 ### 2. Testing Changes
 
-Before committing, always test your changes:
+Follow Test-Driven Development (TDD) approach:
 
 ```bash
-# Check that the flake is valid
-just check
+# 1. Add failing tests first (Red phase)
+# Add tests to appropriate files in tests/scripts/modules/
 
-# Build the configuration without applying
-just build
+# 2. Run tests to confirm they fail initially
+just test
+
+# 3. Implement feature to make tests pass (Green phase)
+# 4. Run tests again to confirm they now pass
+just test
+
+# 5. Refactor code while keeping tests passing (Refactor phase)
+# 6. Run full validation
+just test    # Run comprehensive test suite
+just check   # Check flake validity
+just build   # Build configuration
 
 # If everything looks good, apply the changes
 just switch

@@ -101,8 +101,18 @@ See [WORKFLOW.md](WORKFLOW.md) for detailed documentation on the automated devel
 - Role-based modules (base, workstation, gaming, development) are located in `modules/nixos/`
 
 ### Development Guidelines
+- **Follow Test-Driven Development (TDD)**: Start implementation with failing tests, then make them pass
 - Always use the `just` commands for building and testing
 - Read project documentation before implementing features
 - Follow existing patterns and conventions in the codebase
-- Test changes with `just check` before committing
+- Add tests to appropriate module test files in `tests/scripts/modules/`
+- Validate with full test suite (`just test`) before committing
+- Run configuration checks (`just check`) and builds (`just build`)
 - Use automated workflows for feature development
+
+### Testing Guidelines
+- **Host-Centric Testing**: Tests run within actual host environments, not isolation
+- **Module Test Files**: Add tests to relevant files in `tests/scripts/modules/`
+- **TDD Workflow**: Red (failing tests) → Green (make tests pass) → Refactor (improve code)
+- **Comprehensive Coverage**: Tests should validate complete feature functionality
+- **Regression Prevention**: Ensure tests prevent future regressions

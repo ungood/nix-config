@@ -17,27 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/home/ungood/nix-config/.claude/hooks/dev-shell-check.sh"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "gh issue create",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/home/ungood/nix-config/.claude/hooks/issue-created.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "gh pr create",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/home/ungood/nix-config/.claude/hooks/pr-created.sh"
+            "command": "/home/ungood/nix-config/.claude/scripts/dev-shell-wrapper.sh"
           }
         ]
       }
