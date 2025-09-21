@@ -1,7 +1,15 @@
 { lib, pkgs, ... }:
 let
   # Common user configuration options
-  mkUser = { username, description, extraGroups ? [ "networkmanager" "wheel" ] }:
+  mkUser =
+    {
+      username,
+      description,
+      extraGroups ? [
+        "networkmanager"
+        "wheel"
+      ],
+    }:
     {
       isNormalUser = true;
       inherit description extraGroups;

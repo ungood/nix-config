@@ -6,7 +6,7 @@
 }:
 let
   hostname = config.networking.hostName;
-  usersDir = ../../users;
+  usersDir = ../../../users;
   users = builtins.readDir usersDir;
 in
 {

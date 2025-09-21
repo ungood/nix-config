@@ -1,8 +1,8 @@
 { ... }:
 {
   imports = [
-    ./base.nix
-    ./desktop/plasma.nix
+    ../base
+    ./plasma.nix
     ./firefox.nix
     ./1password.nix
   ];
