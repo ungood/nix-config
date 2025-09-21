@@ -44,26 +44,19 @@ switch-host HOST: git-add
 home: git-add
     home-manager switch --flake .
 
-# Run NixOS tests
-test: git-add
-    #!/usr/bin/env bash
-    echo "Running all NixOS tests..."
-    tests=$(nix eval .#checks.x86_64-linux --apply builtins.attrNames --json | jq -r '.[]')
-    if [ -z "$tests" ]; then
-        echo "No tests found"
-        exit 0
-    fi
-    for test in $tests; do
-        echo "Building test: $test"
-        nix build .#checks.x86_64-linux.$test -L
-    done
-    echo "✅ All tests completed successfully!"
+# Run all host tests (comprehensive testing)
+test: test-hosts
 
-# Run specific test
-test-name NAME: git-add
-    nix build .#checks.x86_64-linux.{{NAME}} -L
+# Run all host tests (each host tests all its modules)
+test-hosts: (test-host "sparrowhawk")
+
+# Run specific host test (tests all modules for that host)
+test-host HOST: git-add
+    @echo "Testing host: {{HOST}}"
+    nix build --rebuild .#checks.x86_64-linux.{{HOST}} -L
 
 # Run tests in interactive mode for debugging
-test-interactive: git-add
-    nix build .#checks.x86_64-linux.basic-smoke-test.driverInteractive
+test-interactive HOST: git-add
+    @echo "Starting interactive test for host: {{HOST}}"
+    nix build .#checks.x86_64-linux.{{HOST}}.driverInteractive
     ./result/bin/nixos-test-driver

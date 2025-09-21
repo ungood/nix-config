@@ -131,13 +131,29 @@ gh pr create --title "feat: Your feature" --body "Description of changes"
 
 ### Local Testing
 
+The repository uses host-centric testing that runs comprehensive test suites for each host configuration.
+
 ```bash
-# Run all tests
+# Run all host tests (tests all modules for all hosts)
 just test
 
-# Run specific test
-just test-name basic-smoke-test
+# Run tests for all hosts explicitly
+just test-hosts
+
+# Run tests for a specific host
+just test-host sparrowhawk
+
+# Run tests in interactive mode for debugging
+just test-interactive sparrowhawk
 ```
+
+### Testing Architecture
+
+The testing system uses a host-centric approach where:
+- Each host automatically discovers which modules it imports
+- Tests run comprehensive suites for all relevant modules within the host's environment
+- Module test scripts are located in `tests/scripts/modules/`
+- Host test configurations are in `tests/hosts/`
 
 ### Pre-commit Checks
 
