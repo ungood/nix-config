@@ -1,62 +1,13 @@
-# CLAUDE.md
+# Agent Documentation
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents (like Claude Code) when working with this repository.
 
-## Repository Overview
-
-This is a NixOS configuration repository for Jason Walker's systems, using Nix flakes for declarative system configuration management.
-
-## Architecture
+## Architecture Overview
 
 - **Flake-based**: Uses `flake.nix` as the entry point with inputs for nixpkgs, home-manager, stylix, and plasma-manager
 - **Host-specific configurations**: Each system is defined in `hosts/<architecture>/<hostname>/`
 - **Modular structure**: Configuration split into reusable modules in `modules/` directory
 - **User management**: User configurations in `users/` directory with home-manager integration
-
-### Directory Structure
-
-- `flake.nix` - Main flake configuration with auto-discovery
-- `lib/` - Helper functions for auto-generating configurations
-- `hosts/x86_64-linux/` - Host-specific configurations organized by architecture
-- `users/username/` - User configurations with `default.nix` (common) and `hostname.nix` (host-specific)
-- `modules/nixos/` - System-wide NixOS modules (includes hardware configs)
-- `modules/home/` - User-specific home-manager modules
-- `shells/` - Development shell configurations
-
-## Common Development Commands
-
-### Building and Testing (using just)
-```bash
-# Build the current system configuration
-just switch
-
-# Build without applying changes (test mode)
-just build
-
-# Build for a specific host
-just switch-host sparrowhawk
-
-# Update flake inputs
-just update
-
-# Check flake for issues
-just check
-```
-
-### Development Workflow
-```bash
-# Enter a development shell with nix tools
-just dev
-
-# Test configuration changes without rebuilding
-just dry-run
-
-# Garbage collection to free disk space
-just gc
-
-# Build home manager configuration
-just home
-```
 
 ## Module System
 
@@ -65,7 +16,7 @@ The configuration uses automatic module discovery via custom helper functions in
 ### NixOS Modules (`modules/nixos/`)
 - `default.nix` - Common system configuration, imports all other modules
 - `desktop/` - Desktop environment configurations (GNOME, KDE Plasma, Hyprland, etc.)
-- `nvidia/` - NVIDIA graphics card support (moved from hardware/)
+- `nvidia/` - NVIDIA graphics card support
 - `users.nix` - System user definitions
 - `home-manager.nix` - Home Manager integration settings
 - `nix.nix` - Nix daemon configuration with flakes enabled
@@ -105,27 +56,18 @@ The configuration uses Stylix for system-wide theming:
 
 ## Claude Code Slash Commands
 
-This repository includes custom slash commands for common NixOS workflows:
+This repository includes custom slash commands for common workflows:
 
-### Build & Deploy Commands
-- `/build` - Build configuration without applying changes
-- `/switch` - Build and apply NixOS configuration
-- `/update` - Update flake dependencies
-- `/check` - Run flake checks and validation
-
-### Development Commands
-- `/format` - Format Nix files using nixfmt
-- `/gc` - Clean up old generations and store paths
+### Core Commands
 - `/commit [message]` - Create formatted git commit
-- `/review [pattern]` - Review configuration for best practices
+- `/suggest-feature [description]` - Create GitHub issue for feature suggestion
+- `/report-bug [description]` - Create GitHub issue for bug report
+- `/define [issue-number]` - Define detailed requirements for GitHub issue
+- `/design [issue-number]` - Create technical design for GitHub issue
+- `/implement [issue-number]` - Implement feature from GitHub issue design
+- `/review-pr [pr-number]` - Review and test pull request
 
-### Automated Workflow Commands
-- `/ideate [feature-description]` - Start automated development workflow with brainstorming and GitHub issue creation
-- `/research [issue-number]` - Trigger research and design phase for GitHub issue
-- `/implement [issue-number]` - Trigger implementation phase for designed GitHub issue
-- `/review-pr [pr-number]` - Trigger automated review and testing for pull request
-
-See `.claude/WORKFLOW.md` for detailed documentation on the automated development workflow using subagents and GitHub integration.
+See [WORKFLOW.md](WORKFLOW.md) for detailed documentation on the automated development workflow.
 
 ## NixOS Configuration Best Practices
 
@@ -146,3 +88,11 @@ See `.claude/WORKFLOW.md` for detailed documentation on the automated developmen
 - Enable `nix.settings.auto-optimise-store = true` for storage efficiency
 - Consider using `nix.settings.max-jobs` to limit parallel builds
 - Use `boot.tmp.cleanOnBoot = true` for faster boots
+
+## Important Notes for Agents
+
+- Always use the `just` commands for building and testing
+- Read project documentation before implementing features
+- Follow existing patterns and conventions in the codebase
+- Test changes with `just check` before committing
+- Use automated workflows for feature development
