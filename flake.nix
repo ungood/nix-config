@@ -55,6 +55,9 @@
       # Auto-import modules
       nixosModules = lib.importDir ./modules/nixos;
       homeModules = lib.importDir ./modules/home;
+
+      # Auto-import roles
+      roles = lib.importDir ./roles;
     in
     {
       # Auto-generate system configurations
@@ -63,8 +66,8 @@
       # Auto-generate home configurations
       homeConfigurations = lib.mkUsers ./users;
 
-      # Export modules for reuse
-      inherit nixosModules homeModules;
+      # Export modules and roles for reuse
+      inherit nixosModules homeModules roles;
 
       # Development shell from shells/
       devShells.${system}.default = import ./shells/default.nix { inherit lib pkgs; };

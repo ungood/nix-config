@@ -7,7 +7,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../../modules/nixos/default.nix # Common system config
+    inputs.self.roles.gaming # Gaming workstation role
     ../../../modules/nixos/nvidia
     ../../../modules/nixos/users.nix # User definitions
   ];
