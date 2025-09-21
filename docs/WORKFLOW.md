@@ -72,7 +72,7 @@ Create technical design for a well-defined GitHub issue.
 - Focuses on HOW to build the solution
 
 ### `/implement [issue-number]`
-Manually trigger implementation phase for a designed issue.
+Manually trigger implementation phase for a designed issue using Test-Driven Development.
 
 **Example:**
 ```bash
@@ -81,8 +81,10 @@ Manually trigger implementation phase for a designed issue.
 
 **What it does:**
 - Reads design from GitHub issue
+- **Creates failing tests first** that define the expected behavior
 - Implements feature following repository conventions
-- Runs validation tests (`just check`, `just build`)
+- Validates that tests now pass with the implementation
+- Runs full validation (`just test`, `just check`, `just build`)
 - Creates pull request with comprehensive description
 
 ### `/review-pr [pr-number]`
@@ -113,6 +115,10 @@ Manually trigger review and testing for a pull request.
     ↓ (updates issue with technical design)
     ↓ (manual progression)
 /implement [issue-number]
+    ↓ (creates failing tests first - Red phase)
+    ↓ (implements feature to pass tests - Green phase)
+    ↓ (refactors code while keeping tests passing - Refactor phase)
+    ↓ (validates with full test suite)
     ↓ (creates pull request)
     ↓ (hook triggers automatically)
 Review Agent tests and reviews
@@ -163,6 +169,39 @@ Each phase is manually triggered, giving you control over:
 - **Capabilities**: Quality analysis, security review, automated testing
 - **Output**: Review feedback and merge decisions
 
+## Test-Driven Development Approach
+
+The implementation phase now follows Test-Driven Development (TDD) principles:
+
+### TDD Workflow
+1. **Red Phase**: Create failing tests that define expected behavior
+   - Add test cases to appropriate module test files in `tests/scripts/modules/`
+   - Ensure tests fail initially (confirming they test the right thing)
+   - Tests should cover the key functionality described in the issue
+
+2. **Green Phase**: Implement minimal code to make tests pass
+   - Implement the feature or fix following NixOS conventions
+   - Focus on making tests pass rather than perfect code initially
+   - Validate with `just test` to ensure tests now pass
+
+3. **Refactor Phase**: Improve code quality while keeping tests passing
+   - Clean up implementation following best practices
+   - Optimize configuration and remove duplication
+   - Ensure all validation checks pass (`just test`, `just check`, `just build`)
+
+### Testing Strategy
+- **Host-Centric Tests**: Add tests to relevant module test scripts that will be run by host tests
+- **Regression Prevention**: Ensure new tests prevent future regressions
+- **Integration Testing**: Tests run in actual host environments, not isolation
+- **Comprehensive Coverage**: Tests should validate the complete feature functionality
+
+### Test File Locations
+- **Base Module**: Add tests to `tests/scripts/modules/base.py`
+- **Desktop Features**: Add tests to `tests/scripts/modules/desktop/plasma.py`
+- **Development Tools**: Add tests to `tests/scripts/modules/development.py`
+- **Gaming Features**: Add tests to `tests/scripts/modules/gaming.py`
+- **New Modules**: Create new test files following the same pattern
+
 ## Best Practices
 
 ### Issue Creation
@@ -176,7 +215,10 @@ Each phase is manually triggered, giving you control over:
 - Use `/research [issue]` to regenerate design if needed
 
 ### Implementation Validation
-- All implementations are tested with `just check` and `just build`
+- **Start with failing tests** that define expected behavior
+- Follow TDD Red-Green-Refactor cycle
+- All implementations are validated with full test suite (`just test`)
+- Run configuration checks (`just check`) and builds (`just build`)
 - Follow existing NixOS module conventions
 - Include appropriate documentation updates
 
