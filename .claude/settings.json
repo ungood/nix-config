@@ -11,13 +11,12 @@
     ]
   },
   "hooks": {
-    "PreToolUse": [
+    "SessionStart": [
       {
-        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "/home/ungood/nix-config/.claude/scripts/dev-shell-wrapper.sh"
+            "command": "/home/ungood/nix-config/.claude/scripts/check-nix-shell.sh"
           }
         ]
       }
