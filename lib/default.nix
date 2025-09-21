@@ -1,6 +1,6 @@
 { lib, inputs }:
 let
-  # Auto-discover and import all files in a directory
+  # Auto-discover and import all files in a directory with nested structure support
   importDir =
     dir:
     let
@@ -15,11 +15,17 @@ let
         value = import (dir + "/${f}");
       }) nixFiles)
       ++
-        # Import directories with default.nix
+        # Import directories
         (map (d: {
           name = d;
-          value = import (dir + "/${d}");
-        }) (lib.filter (d: builtins.pathExists (dir + "/${d}/default.nix")) dirs))
+          value =
+            if builtins.pathExists (dir + "/${d}/default.nix") then
+              # If directory has default.nix, import it directly
+              import (dir + "/${d}")
+            else
+              # Otherwise, recursively import the directory contents as nested modules
+              importDir (dir + "/${d}");
+        }) dirs)
     );
 
   # Generate nixosConfigurations from hosts/ directory

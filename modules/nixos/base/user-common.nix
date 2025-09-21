@@ -3,6 +3,7 @@ let
   # Common user configuration options
   mkUser =
     {
+      username,
       description,
       extraGroups ? [
         "networkmanager"
@@ -11,6 +12,7 @@ let
     }:
     {
       isNormalUser = true;
+      group = username;
       inherit description extraGroups;
       shell = pkgs.fish;
     };

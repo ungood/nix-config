@@ -5,7 +5,10 @@
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.self.nixosModules.gaming # Gaming workstation role (includes nvidia and users)
+    inputs.self.nixosModules.base
+    inputs.self.nixosModules.desktop.plasma
+    inputs.self.nixosModules.development
+    inputs.self.nixosModules.gaming
   ];
 
   boot.loader = {

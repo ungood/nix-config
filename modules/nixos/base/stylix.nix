@@ -1,5 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
+  imports = [ inputs.stylix.nixosModules.stylix ];
   stylix = {
     enable = true;
     # This scheme is the default for the system, and can be overriden in home manager per user.
