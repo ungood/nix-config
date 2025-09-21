@@ -9,9 +9,6 @@
       "Bash(find:*)",
       "WebFetch",
       "WebSearch"
-    ],
-    "deny": [
-      "Bash(git push:*)"
     ]
   }
 }

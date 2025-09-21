@@ -7,9 +7,9 @@
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.self.roles.gaming # Gaming workstation role
-    ../../../modules/nixos/nvidia
-    ../../../modules/nixos/users.nix # User definitions
+    inputs.self.nixosModules.gaming # Gaming workstation role
+    inputs.self.nixosModules.nvidia
+    inputs.self.nixosModules.users # User definitions
   ];
 
   boot.loader = {

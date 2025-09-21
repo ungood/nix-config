@@ -14,9 +14,13 @@ This file provides guidance to AI coding agents (like Claude Code) when working 
 The configuration uses automatic module discovery via custom helper functions in `lib/`.
 
 ### NixOS Modules (`modules/nixos/`)
-- `default.nix` - Common system configuration, imports all other modules
+- `default.nix` - Legacy configuration, imports gaming role for backward compatibility
+- `base.nix` - Base system configuration (core packages, localization, basic programs)
+- `workstation.nix` - Desktop workstation role (extends base with DE and applications)
+- `gaming.nix` - Gaming workstation role (extends workstation with Steam)
+- `development.nix` - Development environment role (placeholder for future expansion)
 - `desktop/` - Desktop environment configurations (GNOME, KDE Plasma, Hyprland, etc.)
-- `nvidia/` - NVIDIA graphics card support
+- `nvidia.nix` - NVIDIA graphics card support
 - `users.nix` - System user definitions
 - `home-manager.nix` - Home Manager integration settings
 - `nix.nix` - Nix daemon configuration with flakes enabled
@@ -91,6 +95,12 @@ See [WORKFLOW.md](WORKFLOW.md) for detailed documentation on the automated devel
 
 ## Important Notes for Agents
 
+### Import Conventions
+- **Prefer `inputs.self.nixosModules.[module]`** when importing modules from other configurations
+- Simple modules should be single `.nix` files, not directories with `default.nix`
+- Role-based modules (base, workstation, gaming, development) are located in `modules/nixos/`
+
+### Development Guidelines
 - Always use the `just` commands for building and testing
 - Read project documentation before implementing features
 - Follow existing patterns and conventions in the codebase

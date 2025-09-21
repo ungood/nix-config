@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ../base
+    ./base.nix
   ];
 
   # Development tools will be added here

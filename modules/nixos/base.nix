@@ -3,11 +3,11 @@
   imports = [
     inputs.stylix.nixosModules.stylix
 
-    ../../modules/nixos/nix.nix
-    ../../modules/nixos/fonts.nix
-    ../../modules/nixos/home-manager.nix
-    ../../modules/nixos/opnix.nix
-    ../../modules/nixos/stylix.nix
+    ./nix.nix
+    ./fonts.nix
+    ./home-manager.nix
+    ./opnix.nix
+    ./stylix.nix
   ];
 
   i18n.defaultLocale = "en_US.UTF-8";

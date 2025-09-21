@@ -3,6 +3,6 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.self.roles.gaming
+    inputs.self.nixosModules.gaming
   ];
 }
