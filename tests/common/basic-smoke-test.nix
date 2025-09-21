@@ -1,10 +1,6 @@
 {
-  lib,
   pkgs,
-  inputs,
   mkNixOSTest,
-  mkHostTest,
-  mkModuleTest,
 }:
 
 # Basic smoke test to validate the testing infrastructure

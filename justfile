@@ -32,16 +32,9 @@ gc:
 dev:
     nix develop -c $SHELL
 
-# Format Nix files
+# Automatic format all files.
 format:
-    #!/usr/bin/env bash
-    echo "Formatting Nix files..."
-    nix fmt
-    echo "Removing unused bindings..."
-    nix shell nixpkgs#deadnix --command deadnix --edit --no-lambda-pattern-names .
-    echo "Re-formatting after deadnix changes..."
-    nix fmt
-    echo "✅ Formatting complete!"
+    pre-commit run -a
 
 # Build for a specific host
 switch-host HOST: git-add

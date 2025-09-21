@@ -2,7 +2,6 @@
   inputs,
   pkgs,
   lib,
-  system ? "x86_64-linux",
 }:
 let
   # Import test helper functions

@@ -1,9 +1,8 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 let
   # Common user configuration options
   mkUser =
     {
-      username,
       description,
       extraGroups ? [
         "networkmanager"
