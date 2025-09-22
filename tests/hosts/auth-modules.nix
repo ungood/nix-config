@@ -1,24 +1,19 @@
 {
   mkNixOSTest,
-  pkgs,
 }:
 
-# Test for new authentication modules: agenix, auth, and sudo
+# Test for authentication modules: auth and sudo
 mkNixOSTest {
   name = "auth-modules";
 
   nodes.machine =
     { ... }:
     {
-      # Import the new authentication modules
+      # Import the authentication modules
       imports = [
-        ../../modules/nixos/base/opnix.nix
         ../../modules/nixos/base/auth.nix
         ../../modules/nixos/base/sudo.nix
       ];
-
-      # Provide inputs to modules that need them
-      _module.args = { inherit inputs; };
 
       # Basic host configuration
       boot.loader.systemd-boot.enable = true;
@@ -44,17 +39,12 @@ mkNixOSTest {
         };
       };
 
-      # Basic packages for testing
-      environment.systemPackages = with pkgs; [
-        coreutils
-        pam_ssh_agent_auth
-      ];
     };
 
   testScript = ''
     #!/usr/bin/env python3
     """
-    Test authentication modules: agenix, auth, and sudo
+    Test authentication modules: auth and sudo
     """
 
     print("🚀 Starting authentication modules test")
@@ -66,11 +56,6 @@ mkNixOSTest {
 
     print("✅ Machine is ready for testing")
 
-    # Test opnix configuration
-    print("🔍 Testing opnix configuration...")
-    # Check that opnix service is configured (may not be running without 1Password token)
-    machine.succeed("systemctl list-unit-files | grep onepassword-secrets || echo 'opnix service not found'")
-    print("✅ opnix service configuration checked")
 
     # Test sudo configuration
     print("🔍 Testing sudo configuration...")

@@ -32,8 +32,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    opnix = {
-      url = "github:brizzbuzz/opnix";
+    secrets = {
+      url = "git+ssh://git@github.com/ungood/secrets";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -75,7 +75,6 @@
           inputs
           pkgs
           lib
-          system
           ;
       };
 

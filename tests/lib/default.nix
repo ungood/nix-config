@@ -87,8 +87,6 @@ let
               # Host tests need these functions
               import (testsDir + "/${f}") {
                 inherit
-                  lib
-                  pkgs
                   inputs
                   mkNixOSTest
                   ;
