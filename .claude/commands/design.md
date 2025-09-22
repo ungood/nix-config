@@ -1,7 +1,6 @@
 ---
 description: "Create technical design for well-defined GitHub issue"
 argument-hint: "[issue-number]"
-allowed-tools: "Bash(gh:*), Task(subagent_type:architect)"
 ---
 Create a comprehensive technical design for a GitHub issue with well-defined requirements. This command will:
 

@@ -1,7 +1,6 @@
 ---
 description: "Define detailed requirements and scope for GitHub issue"
 argument-hint: "[issue-number]"
-allowed-tools: "Bash(gh:*), Task(subagent_type:product-owner)"
 ---
 Analyze and define detailed requirements and scope for a GitHub issue. This command will:
 

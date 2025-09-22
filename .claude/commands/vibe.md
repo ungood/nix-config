@@ -1,7 +1,6 @@
 ---
 description: "Complete development workflow - from issue to implementation"
 argument-hint: "[issue-number]"
-allowed-tools: "Bash(gh:*), Bash(git:*), Bash(just:*), Task(subagent_type:software-engineer), Task(subagent_type:product-owner), Task(subagent_type:architect)"
 ---
 
 Run the complete development workflow by intelligently assessing issue complexity and executing the appropriate end-to-end process:

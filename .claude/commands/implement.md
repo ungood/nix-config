@@ -1,15 +1,15 @@
 ---
 description: "Implementation step only - assumes requirements and design are complete"
 argument-hint: "[issue-number]"
-allowed-tools: "Bash(gh:*), Bash(git:*), Bash(just:*), Task(subagent_type:software-engineer)"
 ---
+
+Use software-engineer agent for implementation
 
 Implement a GitHub issue assuming requirements analysis and technical design are already complete. This command focuses solely on the coding implementation step.
 
 ## Implementation Process
 - Read the GitHub issue and any associated design documents
 - Create feature branch if needed
-- Use software-engineer agent for implementation
 - Write tests following TDD methodology
 - Validate implementation with testing suite
 - Create pull request for review

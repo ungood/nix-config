@@ -1,7 +1,7 @@
 ---
 description: "Quickly report a bug with essential triage information"
 argument-hint: "[bug-description]"
-allowed-tools: "Bash(gh:*), Bash(git:*), Bash(nix:*)"
+allowed-tools: "Bash(gh:*), Bash(git:*)"
 ---
 Quickly create a GitHub issue for a bug report with essential information for triage.
 

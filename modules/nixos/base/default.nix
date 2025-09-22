@@ -4,7 +4,9 @@
     ./nix.nix
     ./fonts.nix
     ./home-manager.nix
-    ./opnix.nix
+    ./agenix.nix
+    ./auth.nix
+    ./sudo.nix
     ./stylix.nix
     ./users.nix
   ];

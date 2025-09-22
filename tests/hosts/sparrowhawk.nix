@@ -42,7 +42,7 @@ mkNixOSTest {
   nodes.machine =
     { ... }:
     {
-      # Import a subset of modules to avoid circular dependencies for now
+      # Import subset of modules for testing
       imports = [
         ../../modules/nixos/development
         ../../modules/nixos/gaming
@@ -73,16 +73,18 @@ mkNixOSTest {
         user = "ungood";
       };
 
-      # Set up test users (since we're not importing base module)
+      # Set up test users
       users = {
         users.ungood = {
           isNormalUser = true;
-          password = "test";
+          hashedPassword = "test-password-hash-for-ungood";
+          extraGroups = [ "wheel" ];
           group = "ungood";
         };
         users.trafficcone = {
           isNormalUser = true;
-          password = "test";
+          hashedPassword = "test-password-hash-for-trafficcone";
+          extraGroups = [ "wheel" ];
           group = "trafficcone";
         };
         groups.ungood = { };

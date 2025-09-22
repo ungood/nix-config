@@ -1,7 +1,6 @@
 ---
 description: "Review and test pull request automatically"
 argument-hint: "[pr-number]"
-allowed-tools: "Bash(gh:*), Bash(git:*), Bash(just:*), Task(subagent_type:review-agent)"
 ---
 Trigger automated review and testing for a pull request. This command will:
 

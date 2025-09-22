@@ -22,10 +22,8 @@ in
           description = "Jason Walker";
         }
         // {
-          # 1Password-managed password hash
-          # hashedPasswordFile = config.opnix.secrets."ungood-password".path;
-          # Temporary hard coded password until I find a better solution
-          hashedPassword = "$6$rjeVEWs48nDDNVBT$Jk95HAHTdimzeGOaHYwEr2C/84oHhsssWbdX0q8uQpEr5H8YdPZuh/zPOdgJ3ddI5pk.9j4/y4cmGYuHkTQFO1";
+          # Agenix-managed password hash from 1Password
+          hashedPasswordFile = config.age.secrets."ungood-password".path;
         };
 
       trafficcone =
@@ -34,8 +32,8 @@ in
           description = "Traffic Cone User";
         }
         // {
-          # 1Password-managed password hash
-          hashedPasswordFile = config.opnix.secrets."trafficcone-password".path;
+          # Agenix-managed password hash from 1Password
+          hashedPasswordFile = config.age.secrets."trafficcone-password".path;
         };
     };
   };

@@ -1,7 +1,6 @@
 ---
 description: "Review Nix configuration for best practices"
 argument-hint: "[file-pattern]"
-allowed-tools: "Read, Grep, Glob"
 ---
 Review Nix configuration files for best practices, security issues, and potential improvements.
 

@@ -32,8 +32,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    opnix = {
-      url = "github:mrjones2014/opnix";
+    agenix = {
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
