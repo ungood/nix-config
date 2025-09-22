@@ -77,13 +77,13 @@ mkNixOSTest {
       users = {
         users.ungood = {
           isNormalUser = true;
-          hashedPassword = "test-password-hash-for-ungood";
+          password = "test";
           extraGroups = [ "wheel" ];
           group = "ungood";
         };
         users.trafficcone = {
           isNormalUser = true;
-          hashedPassword = "test-password-hash-for-trafficcone";
+          password = "test";
           extraGroups = [ "wheel" ];
           group = "trafficcone";
         };

@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }:
 let
-  userCommon = import ./user-common.nix { inherit pkgs; };
+  userCommon = import ../../../lib/users.nix { inherit pkgs; };
 in
 {
   # User configuration
