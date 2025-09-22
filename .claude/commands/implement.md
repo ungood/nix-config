@@ -1,42 +1,26 @@
 ---
-description: "Smart implementation workflow based on issue complexity"
+description: "Implementation step only - assumes requirements and design are complete"
 argument-hint: "[issue-number]"
-allowed-tools: "Bash(gh:*), Bash(git:*), Bash(just:*), Task(subagent_type:software-engineer), Task(subagent_type:product-owner), Task(subagent_type:architect)"
+allowed-tools: "Bash(gh:*), Bash(git:*), Bash(just:*), Task(subagent_type:software-engineer)"
 ---
 
-Intelligently implement a GitHub issue by first assessing its complexity and choosing the appropriate workflow:
+Implement a GitHub issue assuming requirements analysis and technical design are already complete. This command focuses solely on the coding implementation step.
 
-## Complexity Assessment
-The command first reads the GitHub issue and determines:
-- **Trivial**: Typos, documentation fixes, comments - no behavior changes
-- **Simple**: 1-line fixes, config tweaks, minor adjustments
-- **Medium**: Small features, bug fixes, refactoring within single modules
-- **Complex**: Multi-module features, architectural changes, new systems
-
-## Workflow Selection
-
-### Trivial Issues (Direct Commit)
-- Read issue and implement directly on main branch
-- Make changes, basic validation, commit directly
-- No PR or additional testing needed
-
-### Simple Issues (Direct Implementation)
-- Read issue and implement directly
-- Create branch, make changes, test, create PR
-- No additional agents needed
-
-### Medium Issues (Design + Implementation)
-- Use architect agent for technical design
+## Implementation Process
+- Read the GitHub issue and any associated design documents
+- Create feature branch if needed
 - Use software-engineer agent for implementation
-- Create design doc, then implement
+- Write tests following TDD methodology
+- Validate implementation with testing suite
+- Create pull request for review
 
-### Complex Issues (Full Workflow)
-- Use product-owner agent for requirements analysis
-- Use architect agent for comprehensive technical design
-- Use software-engineer agent for implementation
-- Full documentation and design phase
+## Prerequisites
+This command assumes:
+- Issue requirements are clearly defined
+- Technical design is documented (for complex features)
+- No additional requirements analysis needed
 
 ## Usage
-Provide the GitHub issue number to analyze and implement:
+Provide the GitHub issue number to implement:
 
 $ARGUMENTS

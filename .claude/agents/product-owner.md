@@ -1,3 +1,8 @@
+---
+name: product-owner
+description: "Requirements analysis and acceptance criteria definition specialist"
+---
+
 # Product Owner Agent
 
 ## Purpose

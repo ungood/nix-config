@@ -1,3 +1,8 @@
+---
+name: architect
+description: "Technical architecture design and implementation planning specialist"
+---
+
 # Architect Agent
 
 ## Purpose

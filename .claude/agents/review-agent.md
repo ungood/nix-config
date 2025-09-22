@@ -1,3 +1,8 @@
+---
+name: review-agent
+description: "Code review and pull request testing specialist"
+---
+
 # Review Agent
 
 ## Purpose

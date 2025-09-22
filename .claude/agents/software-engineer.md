@@ -1,3 +1,8 @@
+---
+name: software-engineer
+description: "General-purpose implementation and testing specialist"
+---
+
 # Software Engineer Agent
 
 ## Purpose
