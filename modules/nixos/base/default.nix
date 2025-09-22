@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
     ./nix.nix
     ./fonts.nix
     ./home-manager.nix
-    ./agenix.nix
+    (import ./.manual/opnix.nix { inherit inputs; })
     ./auth.nix
     ./sudo.nix
     ./stylix.nix

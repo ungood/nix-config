@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 let
   userCommon = import ./user-common.nix { inherit pkgs; };
 in
@@ -22,8 +22,8 @@ in
           description = "Jason Walker";
         }
         // {
-          # Agenix-managed password hash from 1Password
-          hashedPasswordFile = config.age.secrets."ungood-password".path;
+          # OpNix-managed password hash from 1Password
+          hashedPasswordFile = "/run/secrets/ungood-password";
         };
 
       trafficcone =
@@ -32,8 +32,8 @@ in
           description = "Traffic Cone User";
         }
         // {
-          # Agenix-managed password hash from 1Password
-          hashedPasswordFile = config.age.secrets."trafficcone-password".path;
+          # OpNix-managed password hash from 1Password
+          hashedPasswordFile = "/run/secrets/trafficcone-password";
         };
     };
   };
