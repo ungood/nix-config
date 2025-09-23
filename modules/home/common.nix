@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 {
@@ -19,15 +18,15 @@
 
   # Common module imports
   imports = [
-    inputs.self.homeModules.claude
-    inputs.self.homeModules.firefox
-    inputs.self.homeModules.fish
-    inputs.self.homeModules.gh
-    inputs.self.homeModules.ghostty
-    inputs.self.homeModules.git
-    inputs.self.homeModules.ssh
-    inputs.self.homeModules.stylix
-    inputs.self.homeModules.vs-code
-    inputs.self.homeModules.plasma
+    ./claude
+    ./firefox.nix
+    ./fish.nix
+    ./gh
+    ./ghostty.nix
+    ./git.nix
+    ./ssh.nix
+    ./stylix.nix
+    ./vs-code
+    ./plasma
   ];
 }

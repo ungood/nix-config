@@ -52,9 +52,6 @@
         config.allowUnfree = true;
       };
 
-      # Auto-import modules
-      nixosModules = lib.importDir ./modules/nixos;
-      homeModules = lib.importDir ./modules/home;
     in
     {
       # Auto-generate system configurations
@@ -62,9 +59,6 @@
 
       # Auto-generate home configurations
       homeConfigurations = lib.mkUsers ./users;
-
-      # Export modules for reuse
-      inherit nixosModules homeModules;
 
       # Development shell from shells/
       devShells.${system}.default = import ./shells/default.nix { inherit lib pkgs; };

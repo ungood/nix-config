@@ -116,3 +116,4 @@ See [WORKFLOW.md](WORKFLOW.md) for detailed documentation on the automated devel
 - **TDD Workflow**: Red (failing tests) → Green (make tests pass) → Refactor (improve code)
 - **Comprehensive Coverage**: Tests should validate complete feature functionality
 - **Regression Prevention**: Ensure tests prevent future regressions
+- Host tests should import the same modules as the host they are testing. Never try to fix tests by making the tests different than the host.

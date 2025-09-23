@@ -42,8 +42,10 @@ mkNixOSTest {
   nodes.machine =
     { ... }:
     {
-      # Import subset of modules for testing
+      # Import same modules as actual sparrowhawk host
       imports = [
+        ../../modules/nixos/base
+        ../../modules/nixos/desktop/plasma.nix
         ../../modules/nixos/development
         ../../modules/nixos/gaming
       ];

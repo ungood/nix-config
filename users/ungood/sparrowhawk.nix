@@ -1,12 +1,11 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 {
   # Host-specific configurations for sparrowhawk
   imports = [
-    inputs.self.homeModules.plasma
+    ../../modules/home/plasma
   ];
 
   # Host-specific packages or overrides

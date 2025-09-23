@@ -1,14 +1,13 @@
 {
-  inputs,
   ...
 }:
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.self.nixosModules.base
-    inputs.self.nixosModules.desktop.plasma
-    inputs.self.nixosModules.development
-    inputs.self.nixosModules.gaming
+    ../../../modules/nixos/base
+    ../../../modules/nixos/desktop/plasma.nix
+    ../../../modules/nixos/development
+    ../../../modules/nixos/gaming
   ];
 
   boot.loader = {

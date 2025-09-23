@@ -1,5 +1,4 @@
 {
-  inputs,
   lib,
   ...
 }:
@@ -12,6 +11,6 @@
 
   # Import common configuration
   imports = [
-    inputs.self.homeModules.common
+    ../../modules/home/common.nix
   ];
 }
