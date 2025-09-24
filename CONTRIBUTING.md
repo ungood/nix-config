@@ -5,53 +5,40 @@ This document describes how to build, test, and contribute to this NixOS configu
 ## Prerequisites
 
 - NixOS with flakes enabled
-- Git
-- just
-
-## Development Workflow
 
 ```bash
 # Enter the nix dev shell
-just dev
+nix develop -c $SHELL
 ```
 
-### Building and Testing
+## Development Commands
 
 ```bash
-# Build the current system configuration
-just switch
-
-# Build without applying changes (test mode)
-just build
-
-# Build for a specific host
-just switch-host sparrowhawk
-
-# Update flake inputs
-just update
-
-# Check flake for issues
-just check
+# Discover all available just commands
+just -l
 ```
 
-### Development Commands
+## Flake Organization
 
-```bash
-# Test configuration changes without rebuilding
-just dry-run
+The organization of this flake is inspired by [Snowfall Lib](https://github.com/snowfallorg/lib)
+but does not take a dependency on it for simplicity and because the owner seems to have abandoned
+it.
 
-# Garbage collection to free disk space
-just gc
+### Module System
 
-# Build home manager configuration
-just home
+Modules are located in the `modules/` directory first by type (`home` or `nixos`) and then by
+"role": `modules/<type>/<role>`.
 
-# Format Nix files
-just format
+### Host Configuration
 
-# Run tests
-just test
-```
+Host configuration is found in `hosts/<system>/<hostname>.nix`. Hosts should import role-level
+modules and use configuration to specify host-specific options.
+
+### User Configuration
+
+User configuration is found in `users/<username>.nix` and should not import additional modules,
+instead just specifying user preferences as configuration. Avoid host-specific configuration if
+possible.
 
 ## Making Changes
 
@@ -83,9 +70,6 @@ just test
 just test    # Run comprehensive test suite
 just check   # Check flake validity
 just build   # Build configuration
-
-# If everything looks good, apply the changes
-just switch
 ```
 
 ### 3. Commit Guidelines
@@ -93,17 +77,12 @@ just switch
 Commits should follow conventional commit format:
 
 ```
-type: brief description
+brief description
 
 Detailed explanation of changes and reasoning.
 ```
 
-Types:
-- `feat`: New feature
-- `fix`: Bug fix
-- `refactor`: Code restructuring
-- `chore`: Maintenance tasks
-- `docs`: Documentation changes
+Do NOT use prefixes in the commit to indicate type.
 
 ### 4. Creating Pull Requests
 
@@ -112,66 +91,18 @@ Types:
 git push -u origin feature/your-feature-name
 
 # Create a pull request
-gh pr create --title "feat: Your feature" --body "Description of changes"
+gh pr create --title "Your feature" --body "Description of changes"
 ```
 
-## Project Structure Guidelines
+Do NOT use prefixes to indicate the type of PR. Reference any relevant issues in the PR description.
 
-### Adding New Modules
-
-1. **NixOS System Modules**: Place in `modules/nixos/`
-2. **Home Manager Modules**: Place in `modules/home/`
-3. **Desktop Environments**: Place in `modules/nixos/desktop/`
-
-### Adding New Hosts
-
-1. Create directory: `hosts/<architecture>/<hostname>/`
-2. Add `default.nix` with host configuration
-3. Add `hardware-configuration.nix` (can generate with `nixos-generate-config`)
-4. Host will be auto-discovered by flake
-
-### Adding New Users
-
-1. Create directory: `users/<username>/`
-2. Add `default.nix` with common user configuration
-3. Add `<hostname>.nix` for host-specific user configuration
-4. Add user to `modules/nixos/users.nix`
 
 ## Testing Guidelines
 
-### Local Testing
-
-The repository uses host-centric testing that runs comprehensive test suites for each host configuration.
-
-```bash
-# Run all host tests (tests all modules for all hosts)
-just test
-
-# Run tests for all hosts explicitly
-just test-hosts
-
-# Run tests for a specific host
-just test-host sparrowhawk
-
-# Run tests in interactive mode for debugging
-just test-interactive sparrowhawk
-```
-
-### Testing Architecture
-
-The testing system uses a host-centric approach where:
-- Each host automatically discovers which modules it imports
-- Tests run comprehensive suites for all relevant modules within the host's environment
-- Module test scripts are located in `tests/scripts/modules/`
-- Host test configurations are in `tests/hosts/`
-
-### Pre-commit Checks
-
-The repository uses pre-commit hooks that automatically:
-- Format Nix files with `nixfmt`
-- Run static analysis with `statix`
-- Trim trailing whitespace
-- Fix end of files
+### Testing Guidelines
+- **Host-Centric Testing**: Tests run within VM with actual host environments
+- **Module Test Files**: Module test scripts should live in the same directory as the modules and
+follow a naming convention of "module_test.py".
 
 ## Code Style
 
@@ -186,40 +117,10 @@ The repository uses pre-commit hooks that automatically:
 
 - Update relevant documentation when making changes
 - Include comments for complex configurations
-- Keep README.md up to date with major changes
-
-## Automated Workflows
-
-The repository includes automated workflows for development:
-
-### Quick Feature Development
-
-```bash
-# Create a feature issue
-/suggest-feature "Your feature description"
-
-# Define requirements
-/define <issue-number>
-
-# Create technical design
-/design <issue-number>
-
-# Implement the feature
-/implement <issue-number>
-```
-
-See [WORKFLOW.md](WORKFLOW.md) for detailed information about automated workflows.
-
-## Getting Help
-
-- Check existing issues on GitHub
-- Review documentation in `AGENTS.md` for AI agent assistance
-- Consult the NixOS manual and wiki
-- Ask in NixOS community forums
 
 ## Security
 
 - Never commit secrets or passwords
-- Use `age` or `sops-nix` for secret management
+- Store secrets in the private repository github:ungood/secrets or in 1Password.
 - Review security implications of configuration changes
 - Keep dependencies up to date with `just update`

@@ -39,7 +39,7 @@
   };
 
   outputs =
-    inputs@{ nixpkgs, ... }:
+    inputs@{ self, nixpkgs, ... }:
     let
       customLib = import ./lib {
         inherit inputs;
@@ -70,12 +70,12 @@
       devShells.${system}.default = import ./shells/default.nix { inherit lib pkgs; };
 
       # NixOS testing infrastructure
-      checks.${system} = import ./tests {
+      checks.${system}.sparrowhawk = import ./tests/sparrowhawk.nix {
         inherit
           inputs
           pkgs
           lib
-          system
+          self
           ;
       };
 

@@ -1,14 +1,7 @@
 {
   inputs,
-  config,
-  lib,
   ...
 }:
-let
-  hostname = config.networking.hostName;
-  usersDir = ../../../users;
-  users = builtins.readDir usersDir;
-in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -26,24 +19,11 @@ in
       inputs.plasma-manager.homeManagerModules.plasma-manager
     ];
 
-    # Reference user configurations from users directory
-    users = lib.listToAttrs (
-      lib.mapAttrsToList (
-        user: _:
-        let
-          userDir = usersDir + "/${user}";
-          hostFile = userDir + "/${hostname}.nix";
-        in
-        {
-          name = user;
-          value = {
-            imports = [
-              (userDir + "/default.nix") # Common user config
-            ]
-            ++ lib.optional (builtins.pathExists hostFile) hostFile; # Host-specific config if it exists
-          };
-        }
-      ) (lib.filterAttrs (_: type: type == "directory") users)
-    );
+    # Simple static user configuration
+    users = {
+      ungood = import ../../../users/ungood.nix;
+      trafficcone = import ../../../users/trafficcone.nix;
+      abirdnamed = import ../../../users/abirdnamed.nix;
+    };
   };
 }

@@ -1,26 +1,39 @@
 
 # One True Nix Config
 
-NixOS configuration repository for managing systems in my home network, using Nix flakes for declarative system configuration management.
+NixOS configuration for systems in my home network: onetrue.name.
 
-## Key Features
+This repository was developed as a way to:
+1. learn Nix
+2. experiment with agentic coding tools
+3. finally motivate myself to rid my home network of Windows.
 
-- **Automatic module discovery** via custom helper functions in `lib/`
-- **Stylix theming** with Gruvbox Dark Pale color scheme
-- **KDE Plasma** as the default desktop environment
-- **Home-manager integration** at system level
-- **Automated workflows** for development (see [docs/WORKFLOW.md](docs/WORKFLOW.md))
+## Network Information
+
+### Users
+
+* `ungood`: That's me, the de facto network admin for my family.
+* `trafficcone`: My son, a burgeoning Linux fanatic.
+* `abirdnamed`: My wife, who tolerates our shenanigans.
+
+### Hosts
+
+* `sparrowhawk`: My main gaming PC, but sometimes used by trafficcone or a guest.
+* TBD: A laptop shared by everyone in the household.
+* `proxmox`: A mini-PC home lab running HA and other things, currently not managed by Nix, but hoping to do so.
+* TBD: My work laptop, which I expect to be a Macbook unless I can BYOD.
 
 ## Documentation
 
-- [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) - Development workflow and build instructions
-- [docs/AGENTS.md](docs/AGENTS.md) - Information for AI coding agents
-- [docs/WORKFLOW.md](docs/WORKFLOW.md) - Automated development workflow documentation
+- [CONTRIBUTING.md](CONTRIBUTING.md) - Development workflow and build instructions
+- [AGENTS.md](AGENTS.md) - Information for AI coding agents
+- [WORKFLOW.md](WORKFLOW.md) - Automated development workflow documentation
 
 ## Inspiration
 
 * https://github.com/ryan4yin/nix-config
 * https://github.com/thursdaddy/nixos-config
+* https://github.com/snowfallorg/lib
 
 ## Tenets
 
