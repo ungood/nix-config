@@ -1,49 +1,45 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+let
+  # Auto-discover users from users directory
+  usersDir = ../../../users;
+  userFiles = builtins.readDir usersDir;
+  nixFiles = lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name) userFiles;
+
+  # Import user configurations
+  userConfigs = lib.mapAttrs' (
+    filename: _:
+    let
+      username = lib.removeSuffix ".nix" filename;
+      userConfig = import (usersDir + "/${filename}") { inherit pkgs lib; };
+    in
+    {
+      name = username;
+      value = userConfig;
+    }
+  ) nixFiles;
+
+  # Extract system user configurations and add username/group automatically
+  systemUsers = lib.mapAttrs (
+    username: config:
+    config.nixos
+    // {
+      group = username; # Set group to username automatically
+    }
+  ) userConfigs;
+
+  # Generate user groups
+  userGroups = lib.mapAttrs (_username: _: { }) systemUsers;
+in
 {
   # User configuration
   users = {
     # Enable immutable user management
     mutableUsers = false;
 
-    # User groups
-    groups = {
-      ungood = { };
-      trafficcone = { };
-      abirdnamed = { };
-    };
+    # Auto-generated user groups
+    groups = userGroups;
 
-    # User configurations
-    users = {
-      ungood = {
-        isNormalUser = true;
-        group = "ungood";
-        description = "Jason";
-        extraGroups = [
-          "networkmanager"
-          "wheel"
-        ];
-        shell = pkgs.fish;
-        # Temporary hard coded password until I find a better solution
-        hashedPassword = "$6$rjeVEWs48nDDNVBT$Jk95HAHTdimzeGOaHYwEr2C/84oHhsssWbdX0q8uQpEr5H8YdPZuh/zPOdgJ3ddI5pk.9j4/y4cmGYuHkTQFO1";
-      };
-
-      trafficcone = {
-        isNormalUser = true;
-        group = "trafficcone";
-        description = "Jayden";
-        shell = pkgs.fish;
-        # Temporary hard coded password until I find a better solution
-        hashedPassword = "$6$rjeVEWs48nDDNVBT$Jk95HAHTdimzeGOaHYwEr2C/84oHhsssWbdX0q8uQpEr5H8YdPZuh/zPOdgJ3ddI5pk.9j4/y4cmGYuHkTQFO1";
-      };
-
-      abirdnamed = {
-        isNormalUser = true;
-        group = "abirdnamed";
-        description = "Brianna";
-        shell = pkgs.fish;
-        # Temporary hard coded password until I find a better solution
-        hashedPassword = "$6$rjeVEWs48nDDNVBT$Jk95HAHTdimzeGOaHYwEr2C/84oHhsssWbdX0q8uQpEr5H8YdPZuh/zPOdgJ3ddI5pk.9j4/y4cmGYuHkTQFO1";
-      };
-    };
+    # Auto-generated user configurations
+    users = systemUsers;
   };
 }

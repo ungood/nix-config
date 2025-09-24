@@ -1,7 +1,30 @@
 {
   inputs,
+  lib,
+  pkgs,
   ...
 }:
+let
+  # Auto-discover users from users directory
+  usersDir = ../../../users;
+  userFiles = builtins.readDir usersDir;
+  nixFiles = lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name) userFiles;
+
+  # Import user configurations and extract home config
+  homeConfigs = lib.mapAttrs' (
+    filename: _:
+    let
+      username = lib.removeSuffix ".nix" filename;
+      userConfig = import (usersDir + "/${filename}") { inherit pkgs lib; };
+    in
+    {
+      name = username;
+      value = {
+        inherit (userConfig) home;
+      };
+    }
+  ) nixFiles;
+in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -20,11 +43,7 @@
       inputs.self.homeModules.common
     ];
 
-    # Simple static user configuration
-    users = {
-      ungood = import ../../../users/ungood.nix;
-      trafficcone = import ../../../users/trafficcone.nix;
-      abirdnamed = import ../../../users/abirdnamed.nix;
-    };
+    # Auto-discovered user configurations
+    users = homeConfigs;
   };
 }
