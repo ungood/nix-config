@@ -32,10 +32,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # secrets = {
-    #   url = "github:ungood/secrets";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    secrets = {
+      url = "git+ssh://git@github.com/ungood/secrets";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

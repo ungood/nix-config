@@ -17,6 +17,7 @@
     unzip
     vim
     wget
+    wl-clipboard-rs
   ];
 
   programs.fish.enable = true;

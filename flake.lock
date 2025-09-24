@@ -249,7 +249,28 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "plasma-manager": "plasma-manager",
+        "secrets": "secrets",
         "stylix": "stylix"
+      }
+    },
+    "secrets": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758757200,
+        "narHash": "sha256-0HoN8X9/nZei1jhg085/AM/Mnuacosssx9J/z7UZDHU=",
+        "ref": "refs/heads/main",
+        "rev": "6e499f46887d158883873df30a29fd07765fbb6c",
+        "revCount": 3,
+        "type": "git",
+        "url": "ssh://git@github.com/ungood/secrets"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/ungood/secrets"
       }
     },
     "stylix": {

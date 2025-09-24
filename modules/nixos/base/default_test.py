@@ -10,18 +10,10 @@ print("✅ Nix configuration is correct")
 
 # Test system packages
 print("🔍 Testing system packages...")
-packages = ["curl", "vim", "wget"]
+packages = ["curl", "nvim", "unzip", "vim", "wget", "wl-clip", "wl-copy", "wl-paste"]
 for package in packages:
     machine.succeed(f"{package} --version || {package} --help || which {package}")
     print(f"✅ {package} is available")
-
-# Test unzip if available (may not be in minimal test environment)
-machine.succeed("unzip --version || echo 'unzip not installed in test environment'")
-print("✅ unzip check completed")
-
-# Test neovim separately with correct command name
-machine.succeed("nvim --version")
-print("✅ neovim is available")
 
 # Test fish shell
 print("🔍 Testing fish shell configuration...")
