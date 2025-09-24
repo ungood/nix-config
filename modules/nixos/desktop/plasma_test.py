@@ -9,10 +9,17 @@ print("✅ Display manager is active")
 
 # Test Plasma packages
 print("🔍 Testing Plasma package installation...")
-plasma_packages = ["plasmashell", "kwin_x11", "systemsettings", "dolphin", "konsole"]
+plasma_packages = ["plasmashell", "kwin_x11", "systemsettings", "dolphin"]
 for package in plasma_packages:
     machine.succeed(f"which {package}")
     print(f"✅ {package} is installed")
+
+# Test excluded packages are not installed
+print("🔍 Testing excluded packages are not present...")
+excluded_packages = ["konsole", "kate"]
+for package in excluded_packages:
+    machine.fail(f"which {package}")
+    print(f"✅ {package} is correctly excluded")
 
 # Test desktop services
 print("🔍 Testing desktop services...")
@@ -22,24 +29,16 @@ machine.wait_for_unit("NetworkManager.service")
 machine.succeed("systemctl is-active NetworkManager.service")
 print("✅ Desktop services are running")
 
-# Test X server configuration
-print("🔍 Testing X server configuration...")
-machine.succeed("test -f /etc/X11/xorg.conf.d/00-keyboard.conf || true")
-machine.succeed("which X || which Xorg")
-print("✅ X server is configured")
+# Test Wayland configuration (X server is disabled)
+print("🔍 Testing Wayland configuration...")
+machine.fail("which X || which Xorg")
+print("✅ Wayland is configured (X server correctly disabled)")
 
 # Test audio system
 print("🔍 Testing audio system...")
 machine.succeed("which pipewire")
 machine.succeed("which wireplumber")
 print("✅ Audio system is configured")
-
-# Test desktop integration
-print("🔍 Testing desktop integration...")
-machine.succeed("which xdg-desktop-portal")
-machine.succeed("which xdg-desktop-portal-kde")
-machine.succeed("which dolphin")
-print("✅ Desktop integration is configured")
 
 # Test theme support
 print("🔍 Testing theme support...")

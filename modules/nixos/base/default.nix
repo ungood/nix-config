@@ -1,10 +1,10 @@
 { pkgs, ... }:
 {
   imports = [
+    ./auth.nix
     ./nix.nix
     ./fonts.nix
     ./home-manager.nix
-    ./opnix.nix
     ./stylix.nix
     ./users.nix
   ];

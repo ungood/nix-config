@@ -32,10 +32,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    opnix = {
-      url = "github:mrjones2014/opnix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # secrets = {
+    #   url = "github:ungood/secrets";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
