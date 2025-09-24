@@ -62,6 +62,13 @@ pkgs.testers.runNixOSTest {
       enable = true;
       user = "ungood";
     };
+
+    # Add test user with password from secrets flake
+    users.users.test = {
+      isNormalUser = true;
+      hashedPassword = inputs.secrets.passwords.test;
+      extraGroups = [ "wheel" ];
+    };
   };
 
   testScript = combinedTestScript;

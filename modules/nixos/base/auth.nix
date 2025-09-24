@@ -26,13 +26,11 @@ in
 
     sshKeySudo = {
       enable = mkEnableOption "SSH key-based sudo authorization";
-      authorizedKeys = mkOption {
-        type = types.attrsOf (types.listOf types.str);
-        default = { };
-        description = "SSH public keys authorized for sudo access per user";
-        example = {
-          ungood = [ "ssh-rsa AAAAB3NzaC1yc2E..." ];
-        };
+      authorizedUsers = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = "Users authorized for sudo access via SSH keys";
+        example = [ "ungood" ];
       };
     };
 
@@ -74,6 +72,13 @@ in
 
     # Configure SSH agent authentication for sudo
     security.pam.sshAgentAuth.enable = mkIf cfg.sshKeySudo.enable true;
+
+    # Add authorized users to wheel group for sudo access
+    users.users = mkIf cfg.sshKeySudo.enable (
+      lib.genAttrs cfg.sshKeySudo.authorizedUsers (_username: {
+        extraGroups = [ "wheel" ];
+      })
+    );
 
     # System packages for authentication
     environment.systemPackages =

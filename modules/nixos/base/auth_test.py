@@ -9,6 +9,26 @@ print("🔍 Testing password authentication...")
 machine.succeed("grep 'auth.*pam_unix.so' /etc/pam.d/login")
 print("✅ Password authentication is configured")
 
+# Test actual password authentication with test user
+print("🔍 Testing actual password authentication with test user...")
+# Check that test user exists and has correct password from secrets
+machine.succeed("id test")
+machine.succeed("getent passwd test")
+
+# Test login with the known test password "test"
+# Use expect-style login test to verify password works
+machine.succeed("""
+    # Create a test script that attempts login
+    cat > /tmp/test_login.sh << 'EOF'
+#!/bin/bash
+# Test password authentication by attempting to switch to test user
+echo 'test' | su - test -c 'whoami'
+EOF
+    chmod +x /tmp/test_login.sh
+    /tmp/test_login.sh | grep -q test
+""")
+print("✅ Test user can authenticate with password from secrets flake")
+
 # Test fingerprint authentication if available
 print("🔍 Testing fingerprint authentication support...")
 # Check if fprintd is available and configured

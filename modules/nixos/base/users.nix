@@ -10,13 +10,6 @@ let
   userFiles = builtins.readDir usersDir;
   nixFiles = lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name) userFiles;
 
-  # Reference to the private secrets flake
-  secretsFlake = inputs.secrets or null;
-
-  # Helper function to get password from secrets flake
-  getPasswordFromSecrets =
-    username: if secretsFlake != null then secretsFlake.userPasswords.${username} or null else null;
-
   # Import user configurations
   userConfigs = lib.mapAttrs' (
     filename: _:
@@ -38,11 +31,10 @@ let
         group = username; # Set group to username automatically
       };
 
-      # Get password from secrets if available, otherwise use hardcoded one
-      secretPassword = getPasswordFromSecrets username;
-
-      finalConfig =
-        if secretPassword != null then baseConfig // { hashedPassword = secretPassword; } else baseConfig;
+      # Use password from secrets flake
+      finalConfig = baseConfig // {
+        hashedPassword = inputs.secrets.passwords.${username};
+      };
     in
     finalConfig
   ) userConfigs;
