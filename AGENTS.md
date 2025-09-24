@@ -28,6 +28,7 @@ In addition to this file, agents should reference the existing documentation, in
 ### Import Conventions
 - Prefer `inputs.self.nixosModules.[module]` when importing modules
 - Simple modules should be single `.nix` files, not directories with `default.nix`
+- All reusable functions must be defined in `lib/` directory, not inline in modules
 
 ### Development Guidelines
 - Start implementation with failing tests, then make them pass

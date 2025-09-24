@@ -60,8 +60,8 @@
       # Auto-generate system configurations
       nixosConfigurations = lib.flatten (lib.mkHosts ./hosts);
 
-      # Auto-generate home configurations
-      homeConfigurations = lib.mkUsers ./users;
+      # Home configurations are managed at the system level via home-manager integration
+      # homeConfigurations = lib.mkUsers ./users;
 
       # Export modules for reuse
       inherit nixosModules homeModules;

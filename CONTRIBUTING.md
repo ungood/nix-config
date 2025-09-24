@@ -40,6 +40,12 @@ User configuration is found in `users/<username>.nix` and should not import addi
 instead just specifying user preferences as configuration. Avoid host-specific configuration if
 possible.
 
+### Library Functions
+
+All reusable functions should be defined in the `lib/` directory. This keeps the codebase
+organized and makes functions easily discoverable and testable. Functions should not be defined
+inline in modules or other configuration files.
+
 ## Making Changes
 
 ### 1. Creating Feature Branches

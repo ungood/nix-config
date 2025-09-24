@@ -17,6 +17,7 @@
 
     sharedModules = [
       inputs.plasma-manager.homeManagerModules.plasma-manager
+      inputs.self.homeModules.common
     ];
 
     # Simple static user configuration

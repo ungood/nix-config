@@ -35,13 +35,13 @@ test-hosts: (test-host "sparrowhawk")
 
 # Run specific host test (tests all modules for that host)
 [group('test')]
-check-host HOST: git-add
+test-host HOST: git-add
     @echo "Testing host: {{HOST}}"
-    nix flake .#checks.x86_64-linux.{{HOST}} -L
+    nix build .#checks.x86_64-linux.{{HOST}} -L
 
 # Run tests in interactive mode for debugging
 [group('test')]
-debug-host HOST: git-add
+test-interactive HOST: git-add
     @echo "Starting interactive test for host: {{HOST}}"
     nix build .#checks.x86_64-linux.{{HOST}}.driverInteractive
     ./result/bin/nixos-test-driver
