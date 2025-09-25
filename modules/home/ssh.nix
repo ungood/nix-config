@@ -13,9 +13,11 @@
 
   programs.ssh = {
     enable = true;
-    forwardAgent = true;
+    enableDefaultConfig = false;
+
     matchBlocks = {
       "*" = {
+        forwardAgent = true;
         identityAgent = "${config.home.homeDirectory}/.1password/agent.sock";
       };
     };

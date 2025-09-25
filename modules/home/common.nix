@@ -20,6 +20,7 @@
   # Common module imports
   imports = [
     inputs.self.homeModules.claude
+    inputs.self.homeModules.developer
     inputs.self.homeModules.firefox
     inputs.self.homeModules.fish
     inputs.self.homeModules.gh
