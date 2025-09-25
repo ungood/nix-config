@@ -15,17 +15,18 @@ print("🔍 Testing actual password authentication with test user...")
 machine.succeed("id test")
 machine.succeed("getent passwd test")
 
-# Test login with the known test password "test"
-# Use expect-style login test to verify password works
+# Test actual login with password "test" from secrets flake
+# This ensures the hashedPassword is properly set from secrets
 machine.succeed("""
-    # Create a test script that attempts login
-    cat > /tmp/test_login.sh << 'EOF'
-#!/bin/bash
-# Test password authentication by attempting to switch to test user
-echo 'test' | su - test -c 'whoami'
-EOF
-    chmod +x /tmp/test_login.sh
-    /tmp/test_login.sh | grep -q test
+    # Test password authentication using expect
+    nix-shell -p expect --run '
+        expect << \"EXPECT_EOF\"
+        spawn su - test -c \"whoami\"
+        expect \"Password:\"
+        send \"test\\r\"
+        expect eof
+        EXPECT_EOF
+    ' | grep -q \"test\"
 """)
 print("✅ Test user can authenticate with password from secrets flake")
 

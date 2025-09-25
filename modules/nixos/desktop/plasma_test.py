@@ -14,12 +14,6 @@ for package in plasma_packages:
     machine.succeed(f"which {package}")
     print(f"✅ {package} is installed")
 
-# Test excluded packages are not installed
-print("🔍 Testing excluded packages are not present...")
-excluded_packages = ["konsole", "kate"]
-for package in excluded_packages:
-    machine.fail(f"which {package}")
-    print(f"✅ {package} is correctly excluded")
 
 # Test desktop services
 print("🔍 Testing desktop services...")

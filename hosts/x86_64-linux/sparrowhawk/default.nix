@@ -23,16 +23,8 @@
     networkmanager.enable = true;
   };
 
-  # Enable OneTrue authentication system
-  onetrue.auth = {
-    enable = true;
-    fingerprintAuth.enable = true;
-    sshKeySudo = {
-      enable = true;
-      authorizedUsers = [ "ungood" ];
-    };
-    rootPasswordFallback.enable = true;
-  };
+  # OneTrue authentication system
+  onetrue.auth.sshKeySudo.authorizedUsers = [ "ungood" ];
 
   system.stateVersion = "25.05";
 }
