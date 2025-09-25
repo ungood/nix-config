@@ -39,7 +39,7 @@ in
     extraSpecialArgs = { inherit inputs; };
 
     sharedModules = [
-      inputs.plasma-manager.homeManagerModules.plasma-manager
+      inputs.plasma-manager.homeModules.plasma-manager
       inputs.self.homeModules.common
     ];
 
