@@ -38,3 +38,4 @@ In addition to this file, agents should reference the existing documentation, in
 - Add tests to appropriate module test files in `tests/scripts/modules/`
 - Validate with full test suite (`just test`) before committing
 - Run configuration checks (`just check`) and builds (`just build`)
+- Never try to override or remove failing tests. Always try to fix the test, and if you cannot, report why.

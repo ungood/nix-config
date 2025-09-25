@@ -24,8 +24,19 @@ let
     # Start the machine once for all tests
     machine.start()
     machine.wait_for_unit("default.target")
-    # Allow degraded state since this is a test VM
-    machine.execute("systemctl is-system-running --wait || true")
+    # Check system status
+    status = machine.execute("systemctl is-system-running --wait")[1].strip()
+    if status == "degraded":
+        # Check what's failed
+        failed = machine.execute("systemctl list-units --failed --no-legend")[1].strip()
+        # For now, ignore home-manager failures as they're due to ghostty theme issues
+        # This is a known issue unrelated to authentication
+        if failed and "home-manager" in failed:
+            print(f"⚠️  Home-manager services failed (known ghostty theme issue): {failed}")
+        elif failed:
+            raise Exception(f"System has failed units: {failed}")
+    elif status != "running":
+        print(f"⚠️  System is in {status} state, continuing with tests...")
 
     print("✅ Host sparrowhawk is ready for testing")
 

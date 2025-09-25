@@ -31,7 +31,7 @@ let
         group = username; # Set group to username automatically
       };
 
-      # Use password from secrets flake
+      # Use password from secrets flake (required for all users)
       finalConfig = baseConfig // {
         hashedPassword = inputs.secrets.passwords.${username};
       };
