@@ -8,30 +8,25 @@
 # Comprehensive test for sparrowhawk host
 # Tests all sparrowhawk modules: base, desktop.plasma, development, gaming
 let
-  # Load all module test scripts
+  # Load all module test scripts from their new locations adjacent to modules
   moduleTestScripts = [
-    (builtins.readFile ./scripts/modules/base.py)
-    (builtins.readFile ./scripts/modules/desktop/plasma.py)
-    (builtins.readFile ./scripts/modules/development.py)
-    (builtins.readFile ./scripts/modules/gaming.py)
+    (builtins.readFile ../modules/nixos/base/default_test.py)
+    (builtins.readFile ../modules/nixos/base/auth_test.py)
+    (builtins.readFile ../modules/nixos/desktop/plasma_test.py)
+    (builtins.readFile ../modules/nixos/development/default_test.py)
+    (builtins.readFile ../modules/nixos/gaming/default_test.py)
   ];
 
   combinedTestScript = ''
     #!/usr/bin/env python3
-    """
-    Comprehensive test for sparrowhawk host.
-    Tests all modules: base, desktop.plasma, development, gaming
-    """
-
-    print("🚀 Starting comprehensive test for sparrowhawk host")
-    print("📋 Testing modules: base, desktop.plasma, development, gaming")
+    print("🚀 Starting test for sparrowhawk host")
 
     # Start the machine once for all tests
     machine.start()
     machine.wait_for_unit("default.target")
-    machine.succeed("systemctl is-system-running --wait")
 
-    print("✅ Host sparrowhawk is ready for testing")
+    # Check system status
+    machine.execute("systemctl is-system-running --wait")
 
     ${builtins.concatStringsSep "\n\n" moduleTestScripts}
 
@@ -66,6 +61,13 @@ pkgs.testers.runNixOSTest {
     services.displayManager.autoLogin = {
       enable = true;
       user = "ungood";
+    };
+
+    # Add test user with password from secrets flake
+    users.users.test = {
+      isNormalUser = true;
+      hashedPassword = inputs.secrets.passwords.test;
+      extraGroups = [ "wheel" ];
     };
   };
 

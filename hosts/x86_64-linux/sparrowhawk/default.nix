@@ -23,5 +23,8 @@
     networkmanager.enable = true;
   };
 
+  # OneTrue authentication system
+  onetrue.auth.authorizedUsers = [ "ungood" ];
+
   system.stateVersion = "25.05";
 }

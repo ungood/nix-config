@@ -1,10 +1,10 @@
 { pkgs, ... }:
 {
   imports = [
+    ./auth.nix
     ./nix.nix
     ./fonts.nix
     ./home-manager.nix
-    ./opnix.nix
     ./stylix.nix
     ./users.nix
   ];
@@ -17,6 +17,7 @@
     unzip
     vim
     wget
+    wl-clipboard-rs
   ];
 
   programs.fish.enable = true;

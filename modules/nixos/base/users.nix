@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 let
   # Auto-discover users from users directory
   usersDir = ../../../users;
@@ -21,10 +26,17 @@ let
   # Extract system user configurations and add username/group automatically
   systemUsers = lib.mapAttrs (
     username: config:
-    config.nixos
-    // {
-      group = username; # Set group to username automatically
-    }
+    let
+      baseConfig = config.nixos // {
+        group = username; # Set group to username automatically
+      };
+
+      # Use password from secrets flake (required for all users)
+      finalConfig = baseConfig // {
+        hashedPassword = inputs.secrets.passwords.${username};
+      };
+    in
+    finalConfig
   ) userConfigs;
 
   # Generate user groups
