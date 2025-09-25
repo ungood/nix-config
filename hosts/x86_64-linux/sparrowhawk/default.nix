@@ -24,7 +24,7 @@
   };
 
   # OneTrue authentication system
-  onetrue.auth.sshKeySudo.authorizedUsers = [ "ungood" ];
+  onetrue.auth.authorizedUsers = [ "ungood" ];
 
   system.stateVersion = "25.05";
 }

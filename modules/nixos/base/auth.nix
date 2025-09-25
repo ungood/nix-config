@@ -21,13 +21,11 @@ in
       package = mkPackageOption pkgs "fprintd" { };
     };
 
-    sshKeySudo = {
-      authorizedUsers = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        description = "Users authorized for sudo access via SSH keys";
-        example = [ "ungood" ];
-      };
+    authorizedUsers = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "Users authorized for sudo access via SSH keys";
+      example = [ "ungood" ];
     };
   };
 
@@ -55,7 +53,7 @@ in
     security.pam.sshAgentAuth.enable = true;
 
     # Add authorized users to wheel group for sudo access
-    users.users = lib.genAttrs cfg.sshKeySudo.authorizedUsers (_username: {
+    users.users = lib.genAttrs cfg.authorizedUsers (_username: {
       extraGroups = [ "wheel" ];
     });
 
