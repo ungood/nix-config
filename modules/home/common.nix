@@ -29,5 +29,6 @@
     inputs.self.homeModules.stylix
     inputs.self.homeModules.vs-code
     inputs.self.homeModules.plasma
+    inputs.self.homeModules._1password
   ];
 }
