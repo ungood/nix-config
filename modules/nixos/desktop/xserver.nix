@@ -1,4 +1,8 @@
 {
+  imports = [
+    ./printing.nix
+  ];
+
   services = {
     # Enable the X11 windowing system.
     # You can disable this if you're only using the Wayland session.
@@ -9,9 +13,6 @@
         variant = "";
       };
     };
-
-    # Enable CUPS to print documents.
-    printing.enable = true;
 
     # Enable sound with pipewire.
     pulseaudio.enable = false;
