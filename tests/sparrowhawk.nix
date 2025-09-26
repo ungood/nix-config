@@ -17,6 +17,7 @@ let
     (builtins.readFile ../modules/nixos/development/default_test.py)
     (builtins.readFile ../modules/nixos/gaming/default_test.py)
     (builtins.readFile ../modules/home/developer/direnv_test.py)
+    (builtins.readFile ../modules/home/_1password_test.py)
   ];
 
   combinedTestScript = ''
