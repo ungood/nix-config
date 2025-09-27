@@ -12,6 +12,7 @@ let
   moduleTestScripts = [
     (builtins.readFile ../modules/nixos/base/default_test.py)
     (builtins.readFile ../modules/nixos/base/auth_test.py)
+    (builtins.readFile ../modules/nixos/base/user-dotfiles_test.py)
     (builtins.readFile ../modules/nixos/desktop/plasma_test.py)
     (builtins.readFile ../modules/nixos/desktop/printing_test.py)
     (builtins.readFile ../modules/nixos/development/default_test.py)
