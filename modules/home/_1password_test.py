@@ -1,16 +1,17 @@
 # === Home 1Password Module Tests ===
 print("=== Running Home 1Password Module Tests ===")
 
-# Test 1Password autostart desktop entry creation
-print("🔍 Testing 1Password autostart desktop entry...")
-machine.succeed("test -f /home/ungood/.config/autostart/1password-autostart.desktop")
-print("✅ 1Password autostart desktop entry exists")
+# Test 1Password autostart desktop entry creation (for centrally managed users)
+print("🔍 Testing 1Password autostart desktop entry for centrally managed users...")
+# Since ungood has dotfilesRepo, test with trafficcone who doesn't
+machine.succeed("test -f /home/trafficcone/.config/autostart/1password-autostart.desktop")
+print("✅ 1Password autostart desktop entry exists for centrally managed users")
 
 # Test desktop entry content
 print("🔍 Testing autostart desktop entry content...")
-desktop_content = machine.succeed("cat /home/ungood/.config/autostart/1password-autostart.desktop")
-machine.succeed("grep -q 'Exec=1password --silent' /home/ungood/.config/autostart/1password-autostart.desktop")
-machine.succeed("grep -q 'Name=1Password' /home/ungood/.config/autostart/1password-autostart.desktop")
+desktop_content = machine.succeed("cat /home/trafficcone/.config/autostart/1password-autostart.desktop")
+machine.succeed("grep -q 'Exec=1password --silent' /home/trafficcone/.config/autostart/1password-autostart.desktop")
+machine.succeed("grep -q 'Name=1Password' /home/trafficcone/.config/autostart/1password-autostart.desktop")
 print("✅ Desktop entry has correct autostart configuration")
 
 # Test that 1Password GUI package is available

@@ -98,22 +98,24 @@ Technical users can manage their own configurations using standalone home-manage
 
 3. **After system rebuild**, initialize your configuration:
    ```bash
-   hm-init
+   # Clone your dotfiles repository
+   git clone https://github.com/yourusername/dotfiles.git ~/.config/home-manager
+
+   # Switch to your configuration
+   cd ~/.config/home-manager
+   home-manager switch
    ```
-
-### Helper Commands
-
-Self-managed users get these helper commands:
-
-- `hm-init` - Initialize home-manager from your dotfiles repository
-- `hm-update` - Update your configuration (pull latest and rebuild)
-- `hm-rollback` - Rollback to a previous configuration generation
 
 ### Managing Your Configuration
 
 1. **Make changes** in your dotfiles repository
 2. **Push changes** to GitHub
-3. **Update locally** with `hm-update`
+3. **Update locally**:
+   ```bash
+   cd ~/.config/home-manager
+   git pull
+   home-manager switch
+   ```
 
 ### Example Dotfiles Repository Structure
 
@@ -159,7 +161,7 @@ For more advanced users, you can use a flake-based configuration:
 
 1. Create your dotfiles repository with desired configuration
 2. Request `dotfilesRepo` addition to your user file
-3. After rebuild, run `hm-init`
+3. After rebuild, clone your dotfiles and set up home-manager
 4. Your central configuration will no longer apply
 
 ### From Self-Managed to Centrally Managed
@@ -172,16 +174,16 @@ For more advanced users, you can use a flake-based configuration:
 
 ### Common Issues
 
-**Q: My changes aren't applying after running hm-update**
+**Q: My changes aren't applying**
 - Check that you've pushed your changes to the repository
 - Verify the repository URL is correct in your user configuration
-- Try running `hm-update` with verbose output
+- Try running `home-manager switch` with verbose output
 
 **Q: Conflicts with system packages**
 - Self-managed packages should complement, not duplicate system packages
 - Remove duplicates from your personal configuration
 
-**Q: Helper commands not found**
+**Q: home-manager command not found**
 - Ensure you've logged out and back in after the system rebuild
 - Check that your user has `dotfilesRepo` configured
 

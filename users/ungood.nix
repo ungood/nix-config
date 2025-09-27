@@ -7,7 +7,7 @@
   };
 
   # Optional dotfiles repository for standalone home-manager
-  # dotfilesRepo = "https://github.com/ungood/dotfiles.git";
+  dotfilesRepo = "https://github.com/ungood/dotfiles.git";
 
   # NixOS system user configuration
   nixos = {
