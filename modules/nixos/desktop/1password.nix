@@ -5,9 +5,11 @@
     enable = true;
     # Certain features, including CLI integration and system authentication support,
     # require enabling PolKit integration on some desktop environments (e.g. Plasma).
+    # TODO It would be nice if this was configured from the users list.
     polkitPolicyOwners = [
       "ungood"
       "trafficcone"
+      "abirdnamed"
     ];
   };
 

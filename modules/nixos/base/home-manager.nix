@@ -10,20 +10,25 @@ let
   userFiles = builtins.readDir usersDir;
   nixFiles = lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name) userFiles;
 
-  # Import user configurations and extract home config
+  # Import user configurations and extract home config for centrally managed users only
   homeConfigs = lib.mapAttrs' (
     filename: _:
     let
       username = lib.removeSuffix ".nix" filename;
       userConfig = import (usersDir + "/${filename}") { inherit pkgs lib; };
+      # Only include users without dotfilesRepo (centrally managed users)
+      hasDotfilesRepo = userConfig ? dotfilesRepo && userConfig.dotfilesRepo != null;
     in
     {
       name = username;
-      value = {
+      value = lib.optionalAttrs (!hasDotfilesRepo) {
         inherit (userConfig) home;
       };
     }
   ) nixFiles;
+
+  # Filter out empty configurations (users with dotfilesRepo)
+  filteredHomeConfigs = lib.filterAttrs (_: config: config != { }) homeConfigs;
 in
 {
   imports = [
@@ -43,7 +48,7 @@ in
       inputs.self.homeModules.common
     ];
 
-    # Auto-discovered user configurations
-    users = homeConfigs;
+    # Auto-discovered user configurations (only centrally managed users)
+    users = filteredHomeConfigs;
   };
 }

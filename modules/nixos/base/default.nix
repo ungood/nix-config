@@ -6,6 +6,7 @@
     ./fonts.nix
     ./home-manager.nix
     ./stylix.nix
+    ./user-dotfiles.nix
     ./users.nix
   ];
 

@@ -10,18 +10,23 @@ let
   userFiles = builtins.readDir usersDir;
   nixFiles = lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name) userFiles;
 
-  # Import user configurations
+  # Import user configurations (exclude users with dotfilesRepo)
   userConfigs = lib.mapAttrs' (
     filename: _:
     let
       username = lib.removeSuffix ".nix" filename;
       userConfig = import (usersDir + "/${filename}") { inherit pkgs lib; };
+      # Only include users without dotfilesRepo (centrally managed users)
+      hasDotfilesRepo = userConfig ? dotfilesRepo && userConfig.dotfilesRepo != null;
     in
     {
       name = username;
-      value = userConfig;
+      value = lib.optionalAttrs (!hasDotfilesRepo) userConfig;
     }
   ) nixFiles;
+
+  # Filter out empty configurations (users with dotfilesRepo)
+  filteredUserConfigs = lib.filterAttrs (_: config: config != { }) userConfigs;
 
   # Extract system user configurations and add username/group automatically
   systemUsers = lib.mapAttrs (
@@ -37,7 +42,7 @@ let
       };
     in
     finalConfig
-  ) userConfigs;
+  ) filteredUserConfigs;
 
   # Generate user groups
   userGroups = lib.mapAttrs (_username: _: { }) systemUsers;
