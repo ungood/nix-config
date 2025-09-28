@@ -22,16 +22,8 @@ format:
 
 # Check flake for issues
 [group('test')]
-check: git-add
+test: git-add
     nix flake check --option sandbox false
-
-# Run all host tests (comprehensive testing)
-[group('test')]
-test: test-hosts
-
-# Run all host tests (each host tests all its modules)
-[group('test')]
-test-hosts: (test-host "sparrowhawk")
 
 # Run specific host test (tests all modules for that host)
 [group('test')]
