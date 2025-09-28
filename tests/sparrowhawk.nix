@@ -61,6 +61,9 @@ pkgs.testers.runNixOSTest {
       graphics = true;
     };
 
+    # Enable network access for tests that need it (e.g., cloning dotfiles)
+    networking.useDHCP = lib.mkForce true;
+
     # Override for testing
     services.displayManager.autoLogin = {
       enable = true;

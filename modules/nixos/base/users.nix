@@ -80,10 +80,7 @@ let
 
             if [ ! -d "$DOTFILES_DIR" ]; then
               echo "Cloning dotfiles repository for ${username}..."
-              git clone "${dotfilesRepo}" "$DOTFILES_DIR" || {
-                echo "Failed to clone dotfiles. This is expected in test environments without network access."
-                exit 0
-              }
+              git clone "${dotfilesRepo}" "$DOTFILES_DIR"
               echo "Dotfiles cloned successfully to $DOTFILES_DIR"
             else
               echo "Dotfiles directory already exists at $DOTFILES_DIR, skipping clone"
