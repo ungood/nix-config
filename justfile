@@ -22,28 +22,20 @@ format:
 
 # Check flake for issues
 [group('test')]
-check: git-add
-    nix flake check
-
-# Run all host tests (comprehensive testing)
-[group('test')]
-test: test-hosts
-
-# Run all host tests (each host tests all its modules)
-[group('test')]
-test-hosts: (test-host "sparrowhawk")
+test: git-add
+    nix flake check --option sandbox false
 
 # Run specific host test (tests all modules for that host)
 [group('test')]
 test-host HOST: git-add
     @echo "Testing host: {{HOST}}"
-    nix build .#checks.x86_64-linux.{{HOST}} -L
+    nix build .#checks.x86_64-linux.{{HOST}} -L --option sandbox false
 
 # Run tests in interactive mode for debugging
 [group('test')]
 test-interactive HOST: git-add
     @echo "Starting interactive test for host: {{HOST}}"
-    nix build .#checks.x86_64-linux.{{HOST}}.driverInteractive
+    nix build .#checks.x86_64-linux.{{HOST}}.driverInteractive --option sandbox false
     ./result/bin/nixos-test-driver
 
 ## Ops Commands

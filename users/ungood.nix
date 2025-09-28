@@ -6,6 +6,9 @@
     stateVersion = "25.05";
   };
 
+  # Dotfiles repository
+  dotfiles = "https://github.com/ungood/dotfiles.git";
+
   # NixOS system user configuration
   nixos = {
     isNormalUser = true;
