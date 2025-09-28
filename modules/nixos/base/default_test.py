@@ -10,7 +10,7 @@ print("✅ Nix configuration is correct")
 
 # Test system packages
 print("🔍 Testing system packages...")
-packages = ["curl", "home-manager", "nvim", "unzip", "vim", "wget", "wl-clip", "wl-copy", "wl-paste"]
+packages = ["curl", "nvim", "unzip", "vim", "wget", "wl-clip", "wl-copy", "wl-paste"]
 for package in packages:
     machine.succeed(f"{package} --version || {package} --help || which {package}")
     print(f"✅ {package} is available")

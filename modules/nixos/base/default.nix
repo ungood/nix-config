@@ -4,7 +4,7 @@
     ./auth.nix
     ./nix.nix
     ./fonts.nix
-    # ./home-manager.nix  # Disabled - home-manager installed standalone for users
+    ./home-manager.nix
     ./stylix.nix
     ./users.nix
   ];
@@ -13,7 +13,6 @@
 
   environment.systemPackages = with pkgs; [
     curl
-    home-manager
     neovim
     unzip
     vim

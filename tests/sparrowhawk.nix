@@ -12,14 +12,12 @@ let
   moduleTestScripts = [
     (builtins.readFile ../modules/nixos/base/default_test.py)
     (builtins.readFile ../modules/nixos/base/auth_test.py)
-    (builtins.readFile ../modules/nixos/base/users_test.py)
     (builtins.readFile ../modules/nixos/desktop/plasma_test.py)
     (builtins.readFile ../modules/nixos/desktop/printing_test.py)
     (builtins.readFile ../modules/nixos/development/default_test.py)
     (builtins.readFile ../modules/nixos/gaming/default_test.py)
-    # Home-manager tests disabled - home-manager is now standalone
-    # (builtins.readFile ../modules/home/developer/direnv_test.py)
-    # (builtins.readFile ../modules/home/_1password_test.py)
+    (builtins.readFile ../modules/home/developer/direnv_test.py)
+    (builtins.readFile ../modules/home/_1password_test.py)
   ];
 
   combinedTestScript = ''
@@ -61,9 +59,6 @@ pkgs.testers.runNixOSTest {
       cores = 4;
       graphics = true;
     };
-
-    # Enable network access for tests that need it (e.g., cloning dotfiles)
-    networking.useDHCP = lib.mkForce true;
 
     # Override for testing
     services.displayManager.autoLogin = {

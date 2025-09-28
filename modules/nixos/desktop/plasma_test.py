@@ -34,4 +34,10 @@ machine.succeed("which pipewire")
 machine.succeed("which wireplumber")
 print("✅ Audio system is configured")
 
+# Test theme support
+print("🔍 Testing theme support...")
+machine.succeed("ls /nix/store/*breeze* | head -1")
+machine.succeed("ls /nix/store/*breeze-icons* | head -1")
+print("✅ Theme support is available")
+
 print("🎉 Desktop Plasma module tests completed!")
