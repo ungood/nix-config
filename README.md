@@ -19,7 +19,7 @@ This repository was developed as a way to:
 ### Hosts
 
 * `sparrowhawk`: My main gaming PC, but sometimes used by trafficcone or a guest.
-* TBD: A laptop shared by everyone in the household.
+* `logos`: Framework 13 laptop shared by everyone in the household.
 * `proxmox`: A mini-PC home lab running HA and other things, currently not managed by Nix, but hoping to do so.
 * TBD: My work laptop, which I expect to be a Macbook unless I can BYOD.
 

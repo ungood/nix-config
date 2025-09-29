@@ -36,6 +36,11 @@
       url = "git+ssh://git@github.com/ungood/secrets";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -70,13 +75,23 @@
       devShells.${system}.default = import ./shells/default.nix { inherit lib pkgs; };
 
       # NixOS testing infrastructure
-      checks.${system}.sparrowhawk = import ./tests/sparrowhawk.nix {
-        inherit
-          inputs
-          pkgs
-          lib
-          self
-          ;
+      checks.${system} = {
+        sparrowhawk = import ./tests/sparrowhawk.nix {
+          inherit
+            inputs
+            pkgs
+            lib
+            self
+            ;
+        };
+        logos = import ./tests/logos.nix {
+          inherit
+            inputs
+            pkgs
+            lib
+            self
+            ;
+        };
       };
 
       formatter.${system} = pkgs.nixfmt-rfc-style;
