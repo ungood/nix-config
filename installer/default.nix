@@ -98,7 +98,8 @@
   networking.networkmanager.enable = true;
   networking.wireless.enable = false;
 
-  # Use default ISO naming
+  # ISO configuration
+  image.fileName = "nixos-custom-installer.iso";
   isoImage.makeEfiBootable = true;
   isoImage.makeUsbBootable = true;
 }

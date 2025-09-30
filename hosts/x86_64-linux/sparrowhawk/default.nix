@@ -5,6 +5,8 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./disko.nix
+    inputs.disko.nixosModules.disko
     inputs.self.nixosModules.base
     inputs.self.nixosModules.desktop.plasma
     inputs.self.nixosModules.development

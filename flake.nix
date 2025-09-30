@@ -66,10 +66,25 @@
       nixosModules = lib.importDir ./modules/nixos;
       homeModules = lib.importDir ./modules/home;
 
-      # Helper function to reduce test redundancy
-      forEachTest = tests: lib.mapAttrs (name: testModule: testModule {
-        inherit inputs pkgs lib self;
-      }) tests;
+      # Auto-discover and import all tests from tests directory
+      discoverTests = dir:
+        let
+          testFiles = builtins.readDir dir;
+          testNames = builtins.attrNames (lib.filterAttrs (name: type:
+            type == "regular" && lib.hasSuffix ".nix" name
+          ) testFiles);
+        in
+        lib.listToAttrs (map (testFile:
+          let
+            testName = lib.removeSuffix ".nix" testFile;
+          in
+          {
+            name = testName;
+            value = import (dir + "/${testFile}") {
+              inherit inputs pkgs lib self;
+            };
+          }
+        ) testNames);
     in
     {
       # Auto-generate system configurations
@@ -94,11 +109,7 @@
       devShells.${system}.default = import ./shells/default.nix { inherit lib pkgs; };
 
       # NixOS testing infrastructure
-      checks.${system} = forEachTest {
-        sparrowhawk = import ./tests/sparrowhawk.nix;
-        logos = import ./tests/logos.nix;
-        installer = import ./tests/installer.nix;
-      };
+      checks.${system} = discoverTests ./tests;
 
       formatter.${system} = pkgs.nixfmt-rfc-style;
     };
