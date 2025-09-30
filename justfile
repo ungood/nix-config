@@ -22,16 +22,8 @@ format:
 
 # Check flake for issues
 [group('test')]
-check: git-add
+test: git-add
     nix flake check
-
-# Run all host tests (comprehensive testing)
-[group('test')]
-test: test-hosts
-
-# Run all host tests (each host tests all its modules)
-[group('test')]
-test-hosts: (test-host "sparrowhawk")
 
 # Run specific host test (tests all modules for that host)
 [group('test')]
@@ -72,3 +64,23 @@ update:
 [group('ops')]
 gc:
     sudo nix-collect-garbage -d
+
+## Installer commands
+
+# Build an ISO image of a host.
+[group('installer')]
+build-installer: git-add
+    nix build .#nixosConfigurations.installer.config.system.build.isoImage -L
+
+# Burn a built image to a host
+[group('installer')]
+burn-installer DEVICE: build-installer
+    @echo "WARNING: This will overwrite all data on {{DEVICE}}"
+    @read -p "Type 'yes' to confirm: " confirmation; \
+    if [ "$$confirmation" = "yes" ]; then \
+        echo "Writing ISO to {{DEVICE}}..."; \
+        sudo dd if=result/iso/nixos-custom-installer.iso of={{DEVICE}} bs=4M status=progress oflag=sync; \
+        echo "ISO written successfully to {{DEVICE}}"; \
+    else \
+        echo "Operation cancelled."; \
+    fi
