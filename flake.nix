@@ -97,19 +97,7 @@
     in
     {
       # Auto-generate system configurations
-      nixosConfigurations = (lib.flatten (lib.mkHosts ./hosts)) // {
-        # Installer ISO configuration
-        installer = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./installer
-            inputs.disko.nixosModules.disko
-          ];
-        };
-      };
-
-      # Home configurations are managed at the system level via home-manager integration
-      # homeConfigurations = lib.mkUsers ./users;
+      nixosConfigurations = lib.flatten (lib.mkHosts ./hosts);
 
       # Export modules for reuse
       inherit nixosModules homeModules;

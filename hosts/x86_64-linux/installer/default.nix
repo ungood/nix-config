@@ -30,13 +30,26 @@
       echo "Selected configuration: $CONFIG"
       echo
 
-      # List available disks
+      # List available disks and let user select
       echo "Available disks:"
       lsblk -d -o NAME,SIZE,MODEL | grep -E '^(sd|nvme|vd)' || true
       echo
 
-      # Select disk
-      DISK=$(gum input --placeholder "Enter disk name (e.g., sda, nvme0n1)")
+      # Get list of available disks
+      AVAILABLE_DISKS=($(lsblk -d -n -o NAME | grep -E '^(sd|nvme|vd)' || true))
+
+      if [[ ''${#AVAILABLE_DISKS[@]} -eq 0 ]]; then
+          gum style --foreground 196 "Error: No suitable disks found!"
+          exit 1
+      fi
+
+      # Select disk from list
+      DISK=$(gum choose --header "Select disk to install to:" "''${AVAILABLE_DISKS[@]}")
+
+      if [[ -z "$DISK" ]]; then
+          echo "No disk selected. Exiting."
+          exit 1
+      fi
 
       if [[ ! -b "/dev/$DISK" ]]; then
           gum style --foreground 196 "Error: /dev/$DISK does not exist!"
@@ -76,7 +89,7 @@
   # Copy the flake source to the ISO for offline installation
   environment.etc."nixos-config".source = lib.cleanSource ../.;
 
-  services.getty.helpLine = "Run 'install-nixos' to install NixOS!";
+  services.getty.helpLine = "To install NixOS: sudo install-nixos";
 
   # Enable SSH for remote installation if needed
   services.openssh = {
@@ -86,7 +99,10 @@
 
   networking.networkmanager.enable = true;
 
-  image.fileName = "nixos-custom-installer.iso";
-  isoImage.makeEfiBootable = true;
-  isoImage.makeUsbBootable = true;
+  image.baseName = lib.mkForce "nixos-installer";
+  isoImage = {
+    volumeID = lib.mkForce "nixos-installer";
+    makeEfiBootable = true;
+    makeUsbBootable = true;
+  };
 }
