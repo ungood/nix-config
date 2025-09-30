@@ -67,24 +67,33 @@
       homeModules = lib.importDir ./modules/home;
 
       # Auto-discover and import all tests from tests directory
-      discoverTests = dir:
+      discoverTests =
+        dir:
         let
           testFiles = builtins.readDir dir;
-          testNames = builtins.attrNames (lib.filterAttrs (name: type:
-            type == "regular" && lib.hasSuffix ".nix" name
-          ) testFiles);
+          testNames = builtins.attrNames (
+            lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name) testFiles
+          );
         in
-        lib.listToAttrs (map (testFile:
-          let
-            testName = lib.removeSuffix ".nix" testFile;
-          in
-          {
-            name = testName;
-            value = import (dir + "/${testFile}") {
-              inherit inputs pkgs lib self;
-            };
-          }
-        ) testNames);
+        lib.listToAttrs (
+          map (
+            testFile:
+            let
+              testName = lib.removeSuffix ".nix" testFile;
+            in
+            {
+              name = testName;
+              value = import (dir + "/${testFile}") {
+                inherit
+                  inputs
+                  pkgs
+                  lib
+                  self
+                  ;
+              };
+            }
+          ) testNames
+        );
     in
     {
       # Auto-generate system configurations

@@ -2,8 +2,6 @@
 {
   inputs,
   pkgs,
-  lib,
-  self,
   ...
 }:
 pkgs.nixosTest {

@@ -1,5 +1,10 @@
 # Custom NixOS installer ISO using disko-install
-{ pkgs, lib, modulesPath, ... }:
+{
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
 {
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
