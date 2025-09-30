@@ -1,4 +1,4 @@
-# Test for the NixOS installer ISO components
+# Test for the NixOS installer ISO
 {
   inputs,
   pkgs,
@@ -10,25 +10,11 @@ pkgs.nixosTest {
   name = "installer-test";
 
   nodes = {
-    installer = { pkgs, ... }: {
-      # Test that installation script works (without the full ISO)
-      environment.systemPackages = with pkgs; [
-        git
-        vim
-        parted
-        gptfdisk
-        cryptsetup
+    installer = {
+      imports = [
+        ../installer
+        inputs.disko.nixosModules.disko
       ];
-
-      # Simulate the installer environment
-      environment.etc = {
-        "nixos-installer/install.sh" = {
-          source = ../installer/install-script.sh;
-          mode = "0755";
-        };
-        "nixos-installer/hosts/sparrowhawk/disko.nix".source = ../hosts/x86_64-linux/sparrowhawk/disko.nix;
-        "nixos-installer/hosts/logos/disko.nix".source = ../hosts/x86_64-linux/logos/disko.nix;
-      };
 
       virtualisation = {
         memorySize = 2048;
@@ -45,24 +31,32 @@ pkgs.nixosTest {
     # Wait for the system to boot
     installer.wait_for_unit("multi-user.target")
 
-    # Check that the install script is available
-    installer.succeed("test -f /etc/nixos-installer/install.sh")
-    installer.succeed("test -x /etc/nixos-installer/install.sh")
+    # Check that the installer script is available
+    installer.succeed("which install-nixos")
+    installer.succeed("test -x $(which install-nixos)")
 
-    # Check that host disko configurations are available
-    installer.succeed("test -f /etc/nixos-installer/hosts/sparrowhawk/disko.nix")
-    installer.succeed("test -f /etc/nixos-installer/hosts/logos/disko.nix")
+    # Check that the flake configuration is available
+    installer.succeed("test -d /etc/nixos-config")
+    installer.succeed("test -f /etc/nixos-config/flake.nix")
 
-    # Test the installation script's help/listing functionality
-    # We can't test the full installation in this environment, but we can verify the script runs
-    output = installer.succeed("echo '3' | /etc/nixos-installer/install.sh || true")
-    assert "Invalid selection" in output, "Install script should reject invalid selection"
+    # Check that host configurations are available
+    installer.succeed("test -d /etc/nixos-config/hosts/x86_64-linux/sparrowhawk")
+    installer.succeed("test -f /etc/nixos-config/hosts/x86_64-linux/sparrowhawk/disko.nix")
+    installer.succeed("test -d /etc/nixos-config/hosts/x86_64-linux/logos")
+    installer.succeed("test -f /etc/nixos-config/hosts/x86_64-linux/logos/disko.nix")
 
-    # Test that we can list available configurations
-    output = installer.succeed("echo | timeout 5 /etc/nixos-installer/install.sh || true")
-    assert "sparrowhawk" in output, "Should list sparrowhawk configuration"
-    assert "logos" in output, "Should list logos configuration"
+    # Check that gum is available
+    installer.succeed("which gum")
 
-    print("Installer test completed successfully")
+    # Check that the install alias works
+    installer.succeed("which install")
+
+    # Check that disko is available in the installer script
+    installer.succeed("grep -q 'disko-install' $(which install-nixos)")
+
+    # Verify SSH is available for remote installation
+    installer.succeed("systemctl is-active sshd")
+
+    print("Installer ISO test completed successfully")
   '';
 }

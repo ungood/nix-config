@@ -65,6 +65,11 @@
       # Auto-import modules
       nixosModules = lib.importDir ./modules/nixos;
       homeModules = lib.importDir ./modules/home;
+
+      # Helper function to reduce test redundancy
+      forEachTest = tests: lib.mapAttrs (name: testModule: testModule {
+        inherit inputs pkgs lib self;
+      }) tests;
     in
     {
       # Auto-generate system configurations
@@ -72,11 +77,9 @@
         # Installer ISO configuration
         installer = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = {
-            inherit inputs;
-          };
           modules = [
-            ./installer/iso.nix
+            ./installer
+            inputs.disko.nixosModules.disko
           ];
         };
       };
@@ -91,31 +94,10 @@
       devShells.${system}.default = import ./shells/default.nix { inherit lib pkgs; };
 
       # NixOS testing infrastructure
-      checks.${system} = {
-        sparrowhawk = import ./tests/sparrowhawk.nix {
-          inherit
-            inputs
-            pkgs
-            lib
-            self
-            ;
-        };
-        logos = import ./tests/logos.nix {
-          inherit
-            inputs
-            pkgs
-            lib
-            self
-            ;
-        };
-        installer = import ./tests/installer.nix {
-          inherit
-            inputs
-            pkgs
-            lib
-            self
-            ;
-        };
+      checks.${system} = forEachTest {
+        sparrowhawk = import ./tests/sparrowhawk.nix;
+        logos = import ./tests/logos.nix;
+        installer = import ./tests/installer.nix;
       };
 
       formatter.${system} = pkgs.nixfmt-rfc-style;

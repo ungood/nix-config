@@ -18,6 +18,11 @@ build: git-add
 format:
     pre-commit run -a
 
+# Build an ISO image of a host.
+[group('build')]
+build-iso HOST: git-add
+    nix build .#nixosConfigurations.${HOST}.config.system.build.isoImage -L
+
 ## Test Commands
 
 # Check flake for issues
@@ -73,23 +78,14 @@ update:
 gc:
     sudo nix-collect-garbage -d
 
-## Installer Commands
-
-# Build the installer ISO
+# Burn a built image to a host
 [group('installer')]
-build-iso: git-add
-    @echo "Building installer ISO..."
-    nix build .#nixosConfigurations.installer.config.system.build.isoImage -L
-    @echo "ISO built successfully at: result/iso/nixos-custom-installer.iso"
-
-# Burn the installer ISO to a USB device
-[group('installer')]
-burn-iso DEVICE: build-iso
+burn-installer DEVICE: build-iso installer
     @echo "WARNING: This will overwrite all data on {{DEVICE}}"
     @read -p "Type 'yes' to confirm: " confirmation; \
     if [ "$$confirmation" = "yes" ]; then \
         echo "Writing ISO to {{DEVICE}}..."; \
-        sudo dd if=result/iso/nixos-custom-installer.iso of={{DEVICE}} bs=4M status=progress oflag=sync; \
+        sudo dd if=result/iso/*.iso of={{DEVICE}} bs=4M status=progress oflag=sync; \
         echo "ISO written successfully to {{DEVICE}}"; \
     else \
         echo "Operation cancelled."; \
