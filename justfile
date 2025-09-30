@@ -72,3 +72,25 @@ update:
 [group('ops')]
 gc:
     sudo nix-collect-garbage -d
+
+## Installer Commands
+
+# Build the installer ISO
+[group('installer')]
+build-iso: git-add
+    @echo "Building installer ISO..."
+    nix build .#nixosConfigurations.installer.config.system.build.isoImage -L
+    @echo "ISO built successfully at: result/iso/nixos-custom-installer.iso"
+
+# Burn the installer ISO to a USB device
+[group('installer')]
+burn-iso DEVICE: build-iso
+    @echo "WARNING: This will overwrite all data on {{DEVICE}}"
+    @read -p "Type 'yes' to confirm: " confirmation; \
+    if [ "$$confirmation" = "yes" ]; then \
+        echo "Writing ISO to {{DEVICE}}..."; \
+        sudo dd if=result/iso/nixos-custom-installer.iso of={{DEVICE}} bs=4M status=progress oflag=sync; \
+        echo "ISO written successfully to {{DEVICE}}"; \
+    else \
+        echo "Operation cancelled."; \
+    fi

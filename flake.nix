@@ -41,6 +41,11 @@
       url = "github:NixOS/nixos-hardware/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -63,7 +68,18 @@
     in
     {
       # Auto-generate system configurations
-      nixosConfigurations = lib.flatten (lib.mkHosts ./hosts);
+      nixosConfigurations = (lib.flatten (lib.mkHosts ./hosts)) // {
+        # Installer ISO configuration
+        installer = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./installer/iso.nix
+          ];
+        };
+      };
 
       # Home configurations are managed at the system level via home-manager integration
       # homeConfigurations = lib.mkUsers ./users;
@@ -85,6 +101,14 @@
             ;
         };
         logos = import ./tests/logos.nix {
+          inherit
+            inputs
+            pkgs
+            lib
+            self
+            ;
+        };
+        installer = import ./tests/installer.nix {
           inherit
             inputs
             pkgs
