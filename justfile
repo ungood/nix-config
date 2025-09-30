@@ -18,11 +18,6 @@ build: git-add
 format:
     pre-commit run -a
 
-# Build an ISO image of a host.
-[group('build')]
-build-iso HOST: git-add
-    nix build .#nixosConfigurations.{{HOST}}.config.system.build.isoImage -L
-
 ## Test Commands
 
 # Check flake for issues
@@ -70,9 +65,16 @@ update:
 gc:
     sudo nix-collect-garbage -d
 
+## Installer commands
+
+# Build an ISO image of a host.
+[group('installer')]
+build-installer: git-add
+    nix build .#nixosConfigurations.installer.config.system.build.isoImage -L
+
 # Burn a built image to a host
 [group('installer')]
-burn-installer DEVICE: (build-iso DEVICE)
+burn-installer DEVICE: build-installer
     @echo "WARNING: This will overwrite all data on {{DEVICE}}"
     @read -p "Type 'yes' to confirm: " confirmation; \
     if [ "$$confirmation" = "yes" ]; then \

@@ -71,22 +71,7 @@
   # Copy the flake source to the ISO for offline installation
   environment.etc."nixos-config".source = lib.cleanSource ../.;
 
-  # Create convenient alias
-  environment.shellAliases = {
-    install = "install-nixos";
-  };
-
-  # Add installer instructions to MOTD
-  services.getty.helpLine = ''
-
-    ╔════════════════════════════════════════════════════════╗
-    ║          NixOS Custom Installer                       ║
-    ╠════════════════════════════════════════════════════════╣
-    ║  Type 'install' to start the installation wizard      ║
-    ║  Type 'sudo -i' to get a root shell                   ║
-    ╚════════════════════════════════════════════════════════╝
-
-  '';
+  services.getty.helpLine = "Run 'install-nixos' to install NixOS!";
 
   # Enable SSH for remote installation if needed
   services.openssh = {
@@ -94,11 +79,8 @@
     settings.PermitRootLogin = "yes";
   };
 
-  # Ensure networking is available
   networking.networkmanager.enable = true;
-  networking.wireless.enable = false;
 
-  # ISO configuration
   image.fileName = "nixos-custom-installer.iso";
   isoImage.makeEfiBootable = true;
   isoImage.makeUsbBootable = true;

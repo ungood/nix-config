@@ -48,9 +48,6 @@ pkgs.nixosTest {
     # Check that gum is available
     installer.succeed("which gum")
 
-    # Check that the install alias works
-    installer.succeed("which install")
-
     # Check that disko is available in the installer script
     installer.succeed("grep -q 'disko-install' $(which install-nixos)")
 
