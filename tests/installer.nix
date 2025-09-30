@@ -15,14 +15,11 @@ pkgs.nixosTest {
       ];
 
       virtualisation = {
-        memorySize = 2048;
+        memorySize = 4096;
         diskSize = 10240;
         # Add an additional disk for installation target
-        emptyDiskImages = [ 5120 ];
+        emptyDiskImages = [ 8192 ];
       };
-
-      # Add expect for automated interaction
-      environment.systemPackages = [ pkgs.expect ];
     };
   };
 
@@ -32,68 +29,50 @@ pkgs.nixosTest {
     # Wait for the system to boot
     installer.wait_for_unit("multi-user.target")
 
-    # Basic checks for required components
+    # Verify all required components are present
     installer.succeed("which install-nixos")
-    installer.succeed("test -x $(which install-nixos)")
-
-    # Check what's actually in /etc/nixos-config
-    installer.succeed("ls -la /etc/ | grep -i nix || echo 'No nix directories in /etc'")
-
     installer.succeed("which gum")
     installer.succeed("which disko-install")
-    installer.succeed("which expect")
+
+    # Verify the flake configuration is available
+    installer.succeed("test -d /etc/nixos-config")
+    installer.succeed("test -f /etc/nixos-config/flake.nix")
+
+    # Verify host configurations are available
+    installer.succeed("test -f /etc/nixos-config/hosts/x86_64-linux/sparrowhawk/default.nix")
+    installer.succeed("test -f /etc/nixos-config/hosts/x86_64-linux/logos/default.nix")
 
     # Verify empty disk is available
     installer.succeed("test -b /dev/vdb")
     installer.succeed("lsblk /dev/vdb")
 
-    # Since /etc/nixos-config might not exist in the test environment,
-    # we need to check what the actual install script expects
-    installer.succeed("grep -o 'CONFIGS=.*' $(which install-nixos) | head -1")
+    # Get the disk ID for vdb (required by the installer)
+    disk_id_result = installer.execute("ls -la /dev/disk/by-id/ | grep -E 'vdb$' | awk '{print $9}' | head -n1")
+    disk_id = disk_id_result[1].strip() if disk_id_result[0] == 0 else ""
 
-    # Test that we can at least run the installer and it shows prompts
-    # We'll use a simpler test that just verifies the script runs and can be cancelled
-    installer.succeed(r"""cat > /tmp/test-installer.exp << 'EOF'
-    #!/usr/bin/expect -f
+    if disk_id:
+        print("Found disk ID: " + disk_id)
+    else:
+        # Create a symlink if by-id doesn't exist (common in VMs)
+        print("No disk by-id found, creating symlink for test")
+        installer.succeed("mkdir -p /dev/disk/by-id")
+        installer.succeed("ln -sf /dev/vdb /dev/disk/by-id/virtio-test-disk-vdb")
+        disk_id = "virtio-test-disk-vdb"
 
-    set timeout 10
+    # Run the installer directly with arguments to skip interactive prompts
+    # This tests the full installation process without needing expect
+    print("Running install-nixos script with direct arguments...")
+    installer.succeed("install-nixos logos vdb")
 
-    # Start the installer
-    spawn install-nixos
+    print("Installation completed successfully!")
 
-    # Wait for any prompt and immediately exit
-    expect {
-        "Select configuration to install:" {
-            # Send Ctrl-C to cancel
-            send "\003"
-            exit 0
-        }
-        timeout {
-            puts "ERROR: No configuration selection prompt found"
-            exit 1
-        }
-    }
-    EOF
-    """)
+    # Verify the installation created partitions
+    installer.succeed("lsblk /dev/vdb | grep -E 'vdb[0-9]'")
 
-    installer.succeed("chmod +x /tmp/test-installer.exp")
+    # Check if filesystems were created
+    installer.succeed("blkid /dev/vdb1 | grep -E '(vfat|FAT)'")  # ESP partition
+    installer.succeed("blkid /dev/vdb2 || blkid /dev/vdb3")  # Root partition (could be vdb2 or vdb3 depending on swap)
 
-    # Run the expect script to test the installer starts correctly
-    print("Testing installer script startup...")
-    result = installer.execute("/tmp/test-installer.exp")
-
-    if result[0] != 0:
-        # The script might fail because it can't find configs, that's ok for this test
-        print(f"Installer test output: {result[1]}")
-        # Check if it's failing for expected reasons
-        if "No configuration selected" in result[1] or "CONFIGS" in result[1]:
-            print("Installer failed as expected due to test environment limitations")
-        else:
-            raise Exception(f"Installer test failed unexpectedly: {result[1]}")
-
-    # Verify the disko-install command exists in the script
-    installer.succeed("grep -q 'disko-install' $(which install-nixos)")
-
-    print("Installer ISO test completed successfully")
+    print("Installer test completed successfully - install-nixos ran to completion!")
   '';
 }
