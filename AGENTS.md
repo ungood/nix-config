@@ -39,3 +39,5 @@ In addition to this file, agents should reference the existing documentation, in
 - Validate with full test suite (`just test`) before committing
 - Run configuration checks (`just check`) and builds (`just build`)
 - Never try to override or remove failing tests. Always try to fix the test, and if you cannot, report why.
+- Avoid making module argument optional due to missing parameters. Instead add the parameter.
+- Do NOT attempt to fix tests by simplifying them or working around the issue. Always attempt to fix the issue.

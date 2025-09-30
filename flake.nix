@@ -52,7 +52,7 @@
     inputs@{ self, nixpkgs, ... }:
     let
       customLib = import ./lib {
-        inherit inputs;
+        inherit inputs self;
         inherit (nixpkgs) lib;
       };
       lib = nixpkgs.lib // customLib;

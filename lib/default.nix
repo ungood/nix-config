@@ -1,4 +1,8 @@
-{ lib, inputs }:
+{
+  inputs,
+  self,
+  lib,
+}:
 let
   # Auto-discover and import all files in a directory with nested structure support
   importDir =
@@ -43,7 +47,7 @@ let
           host: _:
           lib.nixosSystem {
             system = arch;
-            specialArgs = { inherit inputs lib; };
+            specialArgs = { inherit inputs self lib; };
             modules = [ (archDir + "/${host}") ];
           }
         ) (lib.filterAttrs (_: type: type == "directory") hosts)
