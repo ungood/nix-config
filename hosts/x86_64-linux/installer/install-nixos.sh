@@ -23,7 +23,7 @@ if [[ ${1:-} ]]; then
     fi
 else
     # Interactive selection
-    CONFIG=$(gum filter --header "Select configuration to install:" "${CONFIGS[@]}")
+    CONFIG=$(gum choose --header "Select configuration to install:" "${CONFIGS[@]}")
 
     if [[ -z "$CONFIG" ]]; then
         echo "No configuration selected. Exiting."
@@ -50,15 +50,10 @@ else
     echo
 
     # Get list of available disks with full paths
-    AVAILABLE_DISKS=$(lsblk -d -n -o PATH)
-
-    if [[ ${#AVAILABLE_DISKS[@]} -eq 0 ]]; then
-        gum log -l error "No suitable disks found!"
-        exit 1
-    fi
+    AVAILABLE_DISKS=$(lsblk -dno PATH)
 
     # Select disk from list
-    DISK=$(gum filter --header "Select disk to install to:" "${AVAILABLE_DISKS[@]}")
+    DISK=$(gum choose --header "Select disk to install to:" ${AVAILABLE_DISKS})
 
     if [[ ! -b "$DISK" ]]; then
         gum log -l error "$DISK does not exist!"
@@ -70,7 +65,7 @@ fi
 # Final confirmation (skip if both arguments were provided)
 if [[ ! ${1:-} || ! ${2:-} ]]; then
     gum log -l info "Installing $CONFIG on $DISK"
-    gum log -l warning "All data on $DISK will be DESTROYED!"
+    gum log -l warn "All data on $DISK will be DESTROYED!"
 
     if ! gum confirm "Proceed with installation?"; then
         echo "Installation cancelled."

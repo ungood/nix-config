@@ -74,7 +74,6 @@ just test
 # 5. Refactor code while keeping tests passing (Refactor phase)
 # 6. Run full validation
 just test    # Run comprehensive test suite
-just check   # Check flake validity
 just build   # Build configuration
 ```
 

@@ -1,4 +1,7 @@
 # Test for the NixOS installer ISO
+# This test does not work yet because the installer expects an internet
+# connection and I gave up on figuring out how to package ALL dependencies
+# correctly.
 {
   inputs,
   pkgs,
@@ -21,8 +24,8 @@ pkgs.testers.runNixOSTest {
       imports = self.nixosConfigurations.installer._module.args.modules;
 
       virtualisation = {
-        memorySize = 4096;
-        diskSize = 4096;
+        memorySize = 8192;
+        diskSize = 8192;
         # Add an additional disk for installation target
         emptyDiskImages = [ 4096 ];
         cores = 4;

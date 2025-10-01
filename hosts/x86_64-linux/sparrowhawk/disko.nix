@@ -5,7 +5,7 @@
     disk = {
       main = {
         type = "disk";
-        device = "/dev/disk/by-id/to-be-replaced";
+        device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
@@ -22,14 +22,16 @@
                 ];
               };
             };
-            swap = {
-              size = "32G";
-              content = {
-                type = "swap";
-                randomEncryption = true;
-                resumeDevice = true;
-              };
-            };
+            # TODO: I didn't partition this host with a swap partition, so this is
+            # commented out for now.
+            # swap = {
+            #   size = "32G";
+            #   content = {
+            #     type = "swap";
+            #     randomEncryption = true;
+            #     resumeDevice = true;
+            #   };
+            # };
             root = {
               size = "100%";
               content = {

@@ -75,4 +75,4 @@ build-installer: git-add
 [group('installer')]
 burn-installer DEVICE:
     @echo "WARNING This will overwrite all data on {{DEVICE}}"
-    sudo dd if=result/iso/nixos-installer.iso of={{DEVICE}} bs=4M status=progress oflag=sync;
+    gum confirm "Proceed?" && sudo dd if=result/iso/nixos-installer.iso of={{DEVICE}} bs=4M status=progress oflag=sync;

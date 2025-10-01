@@ -84,7 +84,7 @@ Manually trigger implementation phase for a designed issue using Test-Driven Dev
 - **Creates failing tests first** that define the expected behavior
 - Implements feature following repository conventions
 - Validates that tests now pass with the implementation
-- Runs full validation (`just test`, `just check`, `just build`)
+- Runs full validation (`just test`, `just build`)
 - Creates pull request with comprehensive description
 
 ### `/review-pr [pr-number]`
@@ -187,7 +187,7 @@ The implementation phase now follows Test-Driven Development (TDD) principles:
 3. **Refactor Phase**: Improve code quality while keeping tests passing
    - Clean up implementation following best practices
    - Optimize configuration and remove duplication
-   - Ensure all validation checks pass (`just test`, `just check`, `just build`)
+   - Ensure all validation checks pass (`just test`, `just build`)
 
 ### Testing Strategy
 - **Host-Centric Tests**: Add tests to relevant module test scripts that will be run by host tests
@@ -218,7 +218,7 @@ The implementation phase now follows Test-Driven Development (TDD) principles:
 - **Start with failing tests** that define expected behavior
 - Follow TDD Red-Green-Refactor cycle
 - All implementations are validated with full test suite (`just test`)
-- Run configuration checks (`just check`) and builds (`just build`)
+- Run configuration checks (`just test`) and builds (`just build`)
 - Follow existing NixOS module conventions
 - Include appropriate documentation updates
 
@@ -261,7 +261,7 @@ The implementation phase now follows Test-Driven Development (TDD) principles:
 - Check individual tool permissions for agents
 
 **Build failures:**
-- Run `just check` manually to validate configuration
+- Run `just test` manually to validate configuration
 - Check NixOS module syntax and imports
 - Verify flake structure is maintained
 

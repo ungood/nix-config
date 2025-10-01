@@ -29,6 +29,12 @@ This repository was developed as a way to:
 - [AGENTS.md](AGENTS.md) - Information for AI coding agents
 - [WORKFLOW.md](WORKFLOW.md) - Automated development workflow documentation
 
+### Installing
+
+To install a configuration on a new host, an install ISO can be built using `just build-installer` and
+burned to a USB drive with `just burn-installer DEVICE`.  Boot the new machine using this drive then
+run `sudo install-nixos`. Easy peasy.
+
 ## Inspiration
 
 * https://github.com/ryan4yin/nix-config

@@ -5,7 +5,7 @@
     disk = {
       main = {
         type = "disk";
-        device = "/dev/disk/by-id/to-be-replaced";
+        device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
@@ -23,10 +23,9 @@
               };
             };
             swap = {
-              size = "32G";
+              size = "16G";
               content = {
                 type = "swap";
-                randomEncryption = true;
                 resumeDevice = true;
               };
             };

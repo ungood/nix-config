@@ -30,7 +30,7 @@ Specialized subagent for comprehensive code review and testing of pull requests.
 7. **Feedback**: Post detailed review comments on PR
 
 ## Testing Protocol
-- Execute `just check` for flake validation
+- Execute `just test` for flake validation
 - Run `just build` for full configuration build
 - Test `just switch` in dry-run mode
 - Validate multi-host compatibility

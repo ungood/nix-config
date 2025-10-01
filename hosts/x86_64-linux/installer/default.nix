@@ -18,7 +18,6 @@ let
     # https://github.com/NixOS/nixpkgs/blob/f2fd33a198a58c4f3d53213f01432e4d88474956/nixos/modules/system/activation/top-level.nix#L342
     self.nixosConfigurations.logos.pkgs.perlPackages.ConfigIniFiles
     self.nixosConfigurations.logos.pkgs.perlPackages.FileSlurp
-
   ]
   ++ builtins.map (i: i.outPath) (builtins.attrValues self.inputs);
 
@@ -34,7 +33,7 @@ in
     etc."install-closure".source = "${closureInfo}/store-paths";
 
     # Symlink to this flake so it's easy to reference from install-nixos.sh
-    etc.environment.etc."nixos-configs".source = "${self}";
+    etc."nixos-configs".source = "${self}";
 
     # Available host configurations (update when adding new hosts)
     systemPackages = with pkgs; [
@@ -43,6 +42,22 @@ in
       disko
     ];
   };
+
+  # do not try to fetch stuff from the internet
+  nix.settings = {
+    # substituters = lib.mkForce [ ];
+    # hashed-mirrors = null;
+    # connect-timeout = 3;
+    # flake-registry = pkgs.writeText "flake-registry" ''{"flakes":[],"version":2}'';
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
+
+  # reduce closure size
+  documentation.doc.enable = false;
+  documentation.man.enable = false;
 
   services.getty.helpLine = "To install NixOS: sudo install-nixos";
 

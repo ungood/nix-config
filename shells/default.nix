@@ -1,9 +1,11 @@
 { pkgs, ... }:
 pkgs.mkShell {
   buildInputs = with pkgs; [
-    nixfmt-rfc-style
-    statix
     deadnix
+    gum
+    just
+    nixfmt-rfc-style
     pre-commit
+    statix
   ];
 }
