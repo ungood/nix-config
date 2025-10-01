@@ -18,6 +18,11 @@ build: git-add
 format:
     pre-commit run -a
 
+# Build a VM for the specified host
+[group('build')]
+build-vm HOST: git-add
+    @echo "Building VM for host: {{HOST}}"
+    nix build .#nixosConfigurations.{{HOST}}.config.system.build.vm
 ## Test Commands
 
 # Check flake for issues
@@ -25,10 +30,11 @@ format:
 test: git-add
     nix flake check
 
-# Run a single test
+# Run specific host test (tests all modules for that host)
 [group('test')]
-test-one TEST: git-add
-    nix build .#checks.x86_64-linux.{{TEST}} -L
+test-host HOST: git-add
+    @echo "Testing host: {{HOST}}"
+    nix build .#checks.x86_64-linux.{{HOST}} -L
 
 # Run tests in interactive mode for debugging
 [group('test')]
@@ -36,6 +42,12 @@ test-interactive HOST: git-add
     @echo "Starting interactive test for host: {{HOST}}"
     nix build .#checks.x86_64-linux.{{HOST}}.driverInteractive
     ./result/bin/nixos-test-driver
+
+# Build and run a VM for the specified host
+[group('test')]
+run HOST: (build-vm HOST)
+    @echo "Running VM for host: {{HOST}}"
+    ./result/bin/run-{{HOST}}-vm
 
 ## Ops Commands
 

@@ -25,7 +25,13 @@
     networkmanager.enable = true;
   };
 
-  # OneTrue authentication system
+  virtualisation.vmVariant = {
+    virtualisation = {
+      memorySize = 4096;
+      cores = 2;
+    };
+  };
+
   onetrue.auth.authorizedUsers = [ "ungood" ];
 
   system.stateVersion = "25.05";

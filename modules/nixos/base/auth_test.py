@@ -33,13 +33,16 @@ print("✅ Test user can authenticate with password from secrets flake")
 
 # Test fingerprint authentication if available
 print("🔍 Testing fingerprint authentication support...")
-# Check if fprintd is available and configured
 try:
-    machine.succeed("systemctl is-enabled fprintd || echo 'fprintd not enabled'")
-    machine.succeed("test -f /etc/pam.d/login && grep -q 'pam_fprintd.so' /etc/pam.d/login || echo 'fingerprint auth not in login'")
-    print("✅ Fingerprint authentication is configured")
+    machine.succeed("systemctl is-enabled fprintd")
+    print("✅ fprintd service is enabled")
 except:
-    print("ℹ️  Fingerprint authentication not available on this system")
+    print("ℹ️  fprintd service may not be enabled")
+try:
+    machine.succeed("test -f /etc/pam.d/login && grep -q 'pam_fprintd.so' /etc/pam.d/login")
+    print("✅ fprintd PAM configuration found")
+except:
+    print("ℹ️  fprintd PAM configuration may not be active")
 
 # Test sudo authorization with SSH keys
 print("🔍 Testing SSH key-based sudo authorization...")

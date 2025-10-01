@@ -7,51 +7,30 @@
 let
   # Auto-discover users from users directory
   usersDir = ../../../users;
-  userFiles = builtins.readDir usersDir;
-  nixFiles = lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name) userFiles;
+  userEntries = builtins.readDir usersDir;
+  userDirs = lib.filterAttrs (_name: type: type == "directory") userEntries;
 
-  # Import user configurations
-  userConfigs = lib.mapAttrs' (
-    filename: _:
-    let
-      username = lib.removeSuffix ".nix" filename;
-      userConfig = import (usersDir + "/${filename}") { inherit pkgs lib; };
-    in
-    {
-      name = username;
-      value = userConfig;
-    }
-  ) nixFiles;
-
-  # Extract system user configurations and add username/group automatically
+  # Import nixos.nix files directly and add username/group automatically
   systemUsers = lib.mapAttrs (
-    username: config:
+    username: _:
     let
-      baseConfig = config.nixos // {
-        group = username; # Set group to username automatically
-      };
+      nixosConfig = import (usersDir + "/${username}/nixos.nix") { inherit pkgs; };
 
-      # Use password from secrets flake (required for all users)
-      finalConfig = baseConfig // {
+      finalConfig = nixosConfig // {
+        group = username; # Set group to username automatically
         hashedPassword = inputs.secrets.passwords.${username};
       };
     in
     finalConfig
-  ) userConfigs;
+  ) userDirs;
 
   # Generate user groups
   userGroups = lib.mapAttrs (_username: _: { }) systemUsers;
 in
 {
-  # User configuration
   users = {
-    # Enable immutable user management
     mutableUsers = false;
-
-    # Auto-generated user groups
     groups = userGroups;
-
-    # Auto-generated user configurations
     users = systemUsers;
   };
 }

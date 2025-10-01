@@ -7,23 +7,13 @@
 let
   # Auto-discover users from users directory
   usersDir = ../../../users;
-  userFiles = builtins.readDir usersDir;
-  nixFiles = lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name) userFiles;
+  userEntries = builtins.readDir usersDir;
+  userDirs = lib.filterAttrs (_name: type: type == "directory") userEntries;
 
-  # Import user configurations and extract home config
-  homeConfigs = lib.mapAttrs' (
-    filename: _:
-    let
-      username = lib.removeSuffix ".nix" filename;
-      userConfig = import (usersDir + "/${filename}") { inherit pkgs lib; };
-    in
-    {
-      name = username;
-      value = {
-        inherit (userConfig) home;
-      };
-    }
-  ) nixFiles;
+  # Import home.nix files directly for home-manager
+  homeConfigs = lib.mapAttrs (
+    username: _: import (usersDir + "/${username}/home.nix") { inherit pkgs lib inputs; }
+  ) userDirs;
 in
 {
   imports = [
@@ -40,7 +30,7 @@ in
 
     sharedModules = [
       inputs.plasma-manager.homeModules.plasma-manager
-      inputs.self.homeModules.common
+      inputs.self.homeModules.base
     ];
 
     # Auto-discovered user configurations
