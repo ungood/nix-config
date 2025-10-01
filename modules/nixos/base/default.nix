@@ -5,6 +5,7 @@
     ./nix.nix
     ./fonts.nix
     ./home-manager.nix
+    ./ssh.nix
     ./stylix.nix
     ./users.nix
   ];
