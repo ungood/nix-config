@@ -7,7 +7,6 @@
   imports = [
     ./_1password.nix
     ./firefox.nix
-    ./fish.nix
     ./plasma.nix
     ./ssh.nix
     ./stylix.nix

@@ -3,8 +3,9 @@
   imports = [ inputs.stylix.nixosModules.stylix ];
   stylix = {
     enable = true;
+    # TODO: Specify a default wallpaper.
     # This scheme is the default for the system, and can be overriden in home manager per user.
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-pale.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
 
     fonts = {
       serif = {

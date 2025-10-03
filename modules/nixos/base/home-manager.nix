@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -11,9 +10,7 @@ let
   userDirs = lib.filterAttrs (_name: type: type == "directory") userEntries;
 
   # Import home.nix files directly for home-manager
-  homeConfigs = lib.mapAttrs (
-    username: _: import (usersDir + "/${username}/home.nix") { inherit pkgs lib inputs; }
-  ) userDirs;
+  homeConfigs = lib.mapAttrs (username: _: import (usersDir + "/${username}/home.nix")) userDirs;
 in
 {
   imports = [
