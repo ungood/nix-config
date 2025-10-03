@@ -18,9 +18,7 @@
     stateVersion = "25.05";
 
     packages = with pkgs; [
-      cowsay
       gum
-      lolcat
       neofetch
       neovim
       wezterm

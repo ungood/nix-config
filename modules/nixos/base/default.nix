@@ -2,9 +2,10 @@
 {
   imports = [
     ./auth.nix
-    ./nix.nix
     ./fonts.nix
     ./home-manager.nix
+    ./nix-index.nix
+    ./nix.nix
     ./ssh.nix
     ./stylix.nix
     ./users.nix
@@ -15,6 +16,7 @@
   environment.systemPackages = with pkgs; [
     curl
     neovim
+    psmisc # killall, pstree, ...
     unzip
     vim
     wget
