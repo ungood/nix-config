@@ -104,26 +104,8 @@
       # Temp files
       "*.swp"
 
-      # Eclipse
-      "eclipse-bin"
-
-      # IntelliJ
-      ".idea"
-      "*.iml"
-
       # MacOS
       ".DS_Store"
-
-      # direnv file usually should not be committed.
-      ".envrc"
-      ".env"
-
-      # Claude
-      "settings.local.json"
-
-      # VS Code
-      ".vscode"
-      ".attach_pid*"
 
       # Yarn
       ".yarnrc.yml"

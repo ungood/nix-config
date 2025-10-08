@@ -27,6 +27,7 @@
     };
   };
 
+  # rtkit (optional, recommended) allows Pipewire to use the realtime scheduler for increased performance.
   security.rtkit.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).

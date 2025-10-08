@@ -21,4 +21,8 @@
       source = ./settings.json;
     };
   };
+
+  programs.git.ignores = [
+    "settings.local.json"
+  ];
 }

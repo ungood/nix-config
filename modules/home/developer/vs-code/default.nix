@@ -16,4 +16,9 @@
       christian-kohler.path-intellisense
     ];
   };
+
+  programs.git.ignores = [
+    ".vscode"
+    ".attach_pid*"
+  ];
 }
