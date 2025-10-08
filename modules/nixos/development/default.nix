@@ -1,6 +1,8 @@
 { ... }:
 {
-  imports = [ ];
+  imports = [
+    ./docker.nix
+  ];
 
   programs.git = {
     enable = true;
