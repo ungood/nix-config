@@ -10,4 +10,8 @@
     username = "trafficcone";
     stateVersion = "25.05";
   };
+
+  onetrue = {
+    avatar.path = ./traffic-cone.png;
+  };
 }

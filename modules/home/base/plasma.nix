@@ -8,6 +8,10 @@ _: {
       lookAndFeel = "org.kde.breezedark.desktop";
     };
 
+    input.keyboard = {
+      numlockOnStartup = "on";
+    };
+
     powerdevil = {
       general = {
         pausePlayersOnSuspend = true;

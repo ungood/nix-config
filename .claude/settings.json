@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/home/ungood/nix-config/.claude/scripts/check-nix-shell.sh"
+            "command": "/home/ungood/Projects/nix-config/.claude/scripts/check-nix-shell.sh"
           }
         ]
       }

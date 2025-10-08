@@ -50,4 +50,8 @@
   programs.starship = {
     enable = true;
   };
+
+  onetrue = {
+    avatar.path = ./metroid.png;
+  };
 }

@@ -6,6 +6,7 @@
   # Import all base modules
   imports = [
     ./_1password.nix
+    ./avatar.nix
     ./firefox.nix
     ./plasma.nix
     ./ssh.nix
