@@ -3,6 +3,8 @@
     enable = true;
     userName = "Jason Walker";
     userEmail = "jason@onetrue.name";
+    # Managed by 1 password
+    signing.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGornGQM0bR7SEJMtTE3Lk6sg06ys2VU9PFVEGtaCLus";
 
     extraConfig = {
       # Do not guess defaults for user.email and user.name
