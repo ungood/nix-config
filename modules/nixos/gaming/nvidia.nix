@@ -16,7 +16,8 @@ _: {
     nvidiaSettings = true;
 
     # Experimental power management through systemd.
-    powerManagement.enable = true;
+    # Disabled to resolve "Pageflip timed out!" freezing issues with nvidia-drm on Wayland
+    powerManagement.enable = false;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).

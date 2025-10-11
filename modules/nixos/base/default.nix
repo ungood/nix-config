@@ -17,6 +17,7 @@
     curl
     neovim
     psmisc # killall, pstree, ...
+    tree
     unzip
     vim
     wget

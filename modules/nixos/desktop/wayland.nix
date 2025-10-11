@@ -1,5 +1,6 @@
 {
   imports = [
+    ./bluetooth.nix
     ./firefox.nix
     ./1password.nix
     ./printing.nix
