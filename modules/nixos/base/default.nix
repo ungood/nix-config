@@ -15,6 +15,7 @@
 
   environment.systemPackages = with pkgs; [
     curl
+    gnupg # For gpg to work in git
     neovim
     psmisc # killall, pstree, ...
     tree
