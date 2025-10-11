@@ -1,6 +1,15 @@
 { lib, config, ... }:
 
 # TODO: Add a way to configure git for work
+let
+  signingKeyConfigured = config.programs.git.signing.key != null;
+  warningMessage = ''
+    ⚠️  WARNING: Git commit signing is enabled but no signing key is configured.
+       Please set your SSH public key for commit signing by adding to your configuration:
+       programs.git.signing.key = "ssh-ed25519 AAAA...";
+       Or add the key from 1Password to your git configuration.
+  '';
+in
 {
   programs.git = {
     enable = true;
@@ -20,13 +29,5 @@
     };
   };
 
-  # Display warning if user hasn't configured their signing key
-  home.activation.warnMissingSigningKey = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if [ -z "$(${config.programs.git.package}/bin/git config --global user.signingkey 2>/dev/null || true)" ]; then
-      echo "⚠️  WARNING: Git commit signing is enabled but no signing key is configured."
-      echo "   Please set your SSH public key for commit signing:"
-      echo "   git config --global user.signingkey 'ssh-ed25519 AAAA...'"
-      echo "   Or add the key from 1Password to your git configuration."
-    fi
-  '';
+  warnings = lib.optional (!signingKeyConfigured) warningMessage;
 }
