@@ -28,7 +28,6 @@
         }
         { type = "disk"; }
         { type = "localip"; }
-        { type = "break"; }
       ];
     };
   };
