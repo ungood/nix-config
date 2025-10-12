@@ -6,7 +6,10 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
+    ./nvidia.nix
     inputs.disko.nixosModules.disko
+    inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
+
     inputs.self.nixosModules.base
     inputs.self.nixosModules.desktop.plasma
     inputs.self.nixosModules.development

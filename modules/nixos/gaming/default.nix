@@ -2,7 +2,7 @@
 {
   imports = [
     ./steam.nix
-    ./nvidia.nix
+    # Temp remove ./nvidia.nix
     ./epic.nix
   ];
 }
