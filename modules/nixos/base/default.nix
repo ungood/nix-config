@@ -9,7 +9,6 @@
     ./ssh.nix
     ./stylix.nix
     ./users.nix
-    ../deployment
   ];
 
   i18n.defaultLocale = "en_US.UTF-8";

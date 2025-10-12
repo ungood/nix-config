@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, self, ... }:
 pkgs.mkShell {
   buildInputs = with pkgs; [
-    colmena
+    self.inputs.colmena.packages.${pkgs.system}.colmena
     deadnix
     gum
     just

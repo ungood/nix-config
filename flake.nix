@@ -18,7 +18,6 @@
 
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-index-database = {
@@ -109,31 +108,35 @@
       # Auto-generate system configurations
       nixosConfigurations = lib.flatten (lib.mkHosts ./hosts);
 
-      # Colmena deployment hive
-      colmena =
-        inputs.colmena.lib.makeHive {
-          meta = {
-            nixpkgs = import nixpkgs {
-              system = "x86_64-linux";
-              config.allowUnfree = true;
-            };
-            nodeSpecialArgs = { inherit inputs lib self; };
+      colmenaHive = inputs.colmena.lib.makeHive {
+        meta = {
+          nixpkgs = import nixpkgs {
+            system = "x86_64-linux";
+            overlays = [ ];
           };
+          specialArgs = { inherit inputs self lib; };
+        };
 
-          defaults =
-            { ... }:
-            {
-              imports = [ self.nixosModules.base ];
-              deployment.allowLocalDeployment = true;
-            };
-        }
-        // (lib.mkColmenaNodes (lib.flatten (lib.mkHosts ./hosts)));
+        defaults = {
+          deployment.allowLocalDeployment = true;
+        };
+
+        sparrowhawk = {
+          imports = [ ./hosts/x86_64-linux/sparrowhawk ];
+        };
+
+        logos = {
+          imports = [ ./hosts/x86_64-linux/logos ];
+        };
+      };
 
       # Export modules for reuse
       inherit nixosModules homeModules;
 
       # Development shell from shells/
-      devShells.${system}.default = import ./shells/default.nix { inherit lib pkgs; };
+      devShells.${system}.default = import ./shells/default.nix {
+        inherit lib pkgs self;
+      };
 
       # NixOS testing infrastructure
       checks.${system} = discoverTests ./tests;

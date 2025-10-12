@@ -6,7 +6,6 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
-    ./deployment.nix
     inputs.disko.nixosModules.disko
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
     inputs.self.nixosModules.base
