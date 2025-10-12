@@ -76,6 +76,28 @@ update:
 gc:
     sudo nix-collect-garbage -d
 
+## Deployment Commands
+
+# Deploy to all hosts using Colmena
+[group('deploy')]
+deploy: git-add
+    colmena apply
+
+# Deploy to a specific host
+[group('deploy')]
+deploy-host HOST: git-add
+    colmena apply --on {{HOST}}
+
+# Test deployment without applying changes
+[group('deploy')]
+deploy-test: git-add
+    colmena build
+
+# Show deployment plan for all hosts
+[group('deploy')]
+deploy-plan: git-add
+    colmena build --show-trace
+
 ## Installer commands
 
 # Build an ISO image of a host.
