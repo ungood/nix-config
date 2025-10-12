@@ -1,7 +1,7 @@
 function fish_greeting
-    if command -q neofetch
-      neofetch
+    if command -q fastfetch
+      fastfetch
     else
-      gum log -l warn "neofetch is not installed"
+      gum log -l warn "fastfetch is not installed"
     end
 end

@@ -20,7 +20,6 @@
 
     packages = with pkgs; [
       gum
-      neofetch
       neovim
       wezterm
       zed-editor
