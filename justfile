@@ -76,6 +76,11 @@ update:
 gc:
     sudo nix-collect-garbage -d
 
+# Verify and repair Nix store integrity
+[group('ops')]
+repair:
+    sudo nix-store --verify --check-contents --repair
+
 ## Deployment Commands
 
 # Deploy to all hosts using Colmena

@@ -6,13 +6,7 @@
 
   environment.systemPackages = [
     # Enables the SDDM configuration panel in KDE Config Manager (kcm).
-    # Workaround for kcmutils fish-completions issue
-    (pkgs.kdePackages.sddm-kcm.overrideAttrs (oldAttrs: {
-      postInstall = (oldAttrs.postInstall or "") + ''
-        # Remove broken fish completions reference if it exists
-        rm -rf $out/share/fish/vendor_completions.d 2>/dev/null || true
-      '';
-    }))
+    pkgs.kdePackages.sddm-kcm
   ];
 
   # Enable the KDE Plasma Desktop Environment.
