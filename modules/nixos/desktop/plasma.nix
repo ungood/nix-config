@@ -4,9 +4,10 @@
     ./wayland.nix
   ];
 
-  environment.systemPackages = [
+  environment.systemPackages = with pkgs.kdePackages; [
     # Enables the SDDM configuration panel in KDE Config Manager (kcm).
-    pkgs.kdePackages.sddm-kcm
+    sddm-kcm
+    plasma-thunderbolt
   ];
 
   # Enable the KDE Plasma Desktop Environment.
