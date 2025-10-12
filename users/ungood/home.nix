@@ -21,6 +21,7 @@
     packages = with pkgs; [
       gum
       neovim
+      todoist
       wezterm
       zed-editor
     ];
