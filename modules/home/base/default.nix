@@ -9,6 +9,7 @@
     ./avatar.nix
     ./fastfetch.nix
     ./firefox.nix
+    ./helix.nix
     ./plasma.nix
     ./ssh.nix
     ./stylix.nix

@@ -29,7 +29,6 @@
     sessionVariables = {
       GREP_OPTIONS = "--color=auto";
       LESS = "-iMFXR";
-      EDITOR = "nvim";
     };
   };
 
