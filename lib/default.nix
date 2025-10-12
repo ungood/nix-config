@@ -90,6 +90,14 @@ let
 
   # Flatten nested attribute sets (for combining system outputs)
   flatten = attrs: lib.fold lib.recursiveUpdate { } (lib.attrValues attrs);
+
+  # Generate Colmena nodes from nixosConfigurations
+  mkColmenaNodes =
+    nixosConfigs:
+    lib.mapAttrs (_name: config: {
+      imports = config._module.args.modules;
+      deployment.allowLocalDeployment = true;
+    }) nixosConfigs;
 in
 {
   inherit
@@ -97,5 +105,6 @@ in
     mkHosts
     mkUsers
     flatten
+    mkColmenaNodes
     ;
 }

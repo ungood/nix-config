@@ -6,6 +6,7 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
+    ./deployment.nix
     inputs.disko.nixosModules.disko
     inputs.self.nixosModules.base
     inputs.self.nixosModules.desktop.plasma

@@ -51,6 +51,11 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -103,6 +108,26 @@
     {
       # Auto-generate system configurations
       nixosConfigurations = lib.flatten (lib.mkHosts ./hosts);
+
+      # Colmena deployment hive
+      colmena =
+        inputs.colmena.lib.makeHive {
+          meta = {
+            nixpkgs = import nixpkgs {
+              system = "x86_64-linux";
+              config.allowUnfree = true;
+            };
+            nodeSpecialArgs = { inherit inputs lib self; };
+          };
+
+          defaults =
+            { ... }:
+            {
+              imports = [ self.nixosModules.base ];
+              deployment.allowLocalDeployment = true;
+            };
+        }
+        // (lib.mkColmenaNodes (lib.flatten (lib.mkHosts ./hosts)));
 
       # Export modules for reuse
       inherit nixosModules homeModules;
