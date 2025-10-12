@@ -7,6 +7,7 @@
   imports = [
     ./_1password.nix
     ./avatar.nix
+    ./editor.nix
     ./fastfetch.nix
     ./firefox.nix
     ./helix.nix
