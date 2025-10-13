@@ -41,6 +41,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     secrets = {
       url = "git+ssh://git@github.com/ungood/secrets";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,16 +65,24 @@
   outputs =
     inputs@{ self, nixpkgs, ... }:
     let
-      customLib = import ./lib {
-        inherit inputs self;
-        inherit (nixpkgs) lib;
-      };
-      lib = nixpkgs.lib // customLib;
       system = "x86_64-linux";
+
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        overlays = [
+          (_final: prev: {
+            vscode-extensions =
+              prev.vscode-extensions // inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
+          })
+        ];
       };
+
+      customLib = import ./lib {
+        inherit inputs self pkgs;
+        inherit (nixpkgs) lib;
+      };
+      lib = nixpkgs.lib // customLib;
 
       # Auto-import modules
       nixosModules = lib.importDir ./modules/nixos;

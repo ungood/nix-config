@@ -6,9 +6,9 @@ in
     enable = true;
 
     vaults = {
-      memory = {
+      memex = {
         enable = true;
-        target = "${vaultDir}/memory";
+        target = "${vaultDir}/memex";
       };
 
     };

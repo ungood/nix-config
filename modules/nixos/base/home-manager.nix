@@ -23,7 +23,9 @@ in
     # Automatically backup files that home manager replaces.
     backupFileExtension = "hm-backup";
 
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = {
+      inherit inputs;
+    };
 
     sharedModules = [
       inputs.plasma-manager.homeModules.plasma-manager
