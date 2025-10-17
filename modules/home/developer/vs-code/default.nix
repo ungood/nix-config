@@ -1,35 +1,12 @@
 { pkgs, ... }:
 {
-  imports = [
-    ./nix.nix
-  ];
-
-  # https://nixos.wiki/wiki/VSCodium
+  # Install VS Code without managing configuration
+  # Configuration is managed via VS Code Settings Sync
+  # Previous VSCodium configuration available in codium.nix (not imported)
   programs = {
     vscode = {
       enable = true;
-      # Use the VS Codium package to avoid MS telemtry
-      # However, I kind of like having settings sync, so maybe change this...
-      package = pkgs.vscodium.fhs;
-
-      profiles.default = {
-        extensions = with pkgs.vscode-extensions; [
-          # Path Intellisense - Soft dependency of Nix IDE.
-          christian-kohler.path-intellisense
-        ];
-
-        userSettings = {
-          "files.autoSave" = "onFocusChange";
-          "editor.mouseWheelZoom" = true;
-          "editor.formatOnPaste" = true;
-          "editor.formatOnSave" = true;
-          "window.zoomLevel" = 0;
-        };
-      };
-    };
-
-    fish.shellAbbrs = {
-      code = "codium";
+      package = pkgs.vscode.fhs;
     };
 
     git.ignores = [
