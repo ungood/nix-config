@@ -2,6 +2,7 @@
 {
   imports = [
     ./wayland.nix
+    ./flatpak.nix
   ];
 
   environment.systemPackages = with pkgs.kdePackages; [
