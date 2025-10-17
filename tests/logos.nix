@@ -14,6 +14,7 @@ let
     (builtins.readFile ../modules/nixos/base/auth_test.py)
     (builtins.readFile ../modules/nixos/desktop/plasma_test.py)
     (builtins.readFile ../modules/nixos/desktop/printing_test.py)
+    (builtins.readFile ../modules/nixos/desktop/flatpak_test.py)
     (builtins.readFile ../modules/nixos/development/default_test.py)
     (builtins.readFile ../modules/home/developer/direnv_test.py)
     (builtins.readFile ../modules/home/base/_1password_test.py)
