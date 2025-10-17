@@ -22,7 +22,4 @@
 
     desktopManager.plasma6.enable = true;
   };
-
-  # Enable Flatpak with GUI package manager (Discover)
-  onetrue.desktop.flatpak.enable = true;
 }
