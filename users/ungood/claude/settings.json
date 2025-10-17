@@ -10,5 +10,15 @@
       "WebFetch",
       "WebSearch"
     ]
+  },
+  "extraKnownMarketplaces": {
+    "claude-code-plugins": {
+      "source": "github",
+      "repo": "anthropics/claude-code"
+    }
+  },
+  "enabledPlugins": {
+    "commit-commands@claude-code-plugins": true,
+    "feature-dev@claude-code-plugins": true
   }
 }

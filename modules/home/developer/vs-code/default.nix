@@ -2,7 +2,6 @@
 {
   imports = [
     ./nix.nix
-    ./platformio.nix
   ];
 
   # https://nixos.wiki/wiki/VSCodium

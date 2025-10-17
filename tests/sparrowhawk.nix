@@ -40,17 +40,11 @@ pkgs.testers.runNixOSTest {
   name = "sparrowhawk";
 
   hostPkgs = lib.mkForce pkgs;
-  node = {
-    pkgs = lib.mkForce pkgs;
-    specialArgs = lib.mkForce {
-      inherit inputs self pkgs;
-    };
+  node.specialArgs = lib.mkForce {
+    inherit inputs self pkgs;
   };
   nodes.machine = {
     imports = self.nixosConfigurations.sparrowhawk._module.args.modules;
-    #self.nixosModules;
-    #../hosts/x86_64-linux/sparrowhawk/default.nix
-    #];
 
     # VM configuration for testing
     virtualisation = {

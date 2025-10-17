@@ -39,11 +39,8 @@ pkgs.testers.runNixOSTest {
   name = "logos";
 
   hostPkgs = lib.mkForce pkgs;
-  node = {
-    pkgs = lib.mkForce pkgs;
-    specialArgs = lib.mkForce {
-      inherit inputs self pkgs;
-    };
+  node.specialArgs = lib.mkForce {
+    inherit inputs self pkgs;
   };
   nodes.machine = {
     imports = self.nixosConfigurations.logos._module.args.modules;

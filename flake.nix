@@ -79,7 +79,7 @@
       };
 
       customLib = import ./lib {
-        inherit inputs self pkgs;
+        inherit inputs self;
         inherit (nixpkgs) lib;
       };
       lib = nixpkgs.lib // customLib;
