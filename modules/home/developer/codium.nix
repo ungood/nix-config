@@ -1,21 +1,23 @@
 { pkgs, ... }:
 {
   imports = [
-    ./nix.nix
+    ./language-servers.nix
   ];
 
   # https://nixos.wiki/wiki/VSCodium
   programs = {
     vscode = {
       enable = true;
-      # Use the VS Codium package to avoid MS telemtry
-      # However, I kind of like having settings sync, so maybe change this...
+      # Using VS Codium
       package = pkgs.vscodium.fhs;
 
       profiles.default = {
         extensions = with pkgs.vscode-extensions; [
           # Path Intellisense - Soft dependency of Nix IDE.
           christian-kohler.path-intellisense
+
+          # Nix IDE
+          jnoortheen.nix-ide
         ];
 
         userSettings = {
@@ -24,6 +26,9 @@
           "editor.formatOnPaste" = true;
           "editor.formatOnSave" = true;
           "window.zoomLevel" = 0;
+
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "nixd"; # Package nixd should be installed.
         };
       };
     };

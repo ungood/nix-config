@@ -1,10 +1,12 @@
 { pkgs, ... }:
 {
   imports = [
+    ./codium.nix
     ./direnv.nix
     ./gh.nix
     ./git.nix
-    ./vs-code/default.nix
+    ./language-servers.nix
+    ./zed.nix
   ];
 
   home.packages = with pkgs; [

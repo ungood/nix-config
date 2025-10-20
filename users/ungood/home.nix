@@ -23,7 +23,6 @@
       neovim
       todoist
       wezterm
-      zed-editor
     ];
 
     # Session environment variables
