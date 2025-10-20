@@ -4,18 +4,19 @@
   pkgs,
   ...
 }:
-
 with lib;
-
 let
   cfg = config.onetrue.auth;
-
-  # Reference to the private secrets flake
-
-  # Helper function to get password from secrets flake
-
 in
 {
+  # Authentication Strategy
+  # ======================
+  # Initial Login (TTY, SDDM): Require password authentication only
+  # Lock Screen Unlock (KDE): Allow biometric authentication (fingerprint) or password
+  # Privileged Operations (sudo):
+  #   - Require second factor authentication via SSH agent (hardware key, etc.)
+  #   - Fallback to root password if SSH agent unavailable
+
   options.onetrue.auth = {
     fingerprintAuth = {
       package = mkPackageOption pkgs "fprintd" { };
@@ -32,10 +33,14 @@ in
   config = {
     # Configure PAM for authentication
     security.pam.services = {
-      login = {
-        fprintAuth = true;
-      };
+      # Initial login services - password only
+      login.fprintAuth = false;
+      sddm.fprintAuth = false;
 
+      # Lock screen - allow biometric authentication
+      kde.fprintAuth = true;
+
+      # Privileged operations - require second factor
       sudo = {
         # SSH key-based authentication
         sshAgentAuth = true;
