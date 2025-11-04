@@ -19,6 +19,8 @@
     efi.canTouchEfiVariables = true;
   };
 
+  boot.kernelParams = [ "pcie_aspm=off" ];
+
   time.timeZone = "America/Los_Angeles";
 
   networking = {
