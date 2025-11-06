@@ -15,17 +15,21 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  environment.systemPackages = with pkgs; [
-    curl
-    gnupg # For gpg to work in git
-    neovim
-    psmisc # killall, pstree, ...
-    tree
-    unzip
-    vim
-    wget
-    wl-clipboard-rs
-  ];
+  environment = {
+    localBinInPath = true;
+
+    systemPackages = with pkgs; [
+      curl
+      gnupg # For gpg to work in git
+      neovim
+      psmisc # killall, pstree, ...
+      tree
+      unzip
+      vim
+      wget
+      wl-clipboard-rs
+    ];
+  };
 
   programs.fish.enable = true;
 }

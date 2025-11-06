@@ -6,6 +6,7 @@
     ./gh.nix
     ./git.nix
     ./language-servers.nix
+    ./python.nix
     ./zed.nix
   ];
 

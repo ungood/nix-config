@@ -22,6 +22,8 @@
 
     kernelParams = [
       "pcie_aspm=off"
+      "amdgpu.gpu_recovery=1"
+      "pm_debug_messages"
     ];
 
     initrd.systemd.enable = true;
