@@ -13,9 +13,6 @@
 
     # Electron applications (like VS Code) - use Wayland for proper per-monitor scaling
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
-
-    # Ensure Qt uses Wayland
-    QT_QPA_PLATFORM = "wayland";
   };
 
   services = {

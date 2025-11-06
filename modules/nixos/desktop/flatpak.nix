@@ -9,19 +9,9 @@
   # Enable Flatpak
   services.flatpak.enable = true;
 
-  # Configure Flathub repository
-  # This is done via systemd service to ensure it runs after Flatpak is initialized
-  systemd.services.flatpak-repo-setup = {
-    description = "Configure Flathub repository for Flatpak";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.flatpak}/bin/flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo";
-      RemainAfterExit = true;
-    };
-  };
+  system.activationScripts.flatpak-flathub = lib.stringAfter [ "etc" ] ''
+    ${pkgs.flatpak}/bin/flatpak remote-add --system --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  '';
 
   # Install KDE Discover for Flatpak management
   environment.systemPackages = with pkgs.kdePackages; [
