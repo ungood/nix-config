@@ -14,12 +14,18 @@
     inputs.self.nixosModules.development
   ];
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-  };
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
 
-  boot.kernelParams = [ "pcie_aspm=off" ];
+    kernelParams = [
+      "pcie_aspm=off"
+    ];
+
+    initrd.systemd.enable = true;
+  };
 
   time.timeZone = "America/Los_Angeles";
 
