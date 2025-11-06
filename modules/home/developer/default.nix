@@ -10,7 +10,9 @@
   ];
 
   home.packages = with pkgs; [
+    devenv
     jq
     just
+    ripgrep
   ];
 }
