@@ -44,7 +44,7 @@ _: {
 
       battery = {
         powerProfile = "balanced";
-        whenSleepingEnter = "hybridSleep";
+        whenSleepingEnter = "standbyThenHibernate";
         displayBrightness = 50;
 
         powerButtonAction = "sleep";
