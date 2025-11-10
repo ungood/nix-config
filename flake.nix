@@ -67,10 +67,16 @@
     let
       system = "x86_64-linux";
 
+      # Custom packages overlay
+      customPackagesOverlay = final: _prev: {
+        obsidian-cli = final.callPackage ./pkgs/obsidian-cli.nix { };
+      };
+
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
         overlays = [
+          customPackagesOverlay
           (_final: prev: {
             vscode-extensions =
               prev.vscode-extensions // inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
@@ -145,6 +151,11 @@
 
       # Export modules for reuse
       inherit nixosModules homeModules;
+
+      # Custom packages
+      packages.${system} = {
+        inherit (pkgs) obsidian-cli;
+      };
 
       # Development shell from shells/
       devShells.${system}.default = import ./shells/default.nix {

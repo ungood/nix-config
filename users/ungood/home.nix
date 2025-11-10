@@ -10,7 +10,6 @@
     inputs.self.homeModules.developer
     ./claude
     ./git.nix
-    ./obsidian.nix
   ];
 
   # Home-manager configuration
@@ -20,7 +19,10 @@
 
     packages = with pkgs; [
       gum
-      neovim
+      # Obsidian with HM is a PITA to use with community packages right now so I currently just install the package
+      # See: https://github.com/nix-community/home-manager/pull/6487#issuecomment-2667166722
+      obsidian
+      obsidian-cli
       todoist
       wezterm
     ];
@@ -49,13 +51,8 @@
       ];
     };
 
-    starship = {
-      enable = true;
-    };
-
-    spotify-player = {
-      enable = true;
-    };
+    spotify-player.enable = true;
+    starship.enable = true;
   };
 
   onetrue = {
