@@ -10,4 +10,6 @@
     ".vscode"
     ".attach_pid*"
   ];
+
+  stylix.targets.vscode.enable = true;
 }
