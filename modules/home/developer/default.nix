@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./codium.nix
+    ./vscode.nix
     ./direnv.nix
     ./gh.nix
     ./git.nix
