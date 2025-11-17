@@ -8,6 +8,7 @@
   # Import developer modules
   imports = [
     inputs.self.homeModules.developer
+    ./bat.nix
     ./claude.nix
     ./git.nix
   ];
@@ -28,7 +29,6 @@
       wezterm
     ];
 
-    # Session environment variables
     sessionVariables = {
       GREP_OPTIONS = "--color=auto";
       LESS = "-iMFXR";
