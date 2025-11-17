@@ -1,14 +1,17 @@
 {
   programs.git = {
     enable = true;
-    userName = "Jason Walker";
-    userEmail = "jason@onetrue.name";
+
     # Managed by 1 password
     signing.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGornGQM0bR7SEJMtTE3Lk6sg06ys2VU9PFVEGtaCLus";
 
-    extraConfig = {
+    settings = {
       # Do not guess defaults for user.email and user.name
-      user.useConfigOnly = true;
+      user = {
+        useConfigOnly = true;
+        name = "Jason Walker";
+        email = "jason@onetrue.name";
+      };
 
       core = {
         editor = "vim";
@@ -89,16 +92,15 @@
         autoStash = true;
         updateRefs = true;
       };
-    };
 
-    # Aliases
-    aliases = {
-      st = "status";
-      co = "checkout";
-      ci = "commit";
-      br = "branch";
-      refgraph = "log --graph --all --simplify-by-decoration";
-      dag = "log --graph --all";
+      aliases = {
+        st = "status";
+        co = "checkout";
+        ci = "commit";
+        br = "branch";
+        refgraph = "log --graph --all --simplify-by-decoration";
+        dag = "log --graph --all";
+      };
     };
 
     # Global gitignore - todo, would be nice to symlink this.
@@ -108,9 +110,6 @@
 
       # MacOS
       ".DS_Store"
-
-      # Yarn
-      ".yarnrc.yml"
     ];
 
     # Conditional includes for different directories

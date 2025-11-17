@@ -14,7 +14,7 @@ in
   programs.git = {
     enable = true;
 
-    extraConfig = {
+    settings = {
       # Enable SSH-based commit signing using 1Password
       # https://developer.1password.com/docs/ssh/git-commit-signing
       gpg = {

@@ -8,7 +8,7 @@
   # Import developer modules
   imports = [
     inputs.self.homeModules.developer
-    ./claude
+    ./claude.nix
     ./git.nix
   ];
 
