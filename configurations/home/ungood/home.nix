@@ -19,6 +19,8 @@
     stateVersion = "25.05";
 
     packages = with pkgs; [
+      beeper
+      element-desktop
       ghostty
       gum
       # Obsidian with HM is a PITA to use with community packages right now so I currently just install the package
