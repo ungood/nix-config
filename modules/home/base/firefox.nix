@@ -29,10 +29,15 @@
       # TODO: Figure out how to make this work
       #extensions.packages = with inputs.firefox-addons; [
       #  ublock-origin
+      #  new-tab-override
       #];
 
       settings = {
         "browser.aboutConfig.showWarning" = false;
+
+        # Set homepage and new tab page to Kagi
+        "browser.startup.homepage" = "https://kagi.com";
+        "browser.newtabpage.enabled" = false;
 
         # Firefox 75+ remembers the last workspace it was opened on as part of its session management.
         # This is annoying, because I can have a blank workspace, click Firefox from the launcher, and
