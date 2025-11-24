@@ -1,12 +1,13 @@
 {
+  flake,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 let
-  # Auto-discover users from users directory
-  usersDir = ../../../users;
+  inherit (flake) inputs;
+  # Auto-discover users from configurations/home directory
+  usersDir = ../../../configurations/home;
   userEntries = builtins.readDir usersDir;
   userDirs = lib.filterAttrs (_name: type: type == "directory") userEntries;
 

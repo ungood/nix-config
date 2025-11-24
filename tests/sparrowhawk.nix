@@ -2,7 +2,6 @@
   lib,
   pkgs,
   inputs,
-  self,
 }:
 
 # Comprehensive test for sparrowhawk host
@@ -42,10 +41,15 @@ pkgs.testers.runNixOSTest {
 
   hostPkgs = lib.mkForce pkgs;
   node.specialArgs = lib.mkForce {
-    inherit inputs self pkgs;
+    inherit pkgs;
+    flake = {
+      inherit inputs;
+    };
   };
   nodes.machine = {
-    imports = self.nixosConfigurations.sparrowhawk._module.args.modules;
+    imports = [
+      ../configurations/nixos/sparrowhawk
+    ];
 
     # VM configuration for testing
     virtualisation = {

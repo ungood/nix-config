@@ -1,11 +1,10 @@
-{
-  inputs,
-  lib,
-  ...
-}:
+{ flake, lib, ... }:
 let
-  # Auto-discover users from users directory
-  usersDir = ../../../users;
+  inherit (flake) inputs;
+  inherit (inputs) self;
+
+  # Auto-discover users from configurations/home directory
+  usersDir = ../../../configurations/home;
   userEntries = builtins.readDir usersDir;
   userDirs = lib.filterAttrs (_name: type: type == "directory") userEntries;
 
@@ -13,9 +12,7 @@ let
   homeConfigs = lib.mapAttrs (username: _: import (usersDir + "/${username}/home.nix")) userDirs;
 in
 {
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-  ];
+  imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   home-manager = {
     useGlobalPkgs = true;
@@ -29,7 +26,7 @@ in
 
     sharedModules = [
       inputs.plasma-manager.homeModules.plasma-manager
-      inputs.self.homeModules.base
+      self.homeModules.base
     ];
 
     # Auto-discovered user configurations

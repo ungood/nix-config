@@ -22,7 +22,6 @@
               name = testName;
               value = import (dir + "/${testFile}") {
                 inherit inputs pkgs lib;
-                inherit (inputs) self;
               };
             }
           ) testNames

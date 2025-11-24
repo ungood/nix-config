@@ -1,7 +1,8 @@
-{
-  inputs,
-  ...
-}:
+{ flake, ... }:
+let
+  inherit (flake) inputs;
+  inherit (inputs) self;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -9,10 +10,12 @@
     inputs.disko.nixosModules.disko
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
 
-    inputs.self.nixosModules.base
-    inputs.self.nixosModules.desktop.plasma
-    inputs.self.nixosModules.development
+    self.nixosModules.base
+    ../../../modules/nixos/desktop
+    self.nixosModules.development
   ];
+
+  onetrue.desktop.windowManager = "plasma";
 
   boot = {
     loader = {

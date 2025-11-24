@@ -1,7 +1,8 @@
-{
-  inputs,
-  ...
-}:
+{ flake, ... }:
+let
+  inherit (flake) inputs;
+  inherit (inputs) self;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -10,11 +11,13 @@
     inputs.disko.nixosModules.disko
     inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
 
-    inputs.self.nixosModules.base
-    inputs.self.nixosModules.desktop.plasma
-    inputs.self.nixosModules.development
-    inputs.self.nixosModules.gaming
+    self.nixosModules.base
+    ../../../modules/nixos/desktop
+    self.nixosModules.development
+    self.nixosModules.gaming
   ];
+
+  onetrue.desktop.windowManager = "plasma";
 
   boot.loader = {
     systemd-boot.enable = true;

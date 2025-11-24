@@ -28,7 +28,7 @@
       # Development shell
       devShells.default = pkgs.mkShell {
         buildInputs = with pkgs; [
-          # This is used in my justfile. It would be better to make that a standalone package that depends on this.
+          # This is used in my justfile. TODO: It would be better to make that a standalone package that depends on this.
           gum
           just
         ];

@@ -1,12 +1,15 @@
 # Custom NixOS installer ISO using disko-install
 {
+  flake,
   pkgs,
   lib,
   modulesPath,
-  self,
   ...
 }:
 let
+  inherit (flake) inputs;
+  inherit (inputs) self;
+
   # TODO: Package all hosts here.
   dependencies = [
     self.nixosConfigurations.logos.config.system.build.toplevel
@@ -19,7 +22,7 @@ let
     self.nixosConfigurations.logos.pkgs.perlPackages.ConfigIniFiles
     self.nixosConfigurations.logos.pkgs.perlPackages.FileSlurp
   ]
-  ++ builtins.map (i: i.outPath) (builtins.attrValues self.inputs);
+  ++ builtins.map (i: i.outPath) (builtins.attrValues inputs);
 
   closureInfo = pkgs.closureInfo { rootPaths = dependencies; };
 in
@@ -27,6 +30,8 @@ in
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
+
+  nixpkgs.hostPlatform = "x86_64-linux";
 
   environment = {
     # Include closure info for offline installation

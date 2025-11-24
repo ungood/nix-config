@@ -1,4 +1,7 @@
-{ pkgs, inputs, ... }:
+{ flake, pkgs, ... }:
+let
+  inherit (flake) inputs;
+in
 {
   imports = [ inputs.stylix.nixosModules.stylix ];
   stylix = {

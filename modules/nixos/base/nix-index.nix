@@ -1,12 +1,10 @@
-{
-  inputs,
-  ...
-}:
+{ flake, ... }:
+let
+  inherit (flake) inputs;
+in
 {
   # nix-index is usef
-  imports = [
-    inputs.nix-index-database.nixosModules.nix-index
-  ];
+  imports = [ inputs.nix-index-database.nixosModules.nix-index ];
 
   programs.nix-index = {
     enable = true;
