@@ -92,10 +92,9 @@
           updateRefs = true;
         };
 
-        aliases = {
+        alias = {
           st = "status";
           co = "checkout";
-          ci = "commit";
           br = "branch";
           refgraph = "log --graph --all --simplify-by-decoration";
           dag = "log --graph --all";
