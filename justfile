@@ -1,10 +1,10 @@
+# List recipes
+default:
+    @just --list
+
 # Add all changes to git (needed for flake builds)
 git-add:
     git add .
-
-# Enter development shell
-dev:
-    nix develop -c $SHELL
 
 ## Build Commands
 

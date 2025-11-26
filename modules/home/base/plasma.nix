@@ -1,4 +1,8 @@
-_: {
+{ flake, ... }:
+{
+  imports = [
+    flake.inputs.plasma-manager.homeModules.plasma-manager
+  ];
 
   programs.plasma = {
     enable = true;

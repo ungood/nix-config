@@ -28,6 +28,7 @@ This repository was developed as a way to:
 - [CONTRIBUTING.md](CONTRIBUTING.md) - Development workflow and build instructions
 - [AGENTS.md](AGENTS.md) - Information for AI coding agents
 - [WORKFLOW.md](WORKFLOW.md) - Automated development workflow documentation
+- [modules/README.md](modules/README.md) - Module types and argument reference
 
 ### Installing
 
@@ -35,11 +36,19 @@ To install a configuration on a new host, an install ISO can be built using `jus
 burned to a USB drive with `just burn-installer DEVICE`.  Boot the new machine using this drive then
 run `sudo install-nixos`. Easy peasy.
 
+## Architecture
+
+This configuration uses:
+- **[flake-parts](https://flake.parts)** - Modular flake framework for organizing outputs
+- **[nixos-unified](https://github.com/srid/nixos-unified)** - Unified NixOS/Darwin/Home Manager configuration with automatic argument passing
+- **Plasma Desktop** - KDE Plasma 6 as the default desktop environment
+
 ## Inspiration
 
 * https://github.com/ryan4yin/nix-config
 * https://github.com/thursdaddy/nixos-config
-* https://github.com/snowfallorg/lib
+* https://github.com/srid/nixos-flake (nixos-unified)
+* https://flake.parts
 
 ## Tenets
 

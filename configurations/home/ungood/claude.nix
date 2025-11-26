@@ -16,7 +16,7 @@ _: {
       };
 
       enabledPlugins = {
-        "github@ungood" = true;
+        "claude@ungood" = true;
       };
 
       permissions = {

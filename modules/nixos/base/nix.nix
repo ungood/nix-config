@@ -1,5 +1,6 @@
-_: {
-  nixpkgs.config = {
+{ lib, ... }:
+{
+  nixpkgs.config = lib.mkDefault {
     allowUnfree = true;
     permittedInsecurePackages = [ ];
   };
@@ -9,6 +10,7 @@ _: {
       experimental-features = [
         "nix-command"
         "flakes"
+        "repl-flakes"
       ];
 
       trusted-users = [ "@wheel" ];

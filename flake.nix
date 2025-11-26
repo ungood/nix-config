@@ -56,115 +56,31 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    colmena = {
-      url = "github:zhaofengli/colmena";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    nixos-unified = {
+      url = "github:srid/nixos-unified";
+    };
+
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
+  # Uses nixos-unified autowiring: https://nixos-unified.org/guide/autowiring
   outputs =
-    inputs@{ self, nixpkgs, ... }:
-    let
-      system = "x86_64-linux";
-
-      # Custom packages overlay
-      customPackagesOverlay = final: _prev: {
-        obsidian-cli = final.callPackage ./pkgs/obsidian-cli.nix { };
-      };
-
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [
-          customPackagesOverlay
-          (_final: prev: {
-            vscode-extensions =
-              prev.vscode-extensions // inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
-          })
-        ];
-      };
-
-      customLib = import ./lib {
-        inherit inputs self;
-        inherit (nixpkgs) lib;
-      };
-      lib = nixpkgs.lib // customLib;
-
-      # Auto-import modules
-      nixosModules = lib.importDir ./modules/nixos;
-      homeModules = lib.importDir ./modules/home;
-
-      # Auto-discover and import all tests from tests directory
-      discoverTests =
-        dir:
-        let
-          testFiles = builtins.readDir dir;
-          testNames = builtins.attrNames (
-            lib.filterAttrs (name: type: type == "regular" && lib.hasSuffix ".nix" name) testFiles
-          );
-        in
-        lib.listToAttrs (
-          map (
-            testFile:
-            let
-              testName = lib.removeSuffix ".nix" testFile;
-            in
-            {
-              name = testName;
-              value = import (dir + "/${testFile}") {
-                inherit
-                  inputs
-                  pkgs
-                  lib
-                  self
-                  ;
-              };
-            }
-          ) testNames
-        );
-    in
-    {
-      # Auto-generate system configurations
-      nixosConfigurations = lib.flatten (lib.mkHosts ./hosts);
-
-      colmenaHive = inputs.colmena.lib.makeHive {
-        meta = {
-          nixpkgs = import nixpkgs {
-            system = "x86_64-linux";
-            overlays = [ ];
-          };
-          specialArgs = { inherit inputs self lib; };
-        };
-
-        defaults = {
-          deployment.allowLocalDeployment = true;
-        };
-
-        sparrowhawk = {
-          imports = [ ./hosts/x86_64-linux/sparrowhawk ];
-        };
-
-        logos = {
-          imports = [ ./hosts/x86_64-linux/logos ];
-        };
-      };
-
-      # Export modules for reuse
-      inherit nixosModules homeModules;
-
-      # Custom packages
-      packages.${system} = {
-        inherit (pkgs) obsidian-cli;
-      };
-
-      # Development shell from shells/
-      devShells.${system}.default = import ./shells/default.nix {
-        inherit lib pkgs self;
-      };
-
-      # NixOS testing infrastructure
-      checks.${system} = discoverTests ./tests;
-
-      formatter.${system} = pkgs.nixfmt-rfc-style;
+    inputs:
+    inputs.nixos-unified.lib.mkFlake {
+      inherit inputs;
+      root = ./.;
     };
 }

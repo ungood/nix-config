@@ -6,5 +6,7 @@ result-*
 # Ignore test artifacts
 .nixos-test-history
 
-# Ignore automatically generated direnv output
+# Ignore automatically generated files
 .direnv
+.pre-commit-config.yaml
+

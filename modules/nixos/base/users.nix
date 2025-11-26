@@ -1,28 +1,47 @@
 {
+  flake,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 let
-  # Auto-discover users from users directory
-  usersDir = ../../../users;
-  userEntries = builtins.readDir usersDir;
-  userDirs = lib.filterAttrs (_name: type: type == "directory") userEntries;
+  inherit (flake) inputs;
 
-  # Import nixos.nix files directly and add username/group automatically
-  systemUsers = lib.mapAttrs (
-    username: _:
-    let
-      nixosConfig = import (usersDir + "/${username}/nixos.nix") { inherit pkgs; };
+  # Define user configurations directly
+  systemUsers = {
+    ungood = {
+      isNormalUser = true;
+      description = "Jason";
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+      ];
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYUd6/nysF5AN7Iv8+2iCd/wWH2F1oSGysDqLaAbQM8"
+      ];
+      shell = pkgs.fish;
+      group = "ungood";
+      hashedPassword = inputs.secrets.passwords.ungood;
+    };
 
-      finalConfig = nixosConfig // {
-        group = username; # Set group to username automatically
-        hashedPassword = inputs.secrets.passwords.${username};
-      };
-    in
-    finalConfig
-  ) userDirs;
+    trafficcone = {
+      isNormalUser = true;
+      description = "Brendan";
+      extraGroups = [ ];
+      shell = pkgs.fish;
+      group = "trafficcone";
+      hashedPassword = inputs.secrets.passwords.trafficcone;
+    };
+
+    abirdnamed = {
+      isNormalUser = true;
+      description = "Brianna";
+      extraGroups = [ ];
+      shell = pkgs.fish;
+      group = "abirdnamed";
+      hashedPassword = inputs.secrets.passwords.abirdnamed;
+    };
+  };
 
   # Generate user groups
   userGroups = lib.mapAttrs (_username: _: { }) systemUsers;

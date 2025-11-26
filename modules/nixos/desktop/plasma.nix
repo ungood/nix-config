@@ -1,10 +1,5 @@
 { pkgs, ... }:
 {
-  imports = [
-    ./wayland.nix
-    ./flatpak.nix
-  ];
-
   environment.systemPackages = with pkgs.kdePackages; [
     # Enables the SDDM configuration panel in KDE Config Manager (kcm).
     sddm-kcm
