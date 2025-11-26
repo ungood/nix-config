@@ -2,6 +2,7 @@
 {
   imports = [
     ./vscode.nix
+    ./devenv.nix
     ./direnv.nix
     ./gh.nix
     ./git.nix
@@ -11,9 +12,7 @@
   ];
 
   home.packages = with pkgs; [
-    devenv
     jq
-    just
     ripgrep
   ];
 }
