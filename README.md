@@ -47,7 +47,7 @@ This configuration uses:
 
 * https://github.com/ryan4yin/nix-config
 * https://github.com/thursdaddy/nixos-config
-* https://github.com/srid/nixos-flake (nixos-unified)
+* https://github.com/srid/nixos-unified
 * https://flake.parts
 
 ## Tenets

@@ -5,10 +5,11 @@ This document describes how to build, test, and contribute to this NixOS configu
 ## Prerequisites
 
 - NixOS with flakes enabled
+- [devenv](https://devenv.sh) for development shell
 
 ```bash
-# Enter the nix dev shell
-nix develop -c $SHELL
+# Enter the devenv shell
+devenv shell
 ```
 
 ## Development Commands

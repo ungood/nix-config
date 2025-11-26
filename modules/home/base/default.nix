@@ -14,6 +14,7 @@
     ./plasma.nix
     ./ssh.nix
     ./stylix.nix
+    ./television.nix
   ];
 
   programs.home-manager.enable = true;

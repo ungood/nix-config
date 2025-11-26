@@ -16,7 +16,7 @@ build: git-add
 # Automatic format all files.
 [group('build')]
 format:
-    pre-commit run -a
+    treefmt
 
 # Build a VM for the specified host
 [group('build')]
@@ -27,7 +27,8 @@ build-vm HOST: git-add
 
 # Check flake for issues
 [group('test')]
-test: git-add
+check: git-add
+    pre-commit
     nix flake check
 
 # Run specific host test (tests all modules for that host)
