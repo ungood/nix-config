@@ -12,12 +12,10 @@ in
     inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
 
     self.nixosModules.base
-    ../../../modules/nixos/desktop
+    self.nixosModules.desktop
     self.nixosModules.development
     self.nixosModules.gaming
   ];
-
-  onetrue.desktop.windowManager = "plasma";
 
   boot.loader = {
     systemd-boot.enable = true;

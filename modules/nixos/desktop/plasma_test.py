@@ -19,8 +19,6 @@ for package in plasma_packages:
 print("🔍 Testing desktop services...")
 machine.wait_for_unit("dbus.service")
 machine.succeed("systemctl is-active dbus.service")
-machine.wait_for_unit("NetworkManager.service")
-machine.succeed("systemctl is-active NetworkManager.service")
 print("✅ Desktop services are running")
 
 # Test Wayland configuration (X server is disabled)

@@ -11,11 +11,9 @@ in
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
 
     self.nixosModules.base
-    ../../../modules/nixos/desktop
+    self.nixosModules.desktop
     self.nixosModules.development
   ];
-
-  onetrue.desktop.windowManager = "plasma";
 
   boot = {
     loader = {
