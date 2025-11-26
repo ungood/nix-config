@@ -1,13 +1,6 @@
 {
   description = "NixOS configurations for Jason Walker";
 
-  nixConfig = {
-    extra-substituters = [ "https://claude-code.cachix.org" ];
-    extra-trusted-public-keys = [
-      "claude-code.cachix.org-1:YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 

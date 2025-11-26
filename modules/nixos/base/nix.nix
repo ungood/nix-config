@@ -10,7 +10,6 @@
       experimental-features = [
         "nix-command"
         "flakes"
-        "repl-flakes"
       ];
 
       trusted-users = [ "@wheel" ];
