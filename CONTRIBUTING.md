@@ -20,25 +20,31 @@ just -l
 
 ## Flake Organization
 
-The organization of this flake is inspired by [Snowfall Lib](https://github.com/snowfallorg/lib)
-but does not take a dependency on it for simplicity and because the owner seems to have abandoned
-it.
+This configuration uses [flake-parts](https://flake.parts) for modular flake organization and [nixos-unified](https://github.com/srid/nixos-unified) for unified NixOS/Darwin/Home Manager configuration.
 
 ### Module System
 
-Modules are located in the `modules/` directory first by type (`home` or `nixos`) and then by
-"role": `modules/<type>/<role>`.
+Modules are organized in the `modules/` directory by type:
+
+- **`modules/flake/`** - Flake-parts modules that define flake outputs
+- **`modules/nixos/`** - NixOS system configuration modules organized by role
+  - `base/` - Core system configuration
+  - `desktop/` - Desktop environment (Plasma)
+  - `development/` - Development tools
+  - `gaming/` - Gaming-specific configuration
+- **`modules/home/`** - Home Manager user environment modules
+  - `base/` - Core user environment
+  - `developer/` - Development-specific user configs
+
+See [modules/README.md](modules/README.md) for detailed information about module arguments and patterns.
 
 ### Host Configuration
 
-Host configuration is found in `hosts/<system>/<hostname>.nix`. Hosts should import role-level
-modules and use configuration to specify host-specific options.
+Host configurations are in `configurations/nixos/<hostname>/`. Hosts import module collections and specify host-specific hardware and network settings.
 
 ### User Configuration
 
-User configuration is found in `users/<username>.nix` and should not import additional modules,
-instead just specifying user preferences as configuration. Avoid host-specific configuration if
-possible.
+User configurations are in `configurations/home/<username>/`. Each user's home configuration imports appropriate home modules and sets user preferences.
 
 ### Library Functions
 
@@ -62,7 +68,7 @@ Follow Test-Driven Development (TDD) approach:
 
 ```bash
 # 1. Add failing tests first (Red phase)
-# Add tests to appropriate files in tests/scripts/modules/
+# Add *_test.py files next to modules in modules/nixos/
 
 # 2. Run tests to confirm they fail initially
 just test
@@ -73,7 +79,7 @@ just test
 
 # 5. Refactor code while keeping tests passing (Refactor phase)
 # 6. Run full validation
-just test    # Run comprehensive test suite
+just test    # Run comprehensive test suite (flake check)
 just build   # Build configuration
 ```
 
@@ -104,10 +110,23 @@ Do NOT use prefixes to indicate the type of PR. Reference any relevant issues in
 
 ## Testing Guidelines
 
-### Testing Guidelines
-- **Host-Centric Testing**: Tests run within VM with actual host environments
-- **Module Test Files**: Module test scripts should live in the same directory as the modules and
-follow a naming convention of "module_test.py".
+### Module Testing
+- **Test Location**: Module test scripts live in the same directory as modules with naming pattern `*_test.py`
+- **Auto-Discovery**: Tests are automatically discovered by `modules/flake/checks.nix`
+- **NixOS Modules Only**: Currently only NixOS modules are tested (not home modules)
+- **VM Testing**: Tests run in a single NixOS VM with all modules imported
+- **Test Format**: Python scripts using the NixOS test framework's `machine` object
+
+### Writing Tests
+
+Place test files next to your modules:
+```
+modules/nixos/mymodule/
+  default.nix
+  mymodule_test.py
+```
+
+Tests are automatically included in `just test` runs.
 
 ## Code Style
 

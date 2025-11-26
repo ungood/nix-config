@@ -25,17 +25,29 @@ In addition to this file, agents should reference the existing documentation, in
 
 ## Important Notes for Agents
 
+### Framework and Architecture
+- This configuration uses **flake-parts** for modular flake organization
+- Uses **nixos-unified** for automatic argument passing to modules
+- All NixOS and home modules receive a special `flake` argument containing `self`, `inputs`, and `config`
+- See `modules/README.md` for detailed module argument documentation
+
 ### Import Conventions
-- Prefer `inputs.self.nixosModules.[module]` when importing modules
+- Use `inputs.self.nixosModules.[module]` when importing NixOS modules in host configs
+- Use `flake.inputs.[input]` when accessing inputs within modules (not `inputs` directly)
 - Simple modules should be single `.nix` files, not directories with `default.nix`
 - All reusable functions must be defined in `lib/` directory, not inline in modules
+
+### Module Arguments
+- **NixOS/Home modules**: Receive `flake` special argument from nixos-unified
+- **Flake-parts modules**: Receive standard flake-parts arguments (`inputs`, `self`, `pkgs`, etc.)
+- Always declare needed arguments explicitly: `{ flake, lib, pkgs, ... }:` not `args:`
 
 ### Development Guidelines
 - Start implementation with failing tests, then make them pass
 - Prefer using `just` commands for building and testing
 - Read project documentation before implementing features
 - Follow existing patterns and conventions in the codebase
-- Add tests to appropriate module test files in `tests/scripts/modules/`
+- Add `*_test.py` files next to modules in `modules/nixos/` (auto-discovered)
 - Validate with full test suite (`just test`) before committing
 - Run configuration checks (`just test`) and builds (`just build`)
 - Never try to override or remove failing tests. Always try to fix the test, and if you cannot, report why.
