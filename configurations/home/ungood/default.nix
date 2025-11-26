@@ -1,13 +1,17 @@
 {
   config,
   pkgs,
-  inputs,
+  flake,
   ...
 }:
+let
+  inherit (flake) self;
+in
 {
   # Import developer modules
   imports = [
-    inputs.self.homeModules.developer
+    self.homeModules.base
+    self.homeModules.developer
     ./bat.nix
     ./claude.nix
     ./git.nix

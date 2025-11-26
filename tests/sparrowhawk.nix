@@ -1,12 +1,14 @@
 {
   lib,
   pkgs,
-  inputs,
+  flake,
 }:
 
 # Comprehensive test for sparrowhawk host
 # Tests all sparrowhawk modules: base, desktop.plasma, development, gaming
 let
+  inherit (flake) inputs;
+
   # Load all module test scripts from their new locations adjacent to modules
   moduleTestScripts = [
     (builtins.readFile ../modules/nixos/base/default_test.py)
@@ -41,15 +43,18 @@ pkgs.testers.runNixOSTest {
 
   hostPkgs = lib.mkForce pkgs;
   node.specialArgs = lib.mkForce {
-    inherit pkgs;
-    flake = {
-      inherit inputs;
-    };
+    inherit pkgs flake;
   };
   nodes.machine = {
+
     imports = [
-      ../configurations/nixos/sparrowhawk
+      flake.self.nixosModules.base
+      flake.self.nixosModules.desktop
+      flake.self.nixosModules.development
+      inputs.home-manager.nixosModules.home-manager
     ];
+
+    onetrue.desktop.windowManager = "plasma";
 
     # VM configuration for testing
     virtualisation = {

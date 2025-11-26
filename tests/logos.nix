@@ -1,12 +1,15 @@
 {
   lib,
   pkgs,
-  inputs,
+  flake,
+  ...
 }:
 
 # Comprehensive test for logos host
 # Tests all logos modules: base, desktop.plasma, development
 let
+  inherit (flake) inputs;
+
   # Load all module test scripts from their new locations adjacent to modules
   moduleTestScripts = [
     (builtins.readFile ../modules/nixos/base/default_test.py)
@@ -34,21 +37,24 @@ let
 
     print("🎉 All tests completed for logos host!")
   '';
+
 in
 pkgs.testers.runNixOSTest {
   name = "logos";
 
   hostPkgs = lib.mkForce pkgs;
   node.specialArgs = lib.mkForce {
-    inherit pkgs;
-    flake = {
-      inherit inputs;
-    };
+    inherit inputs pkgs flake;
   };
   nodes.machine = {
     imports = [
-      ../configurations/nixos/logos
+      flake.self.nixosModules.base
+      flake.self.nixosModules.desktop
+      flake.self.nixosModules.development
+      inputs.home-manager.nixosModules.home-manager
     ];
+
+    onetrue.desktop.windowManager = "plasma";
 
     # VM configuration for testing
     virtualisation = {

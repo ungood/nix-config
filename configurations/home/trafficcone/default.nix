@@ -1,8 +1,12 @@
-{ inputs, ... }:
+{ flake, ... }:
+let
+  inherit (flake) self;
+in
 {
   # Import developer modules
   imports = [
-    inputs.self.homeModules.developer
+    self.homeModules.base
+    self.homeModules.developer
   ];
 
   # Home-manager configuration
