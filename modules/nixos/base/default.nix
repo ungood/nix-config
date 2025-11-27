@@ -1,14 +1,19 @@
-{ pkgs, ... }:
+{ pkgs, flake, ... }:
+let
+  inherit (flake) inputs;
+in
 {
   imports = [
     ./auth.nix
     ./fonts.nix
     ./home-manager.nix
-    ./nix-index.nix
     ./nix.nix
     ./ssh.nix
     ./stylix.nix
     ./users.nix
+
+    # Use Determinate Nix for performance and enterprise features
+    inputs.determinate.nixosModules.default
   ];
 
   i18n.defaultLocale = "en_US.UTF-8";

@@ -72,6 +72,10 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    determinate = {
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+    };
   };
 
   # Uses nixos-unified autowiring: https://nixos-unified.org/guide/autowiring
