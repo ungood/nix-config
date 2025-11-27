@@ -59,27 +59,20 @@ run HOST: (build-vm HOST)
 
 ## Ops Commands
 
-# Build the new configuration, activate it, and make it the boot default.
+# Activate the current system configuration (auto-detects NixOS/Darwin)
 [group('ops')]
 switch: git-add
-    sudo nixos-rebuild switch --flake .
+    nix run .#activate
 
 # Build the new configuration and make it the boot default, but do not activate it.
 [group('ops')]
 boot: git-add
     sudo nixos-rebuild boot --flake .
 
-# Switch for a specific host
+# Activate configuration for a specific host (auto-detects NixOS/Darwin)
 [group('ops')]
 switch-host HOST: git-add
-    sudo nixos-rebuild switch --flake .#{{HOST}}
-
-# Activate Darwin configuration for the specified host
-[group('ops')]
-activate-darwin HOST: git-add
-    @echo "Activating Darwin configuration for host: {{HOST}}"
-    nix run .#darwinConfigurations.{{HOST}}.system
-    darwin-rebuild switch --flake .#{{HOST}}
+    nix run .#activate {{HOST}}
 
 # Update flake inputs
 [group('ops')]
