@@ -4,14 +4,7 @@
     ./docker.nix
   ];
 
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
-  };
-  # Development tools will be added here
-  # This role can be expanded with:
-  # - Docker/Podman for containerization
-  # - Virtual machine management
-  # - Development-specific packages
-  # - IDE configurations
+  # Development role provides system-level requirements for development work.
+  # Docker is the primary system-level requirement as it needs kernel support.
+  # Most development tools should be added to modules/home/developer/ instead.
 }
