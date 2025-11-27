@@ -9,6 +9,7 @@ in
     ./home-manager.nix
     ./nix.nix
     ./ssh.nix
+    ./stylix.nix
     ./users.nix
 
     # Use Determinate Nix for performance and enterprise features

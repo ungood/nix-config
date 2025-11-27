@@ -2,6 +2,7 @@
 {
   imports = [
     ./nix.nix
+    ./stylix.nix
   ];
 
   # System defaults for macOS
