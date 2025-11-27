@@ -32,7 +32,7 @@ Specialized subagent for comprehensive code review and testing of pull requests.
 ## Testing Protocol
 - Execute `just test` for flake validation
 - Run `just build` for full configuration build
-- Test `just switch` in dry-run mode
+- Test `just activate` in dry-run mode
 - Validate multi-host compatibility
 - Check for build warnings or errors
 

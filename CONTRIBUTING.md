@@ -157,7 +157,7 @@ Darwin modules currently do not have automated tests. Manual testing should be p
 just build-darwin macbook
 
 # On macOS, activate the configuration
-just activate-darwin macbook
+just activate-host macbook
 ```
 
 ## Code Style

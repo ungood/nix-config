@@ -55,7 +55,7 @@ run `sudo install-nixos`. Easy peasy.
 After installing Determinate Nix on macOS:
 1. Clone this repository
 2. Build the configuration: `just build-darwin macbook`
-3. Activate it: `just activate-darwin macbook`
+3. Activate it: `just activate-host macbook`
 
 ## Architecture
 
