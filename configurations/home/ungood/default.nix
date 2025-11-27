@@ -32,7 +32,6 @@ in
       obsidian
       opencode
       todoist
-      wezterm
     ];
 
     sessionVariables = {
