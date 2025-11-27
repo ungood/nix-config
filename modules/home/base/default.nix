@@ -1,7 +1,13 @@
 {
   pkgs,
+  lib,
+  osConfig ? null,
   ...
 }:
+let
+  # Detect if we're on NixOS (osConfig will be null on Darwin)
+  isNixOS = osConfig != null;
+in
 {
   # Import all base modules
   imports = [
@@ -11,9 +17,14 @@
     ./fastfetch.nix
     ./firefox.nix
     ./helix.nix
-    ./plasma.nix
+    ./nix.nix
+    ./nix-index.nix
     ./ssh.nix
     ./stylix.nix
+  ]
+  ++ lib.optionals isNixOS [
+    # NixOS-only modules (plasma-manager)
+    ./plasma.nix
   ];
 
   programs.home-manager.enable = true;

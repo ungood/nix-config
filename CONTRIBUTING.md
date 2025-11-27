@@ -4,13 +4,27 @@ This document describes how to build, test, and contribute to this NixOS configu
 
 ## Prerequisites
 
-- NixOS with flakes enabled
-- [devenv](https://devenv.sh) for development shell
+- **Nix Installation**: [Determinate Nix](https://docs.determinate.systems/determinate-nix/) (recommended)
 
-```bash
-# Enter the devenv shell
-devenv shell
-```
+  **For macOS/Linux (non-NixOS):**
+  ```bash
+  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
+  ```
+
+  **For NixOS:**
+
+  This configuration automatically uses Determinate Nix. On first rebuild, use extra substituters:
+  ```bash
+  sudo nixos-rebuild switch --flake . \
+    --option extra-substituters https://install.determinate.systems \
+    --option extra-trusted-public-keys cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM=
+  ```
+
+- **Development Environment**: [devenv](https://devenv.sh) for development shell
+  ```bash
+  # Enter the devenv shell
+  devenv shell
+  ```
 
 ## Development Commands
 
@@ -31,9 +45,11 @@ Modules are organized in the `modules/` directory by type:
 - **`modules/nixos/`** - NixOS system configuration modules organized by role
   - `base/` - Core system configuration
   - `desktop/` - Desktop environment (Plasma)
-  - `development/` - Development tools
+  - `development/` - Development tools (primarily Docker)
   - `gaming/` - Gaming-specific configuration
-- **`modules/home/`** - Home Manager user environment modules
+- **`modules/darwin/`** - nix-darwin macOS system configuration modules
+  - `base/` - Core macOS system configuration
+- **`modules/home/`** - Home Manager user environment modules (cross-platform)
   - `base/` - Core user environment
   - `developer/` - Development-specific user configs
 
@@ -41,7 +57,10 @@ See [modules/README.md](modules/README.md) for detailed information about module
 
 ### Host Configuration
 
-Host configurations are in `configurations/nixos/<hostname>/`. Hosts import module collections and specify host-specific hardware and network settings.
+Host configurations are organized by platform:
+
+- **`configurations/nixos/<hostname>/`** - NixOS host configurations with hardware and network settings
+- **`configurations/darwin/<hostname>/`** - Darwin (macOS) host configurations with system settings
 
 ### User Configuration
 
@@ -80,8 +99,9 @@ just test
 
 # 5. Refactor code while keeping tests passing (Refactor phase)
 # 6. Run full validation
-just test    # Run comprehensive test suite (flake check)
-just build   # Build configuration
+just test                    # Run comprehensive test suite (flake check)
+just build                   # Build NixOS configuration
+just build-darwin macbook    # Build Darwin configuration (macOS)
 ```
 
 ### 3. Commit Guidelines
@@ -114,7 +134,7 @@ Do NOT use prefixes to indicate the type of PR. Reference any relevant issues in
 ### Module Testing
 - **Test Location**: Module test scripts live in the same directory as modules with naming pattern `*_test.py`
 - **Auto-Discovery**: Tests are automatically discovered by `modules/flake/checks.nix`
-- **NixOS Modules Only**: Currently only NixOS modules are tested (not home modules)
+- **NixOS Modules Only**: Currently only NixOS modules are tested (not home or darwin modules)
 - **VM Testing**: Tests run in a single NixOS VM with all modules imported
 - **Test Format**: Python scripts using the NixOS test framework's `machine` object
 
@@ -128,6 +148,17 @@ modules/nixos/mymodule/
 ```
 
 Tests are automatically included in `just test` runs.
+
+### Darwin Testing
+
+Darwin modules currently do not have automated tests. Manual testing should be performed:
+```bash
+# Build Darwin configuration
+just build-darwin macbook
+
+# On macOS, activate the configuration
+just activate-host macbook
+```
 
 ## Code Style
 

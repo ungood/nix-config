@@ -1,14 +1,14 @@
 # === Development Module Tests ===
 print("=== Running Development Module Tests ===")
 
-# Test Git configuration
-print("🔍 Testing Git configuration...")
-machine.succeed("git --version")
-machine.succeed("git lfs version")
-print("✅ Git is properly configured")
+# The development module now only provides system-level requirements for development.
+# Git and other development tools have been moved to Home Manager.
+# This test just verifies that the module loads without errors.
 
-# Test development tools
-print("🔍 Testing development tools...")
+print("✅ Development module loaded successfully (provides Docker support)")
+
+# Test development tools that are still at system level
+print("🔍 Testing system-level development tools...")
 tools = ["curl", "nvim", "wget", "vim"]
 for tool in tools:
     machine.succeed(f"which {tool}")
@@ -17,7 +17,6 @@ for tool in tools:
 # Test shell environment
 print("🔍 Testing shell environment...")
 machine.succeed("fish --version")
-# TODO: Test that fish is the default shell for a user.
-print("✅ Shell environment is configured for development")
+print("✅ Shell environment is configured")
 
 print("🎉 Development module tests completed!")

@@ -123,10 +123,39 @@ Home Manager modules receive standard Home Manager arguments plus the `flake` sp
 
 ### Darwin Modules (`modules/darwin/`)
 
-macOS system configuration modules (currently unused).
+macOS system configuration modules using nix-darwin with nixos-unified autowiring.
 
-Darwin modules would receive the same arguments as NixOS modules, plus:
-- `flake.rosettaPkgs` - x86_64-darwin nixpkgs for Rosetta compatibility
+#### Available Arguments
+
+Darwin modules receive the same arguments as NixOS modules:
+
+**Standard nix-darwin arguments:**
+- `config` - System configuration options
+- `pkgs` - Nixpkgs package set
+- `lib` - Nixpkgs library functions
+
+**Special argument (from nixos-unified):**
+- `flake` - Contains:
+  - `flake.self` - The current flake
+  - `flake.inputs` - All flake inputs
+  - `flake.config` - Flake-level configuration
+  - `flake.rosettaPkgs` - x86_64-darwin nixpkgs for Rosetta compatibility (Darwin only)
+
+#### Example
+
+```nix
+{ flake, pkgs, lib, ... }:
+let
+  inherit (flake) inputs;
+in
+{
+  # Use flake.inputs instead of expecting inputs parameter
+  environment.systemPackages = [ pkgs.vim ];
+
+  # Set macOS system defaults
+  system.defaults.dock.autohide = true;
+}
+```
 
 ## Common Patterns
 
