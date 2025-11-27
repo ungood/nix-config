@@ -8,12 +8,7 @@ In addition to this file, agents should reference the existing documentation, in
 
 ## Infrastructure
 
-This configuration uses **Determinate Nix** on both NixOS and Darwin for:
-- Performance improvements (parallel evaluation, lazy trees)
-- Enterprise-grade reliability and validation
-- Native Linux builder support on macOS
-
-The Determinate module is imported automatically in the NixOS base configuration.
+This configuration uses **Determinate Nix** on both NixOS and Darwin. The Determinate module is imported automatically in the NixOS base configuration.
 
 ## NixOS Configuration Best Practices
 

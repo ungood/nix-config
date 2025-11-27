@@ -20,12 +20,6 @@ This document describes how to build, test, and contribute to this NixOS configu
     --option extra-trusted-public-keys cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM=
   ```
 
-  **Benefits:**
-  - Performance improvements (parallel evaluation, lazy trees)
-  - Enterprise-grade reliability with SOC 2 Type II validation
-  - Native Linux builder for macOS
-  - Fully compatible with upstream Nix
-
 - **Development Environment**: [devenv](https://devenv.sh) for development shell
   ```bash
   # Enter the devenv shell

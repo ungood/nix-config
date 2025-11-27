@@ -17,6 +17,7 @@ in
     ./fastfetch.nix
     ./firefox.nix
     ./helix.nix
+    ./nix.nix
     ./nix-index.nix
     ./ssh.nix
     ./stylix.nix

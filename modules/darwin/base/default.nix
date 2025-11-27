@@ -1,9 +1,7 @@
-{ pkgs, ... }:
+{ ... }:
 {
   imports = [
-    ./home-manager.nix
     ./nix.nix
-    ./stylix.nix
   ];
 
   # System defaults for macOS
@@ -43,15 +41,4 @@
 
   # Enable fish shell
   programs.fish.enable = true;
-
-  # Common packages for all Darwin systems
-  environment.systemPackages = with pkgs; [
-    curl
-    gnupg
-    neovim
-    tree
-    unzip
-    vim
-    wget
-  ];
 }

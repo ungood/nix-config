@@ -37,7 +37,7 @@ This repository was developed as a way to:
 
 #### Prerequisites: Nix Installation
 
-This configuration uses [Determinate Nix](https://docs.determinate.systems/determinate-nix/), a validated and secure downstream distribution of Nix designed for enterprise use.
+This configuration uses [Determinate Nix](https://docs.determinate.systems/determinate-nix/).
 
 **Install Determinate Nix on macOS or Linux:**
 ```bash

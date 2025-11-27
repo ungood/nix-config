@@ -17,21 +17,8 @@ in
   # Set primary user for system defaults
   system.primaryUser = "ungood";
 
-  # Configure user account
-  users.users.ungood = {
-    name = "ungood";
-    home = "/Users/ungood";
-  };
-
   # Home Manager configuration for this host
-  home-manager.users.ungood = {
-    imports = [
-      self.homeModules.base
-      self.homeModules.developer
-    ];
-
-    home.stateVersion = "24.11";
-  };
+  home-manager.users.ungood.imports = [ ../../../configurations/home/ungood ];
 
   system.stateVersion = 5;
 }
