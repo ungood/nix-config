@@ -1,6 +1,6 @@
 { inputs, self, ... }:
 {
-  imports = [ inputs.home-manager.nixosModules.home-manager ];
+  imports = [ inputs.home-manager.darwinModules.home-manager ];
 
   home-manager = {
     useGlobalPkgs = true;
@@ -10,11 +10,9 @@
       inherit inputs self;
     };
 
-    # Map home configurations to NixOS users
+    # Map home configurations to Darwin users
     users = {
       ungood.imports = [ (self + "/configurations/home/ungood") ];
-      trafficcone.imports = [ (self + "/configurations/home/trafficcone") ];
-      abirdnamed.imports = [ (self + "/configurations/home/abirdnamed") ];
     };
   };
 }

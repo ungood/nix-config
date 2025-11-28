@@ -18,20 +18,7 @@ in
     nixosConfigurations = forAllNixFiles ../../configurations/nixos (
       path:
       inputs.nixpkgs.lib.nixosSystem {
-        modules = [
-          path
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "hm-backup";
-              extraSpecialArgs = {
-                inherit inputs self;
-              };
-            };
-          }
-        ];
+        modules = [ path ];
         specialArgs = {
           inherit inputs self;
         };
@@ -42,20 +29,7 @@ in
     darwinConfigurations = forAllNixFiles ../../configurations/darwin (
       path:
       inputs.nix-darwin.lib.darwinSystem {
-        modules = [
-          path
-          inputs.home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "hm-backup";
-              extraSpecialArgs = {
-                inherit inputs self;
-              };
-            };
-          }
-        ];
+        modules = [ path ];
         specialArgs = {
           inherit inputs self;
         };

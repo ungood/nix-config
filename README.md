@@ -60,22 +60,20 @@ After installing Determinate Nix on macOS:
 ## Architecture
 
 This configuration uses:
-- **[flake-parts](https://flake.parts)** - Modular flake framework for organizing outputs
-- **[nix-darwin](https://github.com/nix-darwin/nix-darwin)** - macOS system configuration management
-- **Plasma Desktop** - KDE Plasma 6 as the default desktop environment (NixOS only)
-- **Auto-discovery** - NixOS, Darwin, and Home Manager configurations are automatically discovered from the `configurations/` directory
-
-### Cross-Platform Strategy
-
-The configuration maximizes code reuse between NixOS and Darwin by:
-1. **Home Manager First** - Platform-agnostic configuration lives in Home Manager modules
-2. **Minimal System Modules** - NixOS and Darwin modules contain only platform-specific system configuration
-3. **Conditional Imports** - Platform detection enables NixOS-only features (like plasma-manager) when appropriate
+- **[flake-parts](https://flake.parts)** - Modular flake framework
+- **[NixOS](https://nixos.org)** - Declarative Linux distribution
+- **[nix-darwin](https://github.com/nix-darwin/nix-darwin)** - Declarative macOS configuration
+- **[home-manager](https://github.com/nix-community/home-manager)** - User environment management
+- **[nixos-hardware](https://github.com/NixOS/nixos-hardware)** - Hardware-specific configurations
+- **[stylix](https://github.com/danth/stylix)** - System-wide theming
+- **[plasma-manager](https://github.com/nix-community/plasma-manager)** - KDE Plasma configuration management
+- **[disko](https://github.com/nix-community/disko)** - Declarative disk partitioning
 
 ## Inspiration
 
 * https://github.com/ryan4yin/nix-config
 * https://github.com/thursdaddy/nixos-config
+* https://github.com/srid/nixos-unified
 * https://flake.parts
 
 ## Tenets

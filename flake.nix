@@ -92,8 +92,6 @@
         ./modules/flake/outputs.nix
         ./modules/flake/pkgs.nix
         ./modules/flake/checks.nix
-        inputs.git-hooks.flakeModule
-        inputs.treefmt-nix.flakeModule
       ];
     };
 }
