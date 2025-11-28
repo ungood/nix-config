@@ -33,33 +33,35 @@ This repository was developed as a way to:
 - [WORKFLOW.md](WORKFLOW.md) - Automated development workflow documentation
 - [modules/README.md](modules/README.md) - Module types and argument reference
 
-### Installing
+## Bootstrapping
 
-#### Prerequisites: Nix Installation
+### Install Nix
 
-This configuration uses [Determinate Nix](https://docs.determinate.systems/determinate-nix/).
+This configuration uses the [Determinate Nix](https://docs.determinate.systems/determinate-nix/) installer, due to its
+support of uninstalling on MacOS.  I may experiment with Lix as well one day.
 
-**Install Determinate Nix on macOS or Linux:**
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
 ```
 
-#### NixOS Installation
+### NixOS Installation
 
 To install a configuration on a new NixOS host, an install ISO can be built using `just build-installer` and
 burned to a USB drive with `just burn-installer DEVICE`. Boot the new machine using this drive then
 run `sudo install-nixos`. Easy peasy.
 
-#### Darwin (macOS) Installation
+### MacOS Installation
 
-After installing Determinate Nix on macOS:
-1. Clone this repository
-2. Build the configuration: `just build-darwin macbook`
-3. Activate it: `just activate-host macbook`
+After installing Nix and cloning this repository:
 
-## Architecture
+```bash
+sudo nix run nix-darwin/master#darwin-rebuild -- switch
+```
 
-This configuration uses:
+## References
+
+This project depends on these fine tools:
+
 - **[flake-parts](https://flake.parts)** - Modular flake framework
 - **[NixOS](https://nixos.org)** - Declarative Linux distribution
 - **[nix-darwin](https://github.com/nix-darwin/nix-darwin)** - Declarative macOS configuration
@@ -69,14 +71,10 @@ This configuration uses:
 - **[plasma-manager](https://github.com/nix-community/plasma-manager)** - KDE Plasma configuration management
 - **[disko](https://github.com/nix-community/disko)** - Declarative disk partitioning
 
-## Inspiration
+### Inspiration
 
-* https://github.com/ryan4yin/nix-config
-* https://github.com/thursdaddy/nixos-config
-* https://github.com/srid/nixos-unified
-* https://flake.parts
+A shout-out to these nix configs that I took as inspiration for building my own:
 
-## Tenets
-
-1. When in doubt, keep it simple.
-2. Use the right tool for the job: nix is not for everything.
+- https://github.com/ryan4yin/nix-config
+- https://github.com/thursdaddy/nixos-config
+- https://github.com/srid/nixos-unified
