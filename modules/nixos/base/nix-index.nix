@@ -1,7 +1,4 @@
-{ flake, ... }:
-let
-  inherit (flake) inputs;
-in
+{ inputs, ... }:
 {
   # nix-index is usef
   imports = [ inputs.nix-index-database.nixosModules.nix-index ];

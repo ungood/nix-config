@@ -61,9 +61,9 @@ After installing Determinate Nix on macOS:
 
 This configuration uses:
 - **[flake-parts](https://flake.parts)** - Modular flake framework for organizing outputs
-- **[nixos-unified](https://github.com/srid/nixos-unified)** - Unified NixOS/Darwin/Home Manager configuration with automatic argument passing
 - **[nix-darwin](https://github.com/nix-darwin/nix-darwin)** - macOS system configuration management
 - **Plasma Desktop** - KDE Plasma 6 as the default desktop environment (NixOS only)
+- **Auto-discovery** - NixOS, Darwin, and Home Manager configurations are automatically discovered from the `configurations/` directory
 
 ### Cross-Platform Strategy
 
@@ -76,7 +76,6 @@ The configuration maximizes code reuse between NixOS and Darwin by:
 
 * https://github.com/ryan4yin/nix-config
 * https://github.com/thursdaddy/nixos-config
-* https://github.com/srid/nixos-unified
 * https://flake.parts
 
 ## Tenets

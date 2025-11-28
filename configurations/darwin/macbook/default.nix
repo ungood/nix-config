@@ -1,8 +1,4 @@
-{ flake, ... }:
-let
-  inherit (flake) inputs;
-  inherit (inputs) self;
-in
+{ self, ... }:
 {
   imports = [
     self.darwinModules.base

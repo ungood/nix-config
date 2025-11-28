@@ -1,8 +1,9 @@
-_: {
+{ self, ... }:
+{
   # Map home configurations to NixOS users
   home-manager.users = {
-    ungood.imports = [ ../../../configurations/home/ungood ];
-    trafficcone.imports = [ ../../../configurations/home/trafficcone ];
-    abirdnamed.imports = [ ../../../configurations/home/abirdnamed ];
+    ungood.imports = [ (self + "/configurations/home/ungood") ];
+    trafficcone.imports = [ (self + "/configurations/home/trafficcone") ];
+    abirdnamed.imports = [ (self + "/configurations/home/abirdnamed") ];
   };
 }

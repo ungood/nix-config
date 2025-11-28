@@ -78,11 +78,22 @@
     };
   };
 
-  # Uses nixos-unified autowiring: https://nixos-unified.org/guide/autowiring
   outputs =
-    inputs:
-    inputs.nixos-unified.lib.mkFlake {
-      inherit inputs;
-      root = ./.;
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+
+      imports = [
+        ./modules/flake/outputs.nix
+        ./modules/flake/pkgs.nix
+        ./modules/flake/checks.nix
+        inputs.git-hooks.flakeModule
+        inputs.treefmt-nix.flakeModule
+      ];
     };
 }

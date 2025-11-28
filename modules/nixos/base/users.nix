@@ -1,11 +1,10 @@
 {
-  flake,
+  inputs,
   pkgs,
   lib,
   ...
 }:
 let
-  inherit (flake) inputs;
 
   # Define user configurations directly
   systemUsers = {
