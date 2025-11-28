@@ -1,7 +1,4 @@
-{ flake, ... }:
-let
-  inherit (flake) self;
-in
+{ self, ... }:
 {
   imports = [
     self.homeModules.base

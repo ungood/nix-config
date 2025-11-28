@@ -1,7 +1,4 @@
-{ flake, pkgs, ... }:
-let
-  inherit (flake) inputs;
-in
+{ inputs, pkgs, ... }:
 {
   imports = [ inputs.stylix.darwinModules.stylix ];
 

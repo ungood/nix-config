@@ -48,11 +48,11 @@ Flake-parts modules receive arguments based on their scope:
 
 ### NixOS Modules (`modules/nixos/`)
 
-NixOS system configuration modules with [nixos-unified](https://github.com/srid/nixos-unified) autowiring.
+NixOS system configuration modules with auto-discovery from the `configurations/nixos/` directory.
 
 #### Available Arguments
 
-NixOS modules receive standard NixOS module arguments plus a special `flake` argument:
+NixOS modules receive standard NixOS module arguments plus special arguments passed via `specialArgs`:
 
 **Standard NixOS arguments:**
 - `config` - System configuration options
@@ -60,39 +60,32 @@ NixOS modules receive standard NixOS module arguments plus a special `flake` arg
 - `lib` - Nixpkgs library functions
 - `modulesPath` - Path to NixOS modules
 
-**Special argument (from nixos-unified):**
-- `flake` - Contains:
-  - `flake.self` - The current flake
-  - `flake.inputs` - All flake inputs
-  - `flake.config` - Flake-level configuration
-
-**Reference:** https://github.com/srid/nixos-unified/blob/main/nix/modules/flake-parts/lib.nix
+**Special arguments (via specialArgs):**
+- `inputs` - All flake inputs
+- `self` - The current flake
 
 #### Example
 
 ```nix
 {
-  flake,
+  inputs,
   pkgs,
   lib,
   ...
 }:
-let
-  inherit (flake) inputs;
-in
 {
-  # Use flake.inputs instead of expecting inputs parameter
+  imports = [ inputs.stylix.nixosModules.stylix ];
   environment.systemPackages = [ pkgs.vim ];
 }
 ```
 
 ### Home Manager Modules (`modules/home/`)
 
-Home Manager user environment modules with nixos-unified autowiring.
+Home Manager user environment modules with auto-discovery from the `configurations/home/` directory.
 
 #### Available Arguments
 
-Home Manager modules receive standard Home Manager arguments plus the `flake` special argument:
+Home Manager modules receive standard Home Manager arguments plus special arguments via `extraSpecialArgs`:
 
 **Standard Home Manager arguments:**
 - `config` - Home configuration options
@@ -100,21 +93,17 @@ Home Manager modules receive standard Home Manager arguments plus the `flake` sp
 - `lib` - Nixpkgs library functions
 - `osConfig` - NixOS system config (when used as NixOS module)
 
-**Special argument (from nixos-unified):**
-- `flake` - Contains:
-  - `flake.self` - The current flake
-  - `flake.inputs` - All flake inputs
-  - `flake.config` - Flake-level configuration
-
-**Reference:** https://github.com/srid/nixos-unified/blob/main/nix/modules/flake-parts/lib.nix
+**Special arguments (via extraSpecialArgs):**
+- `inputs` - All flake inputs
+- `self` - The current flake
 
 #### Example
 
 ```nix
-{ flake, ... }:
+{ inputs, ... }:
 {
   imports = [
-    flake.inputs.plasma-manager.homeModules.plasma-manager
+    inputs.plasma-manager.homeModules.plasma-manager
   ];
 
   programs.plasma.enable = true;
@@ -123,7 +112,7 @@ Home Manager modules receive standard Home Manager arguments plus the `flake` sp
 
 ### Darwin Modules (`modules/darwin/`)
 
-macOS system configuration modules using nix-darwin with nixos-unified autowiring.
+macOS system configuration modules using nix-darwin with auto-discovery from the `configurations/darwin/` directory.
 
 #### Available Arguments
 
@@ -134,22 +123,16 @@ Darwin modules receive the same arguments as NixOS modules:
 - `pkgs` - Nixpkgs package set
 - `lib` - Nixpkgs library functions
 
-**Special argument (from nixos-unified):**
-- `flake` - Contains:
-  - `flake.self` - The current flake
-  - `flake.inputs` - All flake inputs
-  - `flake.config` - Flake-level configuration
-  - `flake.rosettaPkgs` - x86_64-darwin nixpkgs for Rosetta compatibility (Darwin only)
+**Special arguments (via specialArgs):**
+- `inputs` - All flake inputs
+- `self` - The current flake
 
 #### Example
 
 ```nix
-{ flake, pkgs, lib, ... }:
-let
-  inherit (flake) inputs;
-in
+{ inputs, pkgs, lib, ... }:
 {
-  # Use flake.inputs instead of expecting inputs parameter
+  imports = [ inputs.stylix.darwinModules.stylix ];
   environment.systemPackages = [ pkgs.vim ];
 
   # Set macOS system defaults
@@ -168,12 +151,9 @@ in
 }
 ```
 
-**NixOS/Home modules:**
+**NixOS/Darwin/Home modules:**
 ```nix
-{ flake, ... }:
-let
-  inherit (flake) inputs;
-in
+{ inputs, ... }:
 {
   imports = [ inputs.some-input.nixosModules.default ];
 }

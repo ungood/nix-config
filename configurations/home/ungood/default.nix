@@ -1,12 +1,9 @@
 {
   config,
   pkgs,
-  flake,
+  self,
   ...
 }:
-let
-  inherit (flake) self;
-in
 {
   # Import developer modules
   imports = [

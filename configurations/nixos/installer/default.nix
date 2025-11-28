@@ -1,14 +1,13 @@
 # Custom NixOS installer ISO using disko-install
 {
-  flake,
+  inputs,
+  self,
   pkgs,
   lib,
   modulesPath,
   ...
 }:
 let
-  inherit (flake) inputs;
-  inherit (inputs) self;
 
   # TODO: Package all hosts here.
   dependencies = [

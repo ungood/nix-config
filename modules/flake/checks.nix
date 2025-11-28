@@ -55,10 +55,8 @@
 
           hostPkgs = lib.mkForce pkgs;
           node.specialArgs = lib.mkForce {
-            flake = {
-              inherit inputs;
-              inherit (inputs) self;
-            };
+            inherit inputs;
+            inherit (inputs) self;
             inherit pkgs;
           };
 
@@ -84,10 +82,8 @@
                 backupFileExtension = "hm-backup";
 
                 extraSpecialArgs = {
-                  flake = {
-                    inherit inputs;
-                    inherit (inputs) self;
-                  };
+                  inherit inputs;
+                  inherit (inputs) self;
                 };
               };
 

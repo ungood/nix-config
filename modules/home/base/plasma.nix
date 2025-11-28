@@ -1,7 +1,7 @@
-{ flake, ... }:
+{ inputs, ... }:
 {
   imports = [
-    flake.inputs.plasma-manager.homeModules.plasma-manager
+    inputs.plasma-manager.homeModules.plasma-manager
   ];
 
   programs.plasma = {

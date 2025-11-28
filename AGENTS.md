@@ -31,22 +31,20 @@ This configuration uses **Determinate Nix** on both NixOS and Darwin. The Determ
 
 ### Framework and Architecture
 - This configuration uses **flake-parts** for modular flake organization
-- Uses **nixos-unified** for automatic argument passing to modules
-- All NixOS and home modules receive a special `flake` argument containing `self`, `inputs`, and `config`
+- NixOS, Darwin, and Home Manager configurations are auto-discovered from `configurations/` directory
 - See `modules/README.md` for detailed module argument documentation
 
 ### Import Conventions
-- Use `inputs.self.nixosModules.[module]` when importing NixOS modules in host configs
-- Use `inputs.self.darwinModules.[module]` when importing Darwin modules in Darwin host configs
-- Use `flake.inputs.[input]` when accessing inputs within modules (not `inputs` directly)
+- Use `self.nixosModules.[module]` when importing NixOS modules in host configs
+- Use `self.darwinModules.[module]` when importing Darwin modules in Darwin host configs
+- Use `inputs.[input]` when accessing flake inputs within modules
 - Simple modules should be single `.nix` files, not directories with `default.nix`
 - All reusable functions must be defined in `lib/` directory, not inline in modules
 
 ### Module Arguments
-- **NixOS/Darwin/Home modules**: Receive `flake` special argument from nixos-unified
+- **NixOS/Darwin/Home modules**: Receive `inputs` and `self` as special arguments via `specialArgs`/`extraSpecialArgs`
 - **Flake-parts modules**: Receive standard flake-parts arguments (`inputs`, `self`, `pkgs`, etc.)
-- Always declare needed arguments explicitly: `{ flake, lib, pkgs, ... }:` not `args:`
-- **Darwin modules**: Have access to `flake.rosettaPkgs` for x86_64-darwin packages on Apple Silicon
+- Always declare needed arguments explicitly: `{ inputs, self, lib, pkgs, ... }:` not `args:`
 
 ### Development Guidelines
 - Start implementation with failing tests, then make them pass

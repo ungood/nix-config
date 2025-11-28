@@ -1,7 +1,4 @@
-{ flake, ... }:
-let
-  inherit (flake) self;
-in
+{ self, ... }:
 {
   # Import developer modules
   imports = [

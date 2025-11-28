@@ -1,7 +1,4 @@
-{ flake, ... }:
-let
-  inherit (flake) inputs;
-in
+{ inputs, ... }:
 {
   imports = [ inputs.nix-index-database.homeModules.nix-index ];
 

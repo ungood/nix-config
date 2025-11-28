@@ -1,7 +1,4 @@
-{ pkgs, flake, ... }:
-let
-  inherit (flake) inputs;
-in
+{ pkgs, inputs, ... }:
 {
   imports = [
     ./auth.nix
