@@ -1,16 +1,17 @@
 { inputs, self, ... }:
 let
-  autowire = import ../../lib/autowire.nix { inherit (inputs.nixpkgs) lib; };
+  autowire = import "${self}/lib/autowire.nix" { inherit (inputs.nixpkgs) lib; };
   inherit (autowire) forAllNixFiles;
 in
 {
   flake = {
-    nixosModules = forAllNixFiles ../../modules/nixos import;
-    darwinModules = forAllNixFiles ../../modules/darwin import;
-    homeModules = forAllNixFiles ../../modules/home import;
+    nixosModules = forAllNixFiles "${self}/modules/nixos" import;
+    darwinModules = forAllNixFiles "${self}/modules/darwin" import;
+    homeModules = forAllNixFiles "${self}/modules/home" import;
+    overlays = forAllNixFiles "${self}/modules/overlays" import;
 
     # Auto-discover NixOS configurations from configurations/nixos/*/default.nix
-    nixosConfigurations = forAllNixFiles ../../configurations/nixos (
+    nixosConfigurations = forAllNixFiles "${self}/configurations/nixos" (
       path:
       inputs.nixpkgs.lib.nixosSystem {
         modules = [ path ];
@@ -21,7 +22,7 @@ in
     );
 
     # Auto-discover Darwin configurations from configurations/darwin/*/default.nix
-    darwinConfigurations = forAllNixFiles ../../configurations/darwin (
+    darwinConfigurations = forAllNixFiles "${self}/configurations/darwin" (
       path:
       inputs.nix-darwin.lib.darwinSystem {
         modules = [ path ];
@@ -32,7 +33,7 @@ in
     );
 
     # Auto-discover Home Manager configurations from configurations/home/*/default.nix
-    homeConfigurations = forAllNixFiles ../../configurations/home (
+    homeConfigurations = forAllNixFiles "${self}/configurations/home" (
       path:
       inputs.home-manager.lib.homeManagerConfiguration {
         modules = [ path ];
@@ -42,6 +43,7 @@ in
         };
       }
     );
+
   };
 
   # Set activate as default package
