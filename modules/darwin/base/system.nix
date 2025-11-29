@@ -59,8 +59,7 @@ _: {
     };
   };
 
-  # Post-activation script to apply system settings
-  system.activationScripts.postUserActivation.text = ''
+  system.activationScripts.activateSettings.text = ''
     # Use macOS activateSettings to apply changes without killing processes
     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
   '';
