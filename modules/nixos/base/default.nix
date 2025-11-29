@@ -9,8 +9,8 @@
     ./stylix.nix
     ./users.nix
 
-    # Use Determinate Nix for performance and enterprise features
-    inputs.determinate.nixosModules.default
+    # Use Lix - a community fork of Nix with better Darwin support
+    inputs.lix-module.nixosModules.default
   ];
 
   i18n.defaultLocale = "en_US.UTF-8";

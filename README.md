@@ -37,11 +37,11 @@ This repository was developed as a way to:
 
 ### Install Nix
 
-This configuration uses the [Determinate Nix](https://docs.determinate.systems/determinate-nix/) installer, due to its
-support of uninstalling on MacOS.  I may experiment with Lix as well one day.
+This configuration uses [Lix](https://lix.systems), a community fork of Nix with better Darwin support
+and compatibility with nix-darwin.
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
+curl -sSf -L https://install.lix.systems/lix | sh -s -- install
 ```
 
 ### NixOS Installation

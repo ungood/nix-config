@@ -8,7 +8,7 @@ In addition to this file, agents should reference the existing documentation, in
 
 ## Infrastructure
 
-This configuration uses **Determinate Nix** on both NixOS and Darwin. The Determinate module is imported automatically in the NixOS base configuration.
+This configuration uses **Lix** (a community fork of Nix) on both NixOS and Darwin. Lix provides better Darwin support and compatibility with nix-darwin. The Lix module is imported automatically in the NixOS base configuration.
 
 ## NixOS Configuration Best Practices
 
