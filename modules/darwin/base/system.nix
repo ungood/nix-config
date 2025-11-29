@@ -30,7 +30,7 @@ _: {
 
     menuExtraClock = {
       FlashDateSeparators = false;
-      ShowDate = true;
+      ShowDate = 0; # When Space Allows
       ShowDayOfMonth = true;
       ShowDayOfWeek = true;
       ShowSeconds = false;
