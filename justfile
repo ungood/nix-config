@@ -32,7 +32,11 @@ build-darwin HOST: git-add
 
 ## Test Commands
 
-# Check flake for issues
+# Run all tests (alias for check)
+[group('test')]
+test: check
+
+# Check flake for issues (includes validation of all configurations)
 [group('test')]
 check: git-add
     pre-commit
