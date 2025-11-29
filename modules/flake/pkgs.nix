@@ -1,19 +1,16 @@
-{ inputs, ... }:
-{
+_: {
   perSystem =
     {
-      lib,
-      system,
       pkgs,
       ...
     }:
     {
       # Configure pkgs with overlays and unfree packages
-      _module.args.pkgs = import inputs.nixpkgs {
-        inherit system;
-        overlays = lib.attrValues inputs.self.overlays;
-        config.allowUnfree = true;
-      };
+      # _module.args.pkgs = import inputs.nixpkgs {
+      #   inherit system;
+      #   overlays = lib.attrValues inputs.self.overlays;
+      #   config.allowUnfree = true;
+      # };
 
       # Define activate package
       packages.activate = pkgs.writeShellScriptBin "activate" ''
