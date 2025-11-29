@@ -34,7 +34,7 @@ _: {
       ShowDayOfMonth = true;
       ShowDayOfWeek = true;
       ShowSeconds = false;
-      ShowTimeZone = false;
+      ShowAMPM = true;
       IsAnalog = false;
     };
 
