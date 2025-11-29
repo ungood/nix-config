@@ -1,13 +1,10 @@
 {
-  pkgs,
   lib,
   config,
-  osConfig ? null,
   ...
 }:
 let
   cfg = config.onetrue.avatar;
-  isNixOS = osConfig != null;
 in
 {
   options.onetrue.avatar = {
@@ -20,16 +17,15 @@ in
   };
 
   config = lib.mkIf (cfg.path != null) {
-    # Set up KDE Plasma face icon (works on both NixOS and Darwin)
+    # Set up face icon (used by KDE Plasma on NixOS)
+    # TODO: This module should be NixOS-specific since KDE Plasma is not available on Darwin
     home.file.".face.icon".source = cfg.path;
 
-    # NixOS-specific: Grant SDDM permission to the user's home directory
-    # TODO: Add Darwin-specific implementation for user avatar
-    home.activation.setupSddmAvatar = lib.mkIf isNixOS (
-      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        echo "Setting sddm permissions for user icon"
-        run ${pkgs.acl}/bin/setfacl -m u:sddm:x ${config.home.homeDirectory}
-      ''
-    );
+    # Make home directory and avatar file accessible for display managers
+    home.activation.setupAvatar = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      echo "Setting permissions for user avatar"
+      chmod +x ${config.home.homeDirectory}
+      chmod a+r ${config.home.homeDirectory}/.face.icon
+    '';
   };
 }
