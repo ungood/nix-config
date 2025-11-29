@@ -10,7 +10,7 @@ in
 {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-bin-unwrapped;
+    package = pkgs.firefox-bin;
 
     # System-wide policies for privacy and security
     # Check about:policies#documentation for options
