@@ -1,7 +1,8 @@
-# System-wide Firefox configuration, which should restrict firefox for privacy reasons.
+# System-wide Firefox configuration shared between NixOS and Darwin
+# Enforces privacy settings and installs essential extensions
 _:
 let
-  # Function to lock configuration values.
+  # Function to lock configuration values
   locked = value: {
     Value = value;
     Status = "locked";
@@ -11,7 +12,7 @@ in
   programs.firefox = {
     enable = true;
 
-    # Check about:policies#documentation for options.
+    # Check about:policies#documentation for options
     policies = {
       DisableFirefoxStudies = true;
       DisableTelemtry = true;
@@ -49,9 +50,9 @@ in
       };
 
       # ---- EXTENSIONS ----
-      # Check about:support for extension/add-on ID strings.
+      # Check about:support for extension/add-on ID strings
       # Valid strings for installation_mode are "allowed", "blocked",
-      # "force_installed" and "normal_installed".
+      # "force_installed" and "normal_installed"
       ExtensionSettings = {
         "*".installation_mode = "allowed";
         # uBlock Origin:

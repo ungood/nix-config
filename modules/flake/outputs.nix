@@ -8,6 +8,7 @@ in
     nixosModules = forAllNixFiles "${self}/modules/nixos" import;
     darwinModules = forAllNixFiles "${self}/modules/darwin" import;
     homeModules = forAllNixFiles "${self}/modules/home" import;
+    sharedModules = forAllNixFiles "${self}/modules/shared" import;
     overlays = forAllNixFiles "${self}/modules/overlays" import;
 
     # Auto-discover NixOS configurations from configurations/nixos/*/default.nix

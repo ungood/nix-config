@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  self,
+  ...
+}:
 {
   imports = [
     ./auth.nix
@@ -8,6 +13,9 @@
     ./ssh.nix
     ./stylix.nix
     ./users.nix
+
+    # Shared configuration between NixOS and Darwin
+    self.sharedModules.firefox
 
     # Use Lix - a community fork of Nix with better Darwin support
     inputs.lix-module.nixosModules.default
