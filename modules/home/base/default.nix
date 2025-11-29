@@ -31,6 +31,7 @@ in
   ];
 
   # Sensible default for `home.homeDirectory`
+  # TODO: I don't really undertand why mkForce is needed here...
   home.homeDirectory = lib.mkDefault "/${homeRoot}/${config.home.username}";
 
   # For macOS, $PATH must contain these.
