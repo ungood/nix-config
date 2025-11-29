@@ -28,7 +28,7 @@ _: {
       ShowStatusBar = true;
     };
 
-    menuExtra.clock = {
+    menuExtraClock = {
       FlashDateSeparators = false;
       ShowDate = true;
       ShowDayOfMonth = true;
