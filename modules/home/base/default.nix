@@ -27,7 +27,7 @@ in
 
   # Common packages for all users
   home.packages = with pkgs; [
-    # TODO: temporarily removing spotify
+    spotify
   ];
 
   # Sensible default for `home.homeDirectory`
