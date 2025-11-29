@@ -1,10 +1,4 @@
-{ lib, ... }:
-{
-  nixpkgs.config = lib.mkDefault {
-    allowUnfree = true;
-    permittedInsecurePackages = [ ];
-  };
-
+_: {
   nix = {
     settings = {
       experimental-features = [

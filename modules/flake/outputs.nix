@@ -31,25 +31,23 @@ in
         };
       }
     );
-
-    # Auto-discover Home Manager configurations from configurations/home/*/default.nix
-    homeConfigurations = forAllNixFiles "${self}/configurations/home" (
-      path:
-      inputs.home-manager.lib.homeManagerConfiguration {
-        modules = [ path ];
-        pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs self;
-        };
-      }
-    );
-
   };
 
   # Set activate as default package
   perSystem =
     { self', ... }:
     {
+      legacyPackages.homeConfigurations = forAllNixFiles "${self}/configurations/home" (
+        path:
+        inputs.home-manager.lib.homeManagerConfiguration {
+          modules = [ path ];
+          #pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs self;
+          };
+        }
+      );
+
       packages.default = self'.packages.activate;
     };
 }
