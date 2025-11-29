@@ -2,6 +2,7 @@
 {
   imports = [
     ./home-manager.nix
+    ./homebrew.nix
     ./nix.nix
     ./stylix.nix
     ./system.nix
