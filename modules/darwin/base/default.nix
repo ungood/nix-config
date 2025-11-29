@@ -10,4 +10,6 @@
 
   # Enable sudo with Touch ID
   security.pam.services.sudo_local.touchIdAuth = true;
+
+  programs.fish.enable = true;
 }

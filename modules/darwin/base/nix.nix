@@ -1,3 +1,4 @@
+# TODO: This is very duplicative across nixos/darwin. Would love to merge.
 _: {
   nixpkgs.config = {
     allowUnfree = true;
@@ -9,6 +10,11 @@ _: {
     settings = {
       # Darwin uses @admin instead of @wheel
       trusted-users = [ "@admin" ];
+
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
 
     # Garbage collection using launchd format for Darwin

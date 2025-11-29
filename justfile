@@ -65,12 +65,12 @@ run HOST: (build-vm HOST)
 # Activate the current system configuration (auto-detects NixOS/Darwin)
 [group('ops')]
 activate: git-add
-    nix run .#activate
+    sudo nix run .#activate
 
 # Activate configuration for a specific host (auto-detects NixOS/Darwin)
 [group('ops')]
 activate-host HOST: git-add
-    nix run .#activate {{HOST}}
+    sudo nix run .#activate {{HOST}}
 
 # Build the new configuration and make it the boot default, but do not activate it.
 [group('ops')]

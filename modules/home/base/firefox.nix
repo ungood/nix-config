@@ -8,9 +8,11 @@ let
   };
 in
 {
+  # TODO: Clean up this module.
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-bin;
+    # TODO: Investigate using other firefox packages and/or moving policies into the wrapFirefox.
+    package = pkgs.wrapFirefox pkgs.firefox-unwrapped { };
 
     # System-wide policies for privacy and security
     # Check about:policies#documentation for options
@@ -59,7 +61,6 @@ in
       };
     };
 
-    # TODO: Name profile after username
     profiles.default = {
       id = 0;
       name = "default";

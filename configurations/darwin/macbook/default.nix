@@ -16,5 +16,8 @@
   # Home Manager configuration for this host
   home-manager.users.ungood.imports = [ ../../../configurations/home/ungood ];
 
+  programs._1password.enable = true;
+  # programs._1password-gui.enable = true; - 1password is installed by work profile already.
+
   system.stateVersion = 5;
 }
