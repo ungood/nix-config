@@ -49,107 +49,106 @@
       '';
     in
     {
-      checks =
-        {
-          nixos-modules = pkgs.testers.runNixOSTest {
-            name = "nixos-modules";
+      checks = {
+        nixos-modules = pkgs.testers.runNixOSTest {
+          name = "nixos-modules";
 
-            hostPkgs = lib.mkForce pkgs;
-            node.specialArgs = lib.mkForce {
-              inherit inputs;
-              inherit (inputs) self;
-              inherit pkgs;
-            };
+          hostPkgs = lib.mkForce pkgs;
+          node.specialArgs = lib.mkForce {
+            inherit inputs;
+            inherit (inputs) self;
+            inherit pkgs;
+          };
 
-            nodes.machine =
-              { modulesPath, ... }:
-              {
-                imports = [
-                  (modulesPath + "/misc/nixpkgs/read-only.nix")
-                  inputs.self.nixosModules.base
-                  inputs.self.nixosModules.desktop
-                  inputs.self.nixosModules.development
-                  inputs.self.nixosModules.gaming
-                  inputs.home-manager.nixosModules.home-manager
-                ];
+          nodes.machine =
+            { modulesPath, ... }:
+            {
+              imports = [
+                (modulesPath + "/misc/nixpkgs/read-only.nix")
+                inputs.self.nixosModules.base
+                inputs.self.nixosModules.desktop
+                inputs.self.nixosModules.development
+                inputs.self.nixosModules.gaming
+                inputs.home-manager.nixosModules.home-manager
+              ];
 
-                # Use our pre-configured pkgs with overlays and unfree enabled
-                nixpkgs.pkgs = pkgs;
+              # Use our pre-configured pkgs with overlays and unfree enabled
+              nixpkgs.pkgs = pkgs;
 
-                # Configure home-manager
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  backupFileExtension = "hm-backup";
+              # Configure home-manager
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                backupFileExtension = "hm-backup";
 
-                  extraSpecialArgs = {
-                    inherit inputs;
-                    inherit (inputs) self;
-                  };
-                };
-
-                # VM configuration for testing
-                virtualisation = {
-                  memorySize = 4096;
-                  diskSize = 16384;
-                  cores = 4;
-                  graphics = true;
-                };
-
-                # Override for testing
-                services.displayManager.autoLogin = {
-                  enable = true;
-                  user = "ungood";
-                };
-
-                # Add test user with password from secrets flake
-                users.users.test = {
-                  isNormalUser = true;
-                  hashedPassword = inputs.secrets.passwords.test;
-                  extraGroups = [ "wheel" ];
+                extraSpecialArgs = {
+                  inherit inputs;
+                  inherit (inputs) self;
                 };
               };
 
-            testScript = combinedTestScript;
-          };
-        }
-        # Evaluate all NixOS configurations
-        // (lib.mapAttrs' (
-          name: _config:
-          lib.nameValuePair "eval-nixos-${name}" (
-            pkgs.runCommand "eval-nixos-${name}" { } ''
-              echo "✓ NixOS configuration '${name}' exists in flake outputs"
+              # VM configuration for testing
+              virtualisation = {
+                memorySize = 4096;
+                diskSize = 16384;
+                cores = 4;
+                graphics = true;
+              };
+
+              # Override for testing
+              services.displayManager.autoLogin = {
+                enable = true;
+                user = "ungood";
+              };
+
+              # Add test user with password from secrets flake
+              users.users.test = {
+                isNormalUser = true;
+                hashedPassword = inputs.secrets.passwords.test;
+                extraGroups = [ "wheel" ];
+              };
+            };
+
+          testScript = combinedTestScript;
+        };
+      }
+      # Evaluate all NixOS configurations
+      // (lib.mapAttrs' (
+        name: _config:
+        lib.nameValuePair "eval-nixos-${name}" (
+          pkgs.runCommand "eval-nixos-${name}" { } ''
+            echo "✓ NixOS configuration '${name}' exists in flake outputs"
+            touch $out
+          ''
+        )
+      ) inputs.self.nixosConfigurations)
+      # Evaluate all Darwin configurations
+      // (lib.mapAttrs' (
+        name: config:
+        lib.nameValuePair "eval-darwin-${name}" (
+          pkgs.runCommand "eval-darwin-${name}"
+            {
+              # Evaluate configuration metadata without building packages
+              configName = config.config.networking.hostName or name;
+              activationPkg = config.config.system.activationScripts.system.text or "";
+            }
+            ''
+              echo "✓ Darwin configuration '${name}' evaluates successfully"
+              echo "  Host: $configName"
+              echo "  Activation script lines: $(echo "$activationPkg" | wc -l)"
               touch $out
             ''
-          )
-        ) inputs.self.nixosConfigurations)
-        # Evaluate all Darwin configurations
-        // (lib.mapAttrs' (
-          name: config:
-          lib.nameValuePair "eval-darwin-${name}" (
-            pkgs.runCommand "eval-darwin-${name}"
-              {
-                # Evaluate configuration metadata without building packages
-                configName = config.config.networking.hostName or name;
-                activationPkg = config.config.system.activationScripts.system.text or "";
-              }
-              ''
-                echo "✓ Darwin configuration '${name}' evaluates successfully"
-                echo "  Host: $configName"
-                echo "  Activation script lines: $(echo "$activationPkg" | wc -l)"
-                touch $out
-              ''
-          )
-        ) inputs.self.darwinConfigurations)
-        # Evaluate all Home Manager configurations
-        // (lib.mapAttrs' (
-          name: _config:
-          lib.nameValuePair "eval-home-${name}" (
-            pkgs.runCommand "eval-home-${name}" { } ''
-              echo "✓ Home Manager configuration '${name}' exists in flake outputs"
-              touch $out
-            ''
-          )
-        ) (inputs.self.legacyPackages.${pkgs.system}.homeConfigurations or { }));
+        )
+      ) inputs.self.darwinConfigurations)
+      # Evaluate all Home Manager configurations
+      // (lib.mapAttrs' (
+        name: _config:
+        lib.nameValuePair "eval-home-${name}" (
+          pkgs.runCommand "eval-home-${name}" { } ''
+            echo "✓ Home Manager configuration '${name}' exists in flake outputs"
+            touch $out
+          ''
+        )
+      ) (inputs.self.legacyPackages.${pkgs.system}.homeConfigurations or { }));
     };
 }

@@ -1,7 +1,5 @@
 {
   pkgs,
-  inputs,
-  self,
   ...
 }:
 {
@@ -14,11 +12,9 @@
     ./stylix.nix
     ./users.nix
 
-    # Shared configuration between NixOS and Darwin
-    self.sharedModules.firefox
-
     # Use Lix - a community fork of Nix with better Darwin support
-    inputs.lix-module.nixosModules.default
+    # TODO: Re-enable once separateDebugInfo/__structuredAttrs issue is fixed
+    # inputs.lix-module.nixosModules.default
   ];
 
   i18n.defaultLocale = "en_US.UTF-8";

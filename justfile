@@ -39,7 +39,7 @@ test: check
 # Check flake for issues (includes validation of all configurations)
 [group('test')]
 check: git-add
-    pre-commit
+    treefmt --fail-on-change
     nix flake check
 
 # Run specific host test (tests all modules for that host)

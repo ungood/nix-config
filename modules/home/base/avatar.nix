@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -17,15 +18,16 @@ in
   };
 
   config = lib.mkIf (cfg.path != null) {
-    # Set up face icon (used by KDE Plasma on NixOS)
-    # TODO: This module should be NixOS-specific since KDE Plasma is not available on Darwin
+    # Set up KDE Plasma face icon (works on both NixOS and Darwin)
     home.file.".face.icon".source = cfg.path;
 
-    # Make home directory and avatar file accessible for display managers
-    home.activation.setupAvatar = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      echo "Setting permissions for user avatar"
-      chmod +x ${config.home.homeDirectory}
-      chmod a+r ${config.home.homeDirectory}/.face.icon
-    '';
+    # Linux-specific: Grant SDDM permission to the user's home directory
+    # Darwin doesn't need this since it doesn't use SDDM
+    home.activation.setupSddmAvatar = lib.mkIf pkgs.stdenv.isLinux (
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        echo "Setting sddm permissions for user icon"
+        run ${pkgs.acl}/bin/setfacl -m u:sddm:x ${config.home.homeDirectory}
+      ''
+    );
   };
 }
