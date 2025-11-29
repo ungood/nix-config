@@ -11,6 +11,7 @@ _: {
     casks = [
       "beeper"
       "ghostty"
+      "spotify"
     ];
   };
 }

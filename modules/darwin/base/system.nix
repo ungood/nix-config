@@ -1,6 +1,11 @@
 _: {
   # Set macOS system defaults
   system.defaults = {
+    # Window Manager: Disable gaps between tiled windows
+    WindowManager = {
+      EnableTiledWindowMargins = false;
+    };
+
     dock = {
       autohide = true;
       magnification = true;
@@ -38,8 +43,15 @@ _: {
       IsAnalog = false;
     };
 
+    # Global settings: appearance and input behavior
     NSGlobalDomain = {
+      # Appearance: Dark mode
+      AppleInterfaceStyle = "Dark";
+
+      # File extensions
       AppleShowAllExtensions = true;
+
+      # Disable auto-corrections
       NSAutomaticCapitalizationEnabled = false;
       NSAutomaticDashSubstitutionEnabled = false;
       NSAutomaticPeriodSubstitutionEnabled = false;
@@ -56,6 +68,19 @@ _: {
       Clicking = true;
       Dragging = true;
       DragLock = false;
+    };
+
+    # Custom preferences not available as typed options
+    CustomUserPreferences = {
+      # Disable Siri
+      "com.apple.assistant.support" = {
+        "Assistant Enabled" = false;
+      };
+      # Orange accent color and highlight
+      "NSGlobalDomain" = {
+        AppleAccentColor = 1; # Orange
+        AppleHighlightColor = "1.0 0.874510 0.701961 Orange";
+      };
     };
   };
 
