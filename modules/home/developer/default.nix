@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    # TODO: Temporarily removing until I can get unfree to work again! ./vscode.nix
+    ./vscode.nix
     ./devenv.nix
     ./direnv.nix
     ./gh.nix
