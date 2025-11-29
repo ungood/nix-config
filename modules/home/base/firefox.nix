@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 let
   # Function to lock configuration values
   locked = value: {
@@ -8,6 +10,7 @@ in
 {
   programs.firefox = {
     enable = true;
+    package = pkgs.firefox-bin-unwrapped;
 
     # System-wide policies for privacy and security
     # Check about:policies#documentation for options
