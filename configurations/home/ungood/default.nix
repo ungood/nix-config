@@ -59,7 +59,6 @@
       ];
     };
 
-    spotify-player.enable = true;
     starship.enable = true;
   };
 

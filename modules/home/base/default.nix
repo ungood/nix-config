@@ -25,11 +25,6 @@ in
 
   programs.home-manager.enable = true;
 
-  # Common packages for all users
-  home.packages = with pkgs; [
-    spotify
-  ];
-
   # Sensible default for `home.homeDirectory`
   # TODO: I don't really undertand why mkForce is needed here...
   home.homeDirectory = lib.mkForce "/${homeRoot}/${config.home.username}";
