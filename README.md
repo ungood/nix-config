@@ -54,9 +54,17 @@ run `sudo install-nixos`. Easy peasy.
 
 After installing Nix and cloning this repository:
 
-```bash
-sudo nix run nix-darwin/master#darwin-rebuild -- switch
-```
+1. **Install Homebrew** (required for managing some macOS applications):
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+2. **Apply the nix-darwin configuration**:
+   ```bash
+   sudo nix run nix-darwin/master#darwin-rebuild -- switch
+   ```
+
+   This will automatically use Homebrew to install applications like Beeper and Ghostty that aren't available via Nix on macOS.
 
 ## References
 
