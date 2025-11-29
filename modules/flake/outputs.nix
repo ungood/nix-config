@@ -2,18 +2,13 @@
 let
   autowire = import ../../lib/autowire.nix { inherit (inputs.nixpkgs) lib; };
   inherit (autowire) forAllNixFiles;
-  inherit (inputs.nixpkgs) lib;
 in
 {
   flake = {
-    # Auto-discover NixOS modules from modules/nixos/*/default.nix
     nixosModules = forAllNixFiles ../../modules/nixos import;
-
-    # Auto-discover Darwin modules from modules/darwin/*/default.nix
     darwinModules = forAllNixFiles ../../modules/darwin import;
-
-    # Auto-discover Home Manager modules from modules/home/*/default.nix
     homeModules = forAllNixFiles ../../modules/home import;
+
     # Auto-discover NixOS configurations from configurations/nixos/*/default.nix
     nixosConfigurations = forAllNixFiles ../../configurations/nixos (
       path:
@@ -49,13 +44,10 @@ in
     );
   };
 
-  # Expose activate package from nixos-unified
+  # Set activate as default package
   perSystem =
-    { system, ... }:
+    { self', ... }:
     {
-      packages = {
-        inherit (inputs.nixos-unified.packages.${system}) activate;
-        default = inputs.nixos-unified.packages.${system}.activate;
-      };
+      packages.default = self'.packages.activate;
     };
 }
