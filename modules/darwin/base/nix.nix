@@ -1,8 +1,11 @@
 _: {
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
+
   nix = {
     settings = {
       # Darwin uses @admin instead of @wheel
-      allowUnfree = true;
       trusted-users = [ "@admin" ];
     };
 
