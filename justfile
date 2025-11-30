@@ -48,7 +48,7 @@ check-format: git-add
 # Evaluate all configurations without building (fast validation)
 [group('test')]
 check-eval: git-add
-    nix flake check --all-systems --no-build
+    nix flake check --all-systems --no-build --keep-going
 
 # CI validation (format, lint, and evaluate)
 [group('test')]
