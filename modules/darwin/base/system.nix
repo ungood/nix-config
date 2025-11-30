@@ -1,11 +1,6 @@
 _: {
   # Set macOS system defaults
   system.defaults = {
-    # Window Manager: Disable gaps between tiled windows
-    WindowManager = {
-      EnableTiledWindowMargins = false;
-    };
-
     dock = {
       autohide = true;
       magnification = true;
@@ -68,6 +63,11 @@ _: {
       Clicking = true;
       Dragging = true;
       DragLock = false;
+    };
+
+    WindowManager = {
+      # Disable gaps between tiled windows
+      EnableTiledWindowMargins = false;
     };
 
     # Custom preferences not available as typed options

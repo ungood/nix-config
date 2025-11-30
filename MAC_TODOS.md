@@ -13,9 +13,10 @@
 - [ ] Update documentation
 - [x] set Firefox default browser
 - [ ] install rectangles
-- [ ] ghossty font is blurry
+- [x] ghossty font is blurry
 - [ ] configure screen timeout to be same as on KDE
 - [ ] replace macbook hostname with real one.
+- [ ] remove spotlight categories
 - run "tv update-channels" on activation and install dependencies
 - deal with nix eval warnings
 - ghostty transparency

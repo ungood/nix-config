@@ -1,10 +1,17 @@
-{ pkgs, config, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  self,
+  ...
+}:
 {
   imports = [
+    inputs.stylix.darwinModules.stylix
+    self.sharedModules.stylix
     ./home-manager.nix
     ./homebrew.nix
     ./nix.nix
-    ./stylix.nix
     ./system.nix
   ];
 

@@ -12,6 +12,7 @@
     self.homeModules.developer
     ./bat.nix
     ./claude.nix
+    ./ghostty.nix
     ./git.nix
   ];
 
@@ -33,7 +34,6 @@
       ]
       ++ lib.optionals (!stdenv.isDarwin) [
         beeper
-        ghostty
       ];
 
     sessionVariables = {

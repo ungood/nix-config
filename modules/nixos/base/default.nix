@@ -1,15 +1,18 @@
 {
+  inputs,
   pkgs,
+  self,
   ...
 }:
 {
   imports = [
+    inputs.stylix.nixosModules.stylix
+    self.sharedModules.stylix
     ./auth.nix
     ./fonts.nix
     ./home-manager.nix
     ./nix.nix
     ./ssh.nix
-    ./stylix.nix
     ./users.nix
 
     # Use Lix - a community fork of Nix with better Darwin support

@@ -15,7 +15,6 @@ _: {
     casks = [
       "browsers-software/tap/browsers"
       "beeper"
-      "ghostty"
       "spotify"
     ];
   };

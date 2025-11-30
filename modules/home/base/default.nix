@@ -21,7 +21,6 @@ in
     ./nix-index.nix
     ./plasma.nix
     ./ssh.nix
-    ./stylix.nix
   ];
 
   programs.home-manager.enable = true;
