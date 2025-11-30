@@ -21,13 +21,20 @@ _: {
 
       permissions = {
         allow = [
+          "Bash(cat:*)"
+          "Bash(echo:*)"
+          "Bash(find:*)"
           "Bash(git:*)"
           "Bash(gh:*)"
+          "Bash(head:*)"
           "Bash(just:*)"
+          "Bash(jq:*)"
+          "Bash(ls:*)"
           "Bash(mkdir:*)"
           "Bash(mv:*)"
-          "Bash(ls:*)"
-          "Bash(find:*)"
+          "Bash(rg:*)"
+          "Bash(tail:*)"
+          "Bash(wc:*)"
           "WebFetch"
           "WebSearch"
         ];

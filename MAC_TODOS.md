@@ -11,20 +11,22 @@
 ## Medium priority
 
 - [ ] Update documentation
-- [ ] set Firefox default browser
+- [x] set Firefox default browser
 - [ ] install rectangles
 - [ ] ghossty font is blurry
-- configure screen timeout
-- replace macbook hostname with real one.
+- [ ] configure screen timeout to be same as on KDE
+- [ ] replace macbook hostname with real one.
 - run "tv update-channels" on activation and install dependencies
 - deal with nix eval warnings
 - ghostty transparency
+- standardize hotkeys between mac and linux
 
 - refactor nixos/darwin modules into shared modules where appropriate
   - create a mechanism to install packages with homebrew, flatpak, or nixpkgs as appropriate.
 - look into lix auto-gc
 - install rosetta?
 - darwin tests
+- [ ] Move configuration of mimetypes out of firefox.nix and standardize across mac/linux.
 
 ## Low priority
 

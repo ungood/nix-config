@@ -12,6 +12,7 @@ in
   imports = [
     ./_1password.nix
     ./avatar.nix
+    ./browsers.nix
     ./editor.nix
     ./fastfetch.nix
     ./firefox.nix

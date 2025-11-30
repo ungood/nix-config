@@ -8,7 +8,12 @@ _: {
       upgrade = true;
     };
 
+    brews = [
+      "defaultbrowser"
+    ];
+
     casks = [
+      "browsers-software/tap/browsers"
       "beeper"
       "ghostty"
       "spotify"
