@@ -32,7 +32,10 @@
         opencode
         todoist
       ]
-      ++ lib.optionals (!stdenv.isDarwin) [
+      ++ lib.optionals stdenv.isDarwin [
+        rectangle
+      ]
+      ++ lib.optionals stdenv.isLinux [
         beeper
       ];
 
