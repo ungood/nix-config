@@ -63,6 +63,11 @@
       url = "github:srid/nixos-unified";
     };
 
+    ghostty-shaders = {
+      url = "github:0xhckr/ghostty-shaders";
+      flake = false;
+    };
+
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
