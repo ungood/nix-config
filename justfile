@@ -36,11 +36,23 @@ build-darwin HOST: git-add
 [group('test')]
 test: check
 
-# Check flake for issues (includes validation of all configurations)
+# Run all checks (format and eval)
 [group('test')]
-check: git-add
+check: check-format check-eval
+
+# Check formatting without modifying files
+[group('test')]
+check-format: git-add
     treefmt --fail-on-change
-    nix flake check
+
+# Evaluate all configurations without building (fast validation)
+[group('test')]
+check-eval: git-add
+    nix flake check --all-systems --no-build
+
+# CI validation (format, lint, and evaluate)
+[group('test')]
+ci: check
 
 # Run specific host test (tests all modules for that host)
 [group('test')]

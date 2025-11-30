@@ -49,7 +49,7 @@
       '';
     in
     {
-      checks = {
+      checks = lib.optionalAttrs pkgs.stdenv.isLinux {
         nixos-modules = pkgs.testers.runNixOSTest {
           name = "nixos-modules";
 
@@ -111,44 +111,6 @@
 
           testScript = combinedTestScript;
         };
-      }
-      # Evaluate all NixOS configurations
-      // (lib.mapAttrs' (
-        name: _config:
-        lib.nameValuePair "eval-nixos-${name}" (
-          pkgs.runCommand "eval-nixos-${name}" { } ''
-            echo "✓ NixOS configuration '${name}' exists in flake outputs"
-            touch $out
-          ''
-        )
-      ) inputs.self.nixosConfigurations)
-      # Evaluate all Darwin configurations
-      // (lib.mapAttrs' (
-        name: config:
-        lib.nameValuePair "eval-darwin-${name}" (
-          pkgs.runCommand "eval-darwin-${name}"
-            {
-              # Evaluate configuration metadata without building packages
-              configName = config.config.networking.hostName or name;
-              activationPkg = config.config.system.activationScripts.system.text or "";
-            }
-            ''
-              echo "✓ Darwin configuration '${name}' evaluates successfully"
-              echo "  Host: $configName"
-              echo "  Activation script lines: $(echo "$activationPkg" | wc -l)"
-              touch $out
-            ''
-        )
-      ) inputs.self.darwinConfigurations)
-      # Evaluate all Home Manager configurations
-      // (lib.mapAttrs' (
-        name: _config:
-        lib.nameValuePair "eval-home-${name}" (
-          pkgs.runCommand "eval-home-${name}" { } ''
-            echo "✓ Home Manager configuration '${name}' exists in flake outputs"
-            touch $out
-          ''
-        )
-      ) (inputs.self.legacyPackages.${pkgs.system}.homeConfigurations or { }));
+      };
     };
 }

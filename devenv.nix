@@ -20,5 +20,13 @@
 
   git-hooks.hooks = {
     treefmt.enable = true;
+    check-eval = {
+      enable = true;
+      name = "check-eval";
+      description = "Evaluate all Nix configurations";
+      entry = "just check-eval";
+      pass_filenames = false;
+      stages = [ "pre-commit" ];
+    };
   };
 }
