@@ -1,24 +1,13 @@
 # MacOS Todo List
 
-## High Priority
-
-- [x] configure dark mode and accent color (a pleasant shade of orange please)
-- [x] enable fish as default shell
-- [x] configure spotlight to disable siri other stuff
-- [x] install spotify
-- [x] remove window separation when tiling
-
 ## Medium priority
 
-- [ ] Update documentation
-- [x] set Firefox default browser.
-- [x] ghossty font is blurry
-- [ ] configure screen timeout to be same as on KDE
 - [ ] replace macbook hostname with real one.
-- [ ] remove spotlight categories
 
 ## Low priority
 
+- [ ] configure screen timeout to be same as on KDE
+- [ ] remove spotlight categories
 - clean up the justfile, devenv, and checks integrationƒ
 - run "tv update-channels" on activation and install dependencies
 - deal with nix eval warnings
