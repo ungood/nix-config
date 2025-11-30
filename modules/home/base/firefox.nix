@@ -1,7 +1,66 @@
+{ pkgs, ... }:
+
+let
+  # Function to lock configuration values
+  locked = value: {
+    Value = value;
+    Status = "locked";
+  };
+in
 {
+  # TODO: Clean up this module.
   programs.firefox = {
     enable = true;
-    # TODO: Name profile after username
+    # TODO: Investigate using other firefox packages and/or moving policies into the wrapFirefox.
+    package = pkgs.wrapFirefox pkgs.firefox-unwrapped { };
+
+    # System-wide policies for privacy and security
+    # Check about:policies#documentation for options
+    policies = {
+      DisableFirefoxStudies = true;
+      DisableTelemetry = true;
+      DisablePocket = true;
+      EnableTrackingProtection = {
+        Value = true;
+        Locked = true;
+        Cryptomining = true;
+        Fingerprinting = true;
+      };
+      DontCheckDefaultBrowser = true;
+
+      Preferences = {
+        "extensions.pocket.enabled" = locked false;
+
+        # Disable crappy home activity stream page
+        "browser.newtabpage.activity-stream.showSponsored" = locked false;
+        "browser.newtabpage.activity-stream.system.showSponsored" = locked false;
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = locked false;
+      };
+
+      # ---- EXTENSIONS ----
+      # Check about:support for extension/add-on ID strings
+      # Valid strings for installation_mode are "allowed", "blocked",
+      # "force_installed" and "normal_installed"
+      ExtensionSettings = {
+        "*".installation_mode = "allowed";
+        # uBlock Origin:
+        "uBlock0@raymondhill.net" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        # Privacy Badger:
+        "jid1-MnnxcxisBPnSXQ@jetpack" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        # 1Password:
+        "{d634138d-c276-4fc8-924b-40a0ea21d284}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/1password-x-password-manager/latest.xpi";
+          installation_mode = "force_installed";
+        };
+      };
+    };
+
     profiles.default = {
       id = 0;
       name = "default";
@@ -102,10 +161,9 @@
     };
   };
 
-  xdg.mimeApps.defaultApplications = {
-    "text/html" = [ "firefox.desktop" ];
-    "text/xml" = [ "firefox.desktop" ];
-    "x-scheme-handler/http" = [ "firefox.desktop" ];
-    "x-scheme-handler/https" = [ "firefox.desktop" ];
+  stylix.targets.firefox = {
+    enable = true;
+    profileNames = [ "default" ];
+    firefoxGnomeTheme.enable = false;
   };
 }

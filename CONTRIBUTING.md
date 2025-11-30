@@ -4,20 +4,20 @@ This document describes how to build, test, and contribute to this NixOS configu
 
 ## Prerequisites
 
-- **Nix Installation**: [Determinate Nix](https://docs.determinate.systems/determinate-nix/) (recommended)
+- **Nix Installation**: [Lix](https://lix.systems) (recommended for better Darwin support)
 
   **For macOS/Linux (non-NixOS):**
   ```bash
-  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
+  curl -sSf -L https://install.lix.systems/lix | sh -s -- install
   ```
 
   **For NixOS:**
 
-  This configuration automatically uses Determinate Nix. On first rebuild, use extra substituters:
+  This configuration automatically uses Lix via the nixos-module. On first rebuild, you may need to use extra substituters:
   ```bash
   sudo nixos-rebuild switch --flake . \
-    --option extra-substituters https://install.determinate.systems \
-    --option extra-trusted-public-keys cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM=
+    --option extra-substituters https://cache.lix.systems \
+    --option extra-trusted-public-keys cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o=
   ```
 
 - **Development Environment**: [devenv](https://devenv.sh) for development shell

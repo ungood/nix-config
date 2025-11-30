@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   self,
   ...
@@ -11,6 +12,7 @@
     self.homeModules.developer
     ./bat.nix
     ./claude.nix
+    ./ghostty.nix
     ./git.nix
   ];
 
@@ -19,17 +21,23 @@
     username = "ungood";
     stateVersion = "25.05";
 
-    packages = with pkgs; [
-      beeper
-      element-desktop
-      ghostty
-      gum
-      # Obsidian with HM is a PITA to use with community packages right now so I currently just install the package
-      # See: https://github.com/nix-community/home-manager/pull/6487#issuecomment-2667166722
-      obsidian
-      opencode
-      todoist
-    ];
+    packages =
+      with pkgs;
+      [
+        element-desktop
+        gum
+        # Obsidian with HM is a PITA to use with community packages right now so I currently just install the package
+        # See: https://github.com/nix-community/home-manager/pull/6487#issuecomment-2667166722
+        obsidian
+        opencode
+        todoist
+      ]
+      ++ lib.optionals stdenv.isDarwin [
+        rectangle
+      ]
+      ++ lib.optionals stdenv.isLinux [
+        beeper
+      ];
 
     sessionVariables = {
       GREP_OPTIONS = "--color=auto";
@@ -54,7 +62,6 @@
       ];
     };
 
-    spotify-player.enable = true;
     starship.enable = true;
   };
 

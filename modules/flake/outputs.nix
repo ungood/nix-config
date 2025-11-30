@@ -1,21 +1,18 @@
 { inputs, self, ... }:
 let
-  autowire = import ../../lib/autowire.nix { inherit (inputs.nixpkgs) lib; };
+  autowire = import "${self}/lib/autowire.nix" { inherit (inputs.nixpkgs) lib; };
   inherit (autowire) forAllNixFiles;
-  inherit (inputs.nixpkgs) lib;
 in
 {
   flake = {
-    # Auto-discover NixOS modules from modules/nixos/*/default.nix
-    nixosModules = forAllNixFiles ../../modules/nixos import;
+    nixosModules = forAllNixFiles "${self}/modules/nixos" import;
+    darwinModules = forAllNixFiles "${self}/modules/darwin" import;
+    homeModules = forAllNixFiles "${self}/modules/home" import;
+    sharedModules = forAllNixFiles "${self}/modules/shared" import;
+    overlays = forAllNixFiles "${self}/modules/overlays" import;
 
-    # Auto-discover Darwin modules from modules/darwin/*/default.nix
-    darwinModules = forAllNixFiles ../../modules/darwin import;
-
-    # Auto-discover Home Manager modules from modules/home/*/default.nix
-    homeModules = forAllNixFiles ../../modules/home import;
     # Auto-discover NixOS configurations from configurations/nixos/*/default.nix
-    nixosConfigurations = forAllNixFiles ../../configurations/nixos (
+    nixosConfigurations = forAllNixFiles "${self}/configurations/nixos" (
       path:
       inputs.nixpkgs.lib.nixosSystem {
         modules = [ path ];
@@ -26,7 +23,7 @@ in
     );
 
     # Auto-discover Darwin configurations from configurations/darwin/*/default.nix
-    darwinConfigurations = forAllNixFiles ../../configurations/darwin (
+    darwinConfigurations = forAllNixFiles "${self}/configurations/darwin" (
       path:
       inputs.nix-darwin.lib.darwinSystem {
         modules = [ path ];
@@ -35,27 +32,24 @@ in
         };
       }
     );
-
-    # Auto-discover Home Manager configurations from configurations/home/*/default.nix
-    homeConfigurations = forAllNixFiles ../../configurations/home (
-      path:
-      inputs.home-manager.lib.homeManagerConfiguration {
-        modules = [ path ];
-        pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs self;
-        };
-      }
-    );
   };
 
-  # Expose activate package from nixos-unified
+  # Set activate as default package
   perSystem =
-    { system, ... }:
+    { pkgs, self', ... }:
     {
-      packages = {
-        inherit (inputs.nixos-unified.packages.${system}) activate;
-        default = inputs.nixos-unified.packages.${system}.activate;
-      };
+      legacyPackages.homeConfigurations = forAllNixFiles "${self}/configurations/home" (
+        path:
+        inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ path ];
+          #pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs self;
+          };
+        }
+      );
+
+      packages.default = self'.packages.activate;
     };
 }

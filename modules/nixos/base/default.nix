@@ -1,16 +1,23 @@
-{ pkgs, inputs, ... }:
+{
+  inputs,
+  pkgs,
+  self,
+  ...
+}:
 {
   imports = [
+    inputs.stylix.nixosModules.stylix
+    self.sharedModules.stylix
     ./auth.nix
     ./fonts.nix
     ./home-manager.nix
     ./nix.nix
     ./ssh.nix
-    ./stylix.nix
     ./users.nix
 
-    # Use Determinate Nix for performance and enterprise features
-    inputs.determinate.nixosModules.default
+    # Use Lix - a community fork of Nix with better Darwin support
+    # TODO: Re-enable once separateDebugInfo/__structuredAttrs issue is fixed
+    # inputs.lix-module.nixosModules.default
   ];
 
   i18n.defaultLocale = "en_US.UTF-8";

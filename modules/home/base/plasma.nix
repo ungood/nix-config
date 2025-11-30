@@ -1,10 +1,16 @@
-{ inputs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     inputs.plasma-manager.homeModules.plasma-manager
   ];
 
-  programs.plasma = {
+  # TODO: Detect if KDE Plasma is enabled instead of installing on all Linux.
+  programs.plasma = lib.mkIf pkgs.stdenv.isLinux {
     enable = true;
 
     workspace = {

@@ -73,14 +73,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    determinate = {
-      url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    inputs@{ self, ... }:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -93,5 +94,18 @@
         ./modules/flake/pkgs.nix
         ./modules/flake/checks.nix
       ];
+
+      perSystem =
+        { lib, system, ... }:
+        {
+          # Make our overlay available to the devShell
+          # "Flake parts does not yet come with an endorsed module that initializes the pkgs argument.""
+          # So we must do this manually; https://flake.parts/overlays#consuming-an-overlay
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = lib.attrValues self.overlays;
+            config.allowUnfree = true;
+          };
+        };
     };
 }

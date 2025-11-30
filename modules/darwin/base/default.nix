@@ -1,43 +1,33 @@
-{ ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  self,
+  ...
+}:
 {
   imports = [
+    inputs.stylix.darwinModules.stylix
+    self.sharedModules.stylix
     ./home-manager.nix
+    ./homebrew.nix
     ./nix.nix
-    ./stylix.nix
+    ./system.nix
   ];
 
   # Enable sudo with Touch ID
   security.pam.services.sudo_local.touchIdAuth = true;
 
-  # Set macOS system defaults
-  # system.defaults = {
-  #   dock = {
-  #     autohide = true;
-  #     show-recents = false;
-  #   };
+  # Fish shell configuration
+  programs.fish.enable = true;
+  environment.shells = [ pkgs.fish ];
 
-  #   finder = {
-  #     AppleShowAllExtensions = true;
-  #     FXPreferredViewStyle = "clmv"; # Column view
-  #     ShowPathbar = true;
-  #     ShowStatusBar = true;
-  #   };
+  # This is required for setting the shell to be effective: https://github.com/nix-darwin/nix-darwin/issues/1237
+  users.knownUsers = [ "${config.system.primaryUser}" ];
 
-  #   NSGlobalDomain = {
-  #     AppleShowAllExtensions = true;
-  #     # Disable automatic capitalization
-  #     NSAutomaticCapitalizationEnabled = false;
-  #     # Disable smart dashes
-  #     NSAutomaticDashSubstitutionEnabled = false;
-  #     # Disable automatic period substitution
-  #     NSAutomaticPeriodSubstitutionEnabled = false;
-  #     # Disable smart quotes
-  #     NSAutomaticQuoteSubstitutionEnabled = false;
-  #     # Disable auto-correct
-  #     NSAutomaticSpellingCorrectionEnabled = false;
-  #   };
-  # };
-
-  # Enable fish shell
-  #programs.fish.enable = true;
+  # Set fish as default shell for the primary user
+  users.users.${config.system.primaryUser} = {
+    uid = 501;
+    shell = pkgs.fish;
+  };
 }

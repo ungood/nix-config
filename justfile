@@ -32,10 +32,14 @@ build-darwin HOST: git-add
 
 ## Test Commands
 
-# Check flake for issues
+# Run all tests (alias for check)
+[group('test')]
+test: check
+
+# Check flake for issues (includes validation of all configurations)
 [group('test')]
 check: git-add
-    pre-commit
+    treefmt --fail-on-change
     nix flake check
 
 # Run specific host test (tests all modules for that host)
@@ -61,12 +65,12 @@ run HOST: (build-vm HOST)
 # Activate the current system configuration (auto-detects NixOS/Darwin)
 [group('ops')]
 activate: git-add
-    nix run .#activate
+    sudo nix run .#activate
 
 # Activate configuration for a specific host (auto-detects NixOS/Darwin)
 [group('ops')]
 activate-host HOST: git-add
-    nix run .#activate {{HOST}}
+    sudo nix run .#activate {{HOST}}
 
 # Build the new configuration and make it the boot default, but do not activate it.
 [group('ops')]

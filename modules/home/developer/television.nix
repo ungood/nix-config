@@ -8,6 +8,14 @@ _: {
     nix-search-tv = {
       enable = true;
       enableTelevisionIntegration = true;
+
+      settings.indexes = [
+        "nixpkgs"
+        "nixos"
+        "darwin"
+        "home-manager"
+        "nur"
+      ];
     };
 
     # TODO: This would be interesting to replace/extend delta as a pager for git diffs

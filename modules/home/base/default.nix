@@ -1,36 +1,38 @@
 {
   pkgs,
   lib,
-  osConfig ? null,
+  config,
   ...
 }:
 let
-  # Detect if we're on NixOS (osConfig will be null on Darwin)
-  isNixOS = osConfig != null;
+  homeRoot = if pkgs.stdenv.isDarwin then "Users" else "home";
 in
 {
   # Import all base modules
   imports = [
     ./_1password.nix
     ./avatar.nix
+    ./browsers.nix
     ./editor.nix
     ./fastfetch.nix
     ./firefox.nix
     ./helix.nix
     ./nix.nix
     ./nix-index.nix
-    ./ssh.nix
-    ./stylix.nix
-  ]
-  ++ lib.optionals isNixOS [
-    # NixOS-only modules (plasma-manager)
     ./plasma.nix
+    ./ssh.nix
   ];
 
   programs.home-manager.enable = true;
 
-  # Common packages for all users
-  home.packages = with pkgs; [
-    spotify
+  # Sensible default for `home.homeDirectory`
+  # TODO: I don't really undertand why mkForce is needed here...
+  home.homeDirectory = lib.mkForce "/${homeRoot}/${config.home.username}";
+
+  # For macOS, $PATH must contain these.
+  home.sessionPath = lib.mkIf pkgs.stdenv.isDarwin [
+    "/etc/profiles/per-user/$USER/bin" # To access home-manager binaries
+    "/nix/var/nix/profiles/system/sw/bin" # To access nix-darwin binaries
+    "/usr/local/bin" # Some macOS GUI programs install here
   ];
 }

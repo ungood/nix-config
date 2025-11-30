@@ -37,11 +37,11 @@ This repository was developed as a way to:
 
 ### Install Nix
 
-This configuration uses the [Determinate Nix](https://docs.determinate.systems/determinate-nix/) installer, due to its
-support of uninstalling on MacOS.  I may experiment with Lix as well one day.
+This configuration uses [Lix](https://lix.systems), a community fork of Nix with better Darwin support
+and compatibility with nix-darwin.
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate
+curl -sSf -L https://install.lix.systems/lix | sh -s -- install
 ```
 
 ### NixOS Installation
@@ -54,9 +54,17 @@ run `sudo install-nixos`. Easy peasy.
 
 After installing Nix and cloning this repository:
 
-```bash
-sudo nix run nix-darwin/master#darwin-rebuild -- switch
-```
+1. **Install Homebrew** (required for managing some macOS applications):
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+2. **Apply the nix-darwin configuration**:
+   ```bash
+   sudo nix run nix-darwin/master#darwin-rebuild -- switch
+   ```
+
+   This will automatically use Homebrew to install applications like Beeper and Ghostty that aren't available via Nix on macOS.
 
 ## References
 

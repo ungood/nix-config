@@ -8,7 +8,7 @@ In addition to this file, agents should reference the existing documentation, in
 
 ## Infrastructure
 
-This configuration uses **Determinate Nix** on both NixOS and Darwin. The Determinate module is imported automatically in the NixOS base configuration.
+This configuration uses **Lix** (a community fork of Nix) on both NixOS and Darwin. Lix provides better Darwin support and compatibility with nix-darwin. The Lix module is imported automatically in the NixOS base configuration.
 
 ## NixOS Configuration Best Practices
 
@@ -63,3 +63,4 @@ This configuration uses **Determinate Nix** on both NixOS and Darwin. The Determ
 - **Minimal system modules**: NixOS and Darwin modules should only contain platform-specific system configuration
 - **Platform detection**: Use `osConfig != null` to detect NixOS vs Darwin in Home Manager modules
 - **Conditional imports**: Use `lib.optionals` to conditionally import platform-specific modules
+- Use pkgs.stdenv.isLinux and pkgs.stdenv.isDarwin for OS detection. Do NOT rely on osConfig argument in home-manager.
