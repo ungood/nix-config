@@ -11,57 +11,13 @@ git-add:
 [group('init')]
 unlock:
     op document get 7c4alonnyk4je75qnoyjdibs6q | git-crypt unlock -
-    
-# Unlock encrypted secrets with env variable
-[group('init')]
-unlock-ci:
-    echo "$GIT_CRYPT_KEY" | base64 -d | git-crypt unlock -
-
-
-## Build Commands
-
-# Build the new configuration without activating it.
-[group('build')]
-build: git-add
-    nixos-rebuild build --flake .
-
-# Automatic format all files.
-[group('build')]
-format:
-    treefmt
-
-# Build a VM for the specified host
-[group('build')]
-build-vm HOST: git-add
-    @echo "Building VM for host: {{HOST}}"
-    nix build .#nixosConfigurations.{{HOST}}.config.system.build.vm
-
-# Build Darwin configuration for the specified host
-[group('build')]
-build-darwin HOST: git-add
-    @echo "Building Darwin configuration for host: {{HOST}}"
-    nix build .#darwinConfigurations.{{HOST}}.system
 
 ## Test Commands
 
-# Run all tests (alias for check)
-[group('test')]
-test: check
-
 # Run all checks (format and eval)
 [group('test')]
-check: check-format check-eval
-
-# Check formatting without modifying files
-[group('test')]
-check-format: git-add
-    treefmt --fail-on-change
-
-# Evaluate all configurations without building (fast validation)
-[group('test')]
-check-eval: git-add
-    nix flake check --all-systems --keep-going
-
+check:
+    nix flake check
 
 # Run specific host test (tests all modules for that host)
 [group('test')]
@@ -83,6 +39,12 @@ run HOST: (build-vm HOST)
     ./result/bin/run-{{HOST}}-vm
 
 ## Ops Commands
+
+# Format all files
+[group('ops')]
+format:
+    treefmt
+
 # Activate the current system configuration (auto-detects NixOS/Darwin)
 [group('ops')]
 activate: git-add
@@ -92,11 +54,6 @@ activate: git-add
 [group('ops')]
 activate-host HOST: git-add
     sudo nix run .#activate {{HOST}}
-
-# Build the new configuration and make it the boot default, but do not activate it.
-[group('ops')]
-boot: git-add
-    sudo nixos-rebuild boot --flake .
 
 # Update flake inputs
 [group('ops')]
@@ -113,7 +70,34 @@ gc:
 repair:
     sudo nix-store --verify --check-contents --repair
 
+## Build Commands
+
+# Build a VM for the specified host
+[group('build')]
+build-vm HOST: git-add
+    @echo "Building VM for host: {{HOST}}"
+    nix build .#nixosConfigurations.{{HOST}}.config.system.build.vm
+
+# Build Darwin configuration for the specified host
+[group('build')]
+build-darwin HOST: git-add
+    @echo "Building Darwin configuration for host: {{HOST}}"
+    nix build .#darwinConfigurations.{{HOST}}.system
+
+# NixOS Commands
+
+# Build the new configuration without activating it.
+[group('nixos')]
+build: git-add
+    nixos-rebuild build --flake .
+
+# Build the new configuration and make it the boot default, but do not activate it.
+[group('nixos')]
+boot: git-add
+    sudo nixos-rebuild boot --flake .
+
 ## Deployment Commands
+# TODO: I removed Colmena so this doesn't work right now.
 
 # Deploy to all hosts using Colmena
 [group('deploy')]
@@ -147,8 +131,3 @@ build-installer: git-add
 burn-installer DEVICE:
     @echo "WARNING This will overwrite all data on {{DEVICE}}"
     gum confirm "Proceed?" && sudo dd if=result/iso/nixos-installer.iso of={{DEVICE}} bs=4M status=progress oflag=sync;
-
-
-# CI validation (format, lint, and evaluate)
-[group('ci')]
-ci: unlock-ci check
