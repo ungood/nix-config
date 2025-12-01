@@ -7,9 +7,9 @@
 {
   imports = [
     inputs.stylix.nixosModules.stylix
+    self.sharedModules.fonts
     self.sharedModules.stylix
     ./auth.nix
-    ./fonts.nix
     ./home-manager.nix
     ./nix.nix
     ./ssh.nix
