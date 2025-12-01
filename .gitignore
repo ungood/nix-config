@@ -6,8 +6,8 @@ result-*
 # Ignore test artifacts
 .nixos-test-history
 
-# Ignore automatically generated files
+# Ignore direnv cache
 .direnv
+
+# Ignore pre-commit generated config
 .pre-commit-config.yaml
-.devenv.flake.nix
-.devenv

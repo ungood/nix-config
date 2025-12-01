@@ -90,6 +90,7 @@
       imports = [
         ./modules/flake/outputs.nix
         ./modules/flake/pkgs.nix
+        ./modules/flake/devshell.nix
         # VM-based integration tests disabled pending issue #107
         # ./modules/flake/checks.nix
       ];
