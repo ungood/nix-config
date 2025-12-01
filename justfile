@@ -3,8 +3,20 @@ default:
     @just --list
 
 # Add all changes to git (needed for flake builds)
+[group('init')]
 git-add:
     git add .
+
+# Unlock encrypted secrets using 1Password
+[group('init')]
+unlock:
+    op document get 7c4alonnyk4je75qnoyjdibs6q | git-crypt unlock -
+    
+# Unlock encrypted secrets with env variable
+[group('init')]
+unlock-ci:
+    echo "$GIT_CRYPT_KEY" | base64 -d | git-crypt unlock -
+
 
 ## Build Commands
 
@@ -50,9 +62,6 @@ check-format: git-add
 check-eval: git-add
     nix flake check --all-systems --keep-going
 
-# CI validation (format, lint, and evaluate)
-[group('test')]
-ci: check
 
 # Run specific host test (tests all modules for that host)
 [group('test')]
@@ -138,3 +147,8 @@ build-installer: git-add
 burn-installer DEVICE:
     @echo "WARNING This will overwrite all data on {{DEVICE}}"
     gum confirm "Proceed?" && sudo dd if=result/iso/nixos-installer.iso of={{DEVICE}} bs=4M status=progress oflag=sync;
+
+
+# CI validation (format, lint, and evaluate)
+[group('ci')]
+ci: unlock-ci check

@@ -18,8 +18,9 @@ This configuration uses **Lix** (a community fork of Nix) on both NixOS and Darw
 - Place hardware-specific configs in appropriate host directories
 
 ### Security Considerations
-- Avoid hardcoding secrets in configuration files
-- Use `age` or `sops-nix` for secret management
+- Secrets are stored in `secrets/` and encrypted with git-crypt
+- Import secrets using `import "${self}/secrets/filename.nix"`
+- Always handle encrypted secrets gracefully for CI (see `modules/nixos/base/users.nix` for pattern)
 
 ### Performance Tips
 - Use `programs.nh.enable = true` for faster rebuilds
