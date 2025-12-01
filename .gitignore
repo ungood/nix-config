@@ -9,4 +9,5 @@ result-*
 # Ignore automatically generated files
 .direnv
 .pre-commit-config.yaml
-
+.devenv.flake.nix
+.devenv

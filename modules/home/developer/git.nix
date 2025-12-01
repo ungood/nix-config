@@ -11,20 +11,32 @@ let
   '';
 in
 {
-  programs.git = {
-    enable = true;
+  programs = {
+    git = {
+      enable = true;
 
-    settings = {
-      # Enable SSH-based commit signing using 1Password
-      # https://developer.1password.com/docs/ssh/git-commit-signing
-      gpg = {
-        format = "ssh";
-        ssh = {
-          program = "op-ssh-sign";
+      settings = {
+        # Enable SSH-based commit signing using 1Password
+        # https://developer.1password.com/docs/ssh/git-commit-signing
+        gpg = {
+          format = "ssh";
+          ssh = {
+            program = "op-ssh-sign";
+          };
+        };
+        commit = {
+          gpgsign = true;
         };
       };
-      commit = {
-        gpgsign = true;
+    };
+
+    gh = {
+      enable = true;
+      gitCredentialHelper.enable = false;
+
+      settings = {
+        # Prefer SSH for git operations
+        git_protocol = "ssh";
       };
     };
   };

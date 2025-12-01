@@ -4,7 +4,6 @@
     ./vscode.nix
     ./devenv.nix
     ./direnv.nix
-    ./gh.nix
     ./git.nix
     ./language-servers.nix
     ./python.nix

@@ -174,9 +174,33 @@ just activate-host macbook
 - Update relevant documentation when making changes
 - Include comments for complex configurations
 
+## Secrets Management
+
+This repository uses [git-crypt](https://github.com/AGWA/git-crypt) to encrypt sensitive files in the `secrets/` directory. Encrypted files are automatically decrypted on checkout when the repository is unlocked.
+
+### Unlocking Secrets
+
+After cloning the repository, unlock secrets using the key stored in 1Password:
+
+```bash
+just unlock
+```
+
+This requires the 1Password CLI (`op`) to be installed and authenticated.
+
+### Adding New Secrets
+
+1. Add files to the `secrets/` directory
+2. Ensure `.gitattributes` covers the file pattern (by default, `secrets/**` is encrypted)
+3. Commit normally - git-crypt encrypts automatically
+
+### CI Behavior
+
+CI runs without the git-crypt key. Modules that use secrets detect encrypted files and fall back to safe defaults (e.g., locked user accounts).
+
 ## Security
 
-- Never commit secrets or passwords
-- Store secrets in the private repository github:ungood/secrets or in 1Password.
+- Secrets are stored encrypted in `secrets/` using git-crypt
+- The git-crypt key is stored in 1Password
 - Review security implications of configuration changes
 - Keep dependencies up to date with `just update`

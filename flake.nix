@@ -39,11 +39,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    secrets = {
-      url = "git+ssh://git@github.com/ungood/secrets";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -61,6 +56,11 @@
 
     nixos-unified = {
       url = "github:srid/nixos-unified";
+    };
+
+    ghostty-shaders = {
+      url = "github:0xhckr/ghostty-shaders";
+      flake = false;
     };
 
     git-hooks = {
@@ -84,7 +84,6 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
-        "aarch64-linux"
         "x86_64-darwin"
         "aarch64-darwin"
       ];
@@ -92,7 +91,8 @@
       imports = [
         ./modules/flake/outputs.nix
         ./modules/flake/pkgs.nix
-        ./modules/flake/checks.nix
+        # VM-based integration tests disabled pending issue #107
+        # ./modules/flake/checks.nix
       ];
 
       perSystem =

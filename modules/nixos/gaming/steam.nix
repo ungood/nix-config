@@ -1,8 +1,9 @@
-_: {
+{ pkgs, ... }:
+{
   programs.steam = {
-    enable = true;
-    gamescopeSession.enable = true;
+    enable = pkgs.stdenv.hostPlatform.isx86_64;
+    gamescopeSession.enable = pkgs.stdenv.hostPlatform.isx86_64;
   };
 
-  programs.gamemode.enable = true;
+  programs.gamemode.enable = pkgs.stdenv.hostPlatform.isx86_64;
 }

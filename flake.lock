@@ -232,6 +232,22 @@
         "type": "github"
       }
     },
+    "ghostty-shaders": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1762759106,
+        "narHash": "sha256-5c3WBG3Litw/ayLI6mlCoGw+EIHrj3vkgc4j8+4K0OY=",
+        "owner": "0xhckr",
+        "repo": "ghostty-shaders",
+        "rev": "01738211b26a60eac33119d6da0c7bb12763e683",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0xhckr",
+        "repo": "ghostty-shaders",
+        "type": "github"
+      }
+    },
     "git-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -509,6 +525,7 @@
         "disko": "disko",
         "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",
+        "ghostty-shaders": "ghostty-shaders",
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
         "lix-module": "lix-module",
@@ -519,29 +536,8 @@
         "nixos-unified": "nixos-unified",
         "nixpkgs": "nixpkgs",
         "plasma-manager": "plasma-manager",
-        "secrets": "secrets",
         "stylix": "stylix",
         "treefmt-nix": "treefmt-nix"
-      }
-    },
-    "secrets": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1758838350,
-        "narHash": "sha256-cglhj8wZV45kMpUeP9xORtx9zO/rfh+/pkY9jSxwGeM=",
-        "ref": "refs/heads/main",
-        "rev": "ad77e28eb055f85059b7002c656e8ec41fa725e0",
-        "revCount": 4,
-        "type": "git",
-        "url": "ssh://git@github.com/ungood/secrets"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/ungood/secrets"
       }
     },
     "stylix": {

@@ -11,9 +11,5 @@
     base16Scheme = "${pkgs.base16-schemes}/share/themes/monokai.yaml";
 
     # Use default fonts: DejaVu Serif, Sans, and Mono. Noto Color Emoji for emojis.
-
-    opacity = {
-      terminal = 0.85;
-    };
   };
 }
