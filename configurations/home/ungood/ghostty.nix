@@ -10,13 +10,12 @@
 
     # https://ghostty.org/docs/config/reference
     settings = {
-      cursor-style = "block";
+      custom-shader-animation = false;
 
       # The order of these shaders does matter.
       custom-shader = [
         "${inputs.ghostty-shaders}/cursor_blaze.glsl"
         "${inputs.ghostty-shaders}/tft.glsl"
-        "${inputs.ghostty-shaders}/galaxy.glsl"
       ];
 
       window-padding-x = 10;
