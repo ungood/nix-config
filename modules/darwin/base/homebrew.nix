@@ -6,6 +6,9 @@ _: {
     onActivation = {
       autoUpdate = true;
       upgrade = true;
+
+      # Remove brews and casks not installed by nix-darwin.
+      cleanup = "zap";
     };
 
     brews = [
