@@ -12,9 +12,7 @@
       ...
     }:
     {
-      # Configure treefmt for code formatting
       treefmt = {
-        projectRootFile = "flake.nix";
         programs = {
           nixfmt.enable = true;
           deadnix.enable = true;
@@ -22,15 +20,20 @@
         };
       };
 
-      # Configure git hooks
       pre-commit.settings.hooks = {
         treefmt.enable = true;
+
+        # Run nix flake check on pre-push.
+        flake-checks = {
+          enable = true;
+          stages = [ "pre-push" ];
+          entry = "nix flake check";
+          pass_filenames = false;
+          types = [ "nix" ];
+        };
       };
 
-      # Development shell with all tools
       devShells.default = pkgs.mkShell {
-        name = "nix-config";
-
         packages = [
           pkgs.git-crypt
           pkgs.gum
