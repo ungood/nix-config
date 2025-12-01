@@ -34,11 +34,13 @@
       };
 
       devShells.default = pkgs.mkShell {
-        packages = [
-          pkgs.git-crypt
-          pkgs.gum
-          pkgs.just
-          pkgs.omnix
+        packages = with pkgs; [
+          git-crypt
+          gum
+          just
+          nil
+          nixd
+          omnix
         ];
 
         # Include treefmt and git-hooks in the shell

@@ -5,7 +5,6 @@
     ./devenv.nix
     ./direnv.nix
     ./git.nix
-    ./language-servers.nix
     ./python.nix
     ./television.nix
     ./zed.nix

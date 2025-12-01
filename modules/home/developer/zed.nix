@@ -1,12 +1,12 @@
-{ ... }:
-{
-  imports = [
-    ./language-servers.nix
-  ];
-
+_: {
   programs = {
     zed-editor = {
       enable = true;
+
+      extensions = [
+        "just"
+        "nix"
+      ];
     };
 
     fish.shellAbbrs = {

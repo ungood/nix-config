@@ -8,6 +8,7 @@
 {
   imports = [
     inputs.stylix.darwinModules.stylix
+    self.sharedModules.fonts
     self.sharedModules.stylix
     ./home-manager.nix
     ./homebrew.nix

@@ -10,6 +10,16 @@
     # See: https://tinted-theming.github.io/tinted-gallery/ for a gallery.
     base16Scheme = "${pkgs.base16-schemes}/share/themes/monokai.yaml";
 
-    # Use default fonts: DejaVu Serif, Sans, and Mono. Noto Color Emoji for emojis.
+    fonts = {
+      # Use a nerd font for ligatures.
+      monospace = {
+        package = pkgs.nerd-fonts.dejavu-sans-mono;
+        name = "DejaVuSansM Nerd Font Mono";
+      };
+      # Use the default fonts
+      # sans = DejaVu Serif,
+      # serif = DejaVu Sans
+      # emoji  Noto Color Emoji
+    };
   };
 }
