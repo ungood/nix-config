@@ -36,20 +36,8 @@ in
 
   # Set activate as default package
   perSystem =
-    { pkgs, self', ... }:
+    { self', ... }:
     {
-      legacyPackages.homeConfigurations = forAllNixFiles "${self}/configurations/home" (
-        path:
-        inputs.home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ path ];
-          #pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs self;
-          };
-        }
-      );
-
       packages.default = self'.packages.activate;
     };
 }
