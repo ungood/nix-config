@@ -536,29 +536,8 @@
         "nixos-unified": "nixos-unified",
         "nixpkgs": "nixpkgs",
         "plasma-manager": "plasma-manager",
-        "secrets": "secrets",
         "stylix": "stylix",
         "treefmt-nix": "treefmt-nix"
-      }
-    },
-    "secrets": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1758838350,
-        "narHash": "sha256-cglhj8wZV45kMpUeP9xORtx9zO/rfh+/pkY9jSxwGeM=",
-        "ref": "refs/heads/main",
-        "rev": "ad77e28eb055f85059b7002c656e8ec41fa725e0",
-        "revCount": 4,
-        "type": "git",
-        "url": "ssh://git@github.com/ungood/secrets"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/ungood/secrets"
       }
     },
     "stylix": {

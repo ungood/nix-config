@@ -1,10 +1,27 @@
 {
-  inputs,
+  self,
   pkgs,
   lib,
   ...
 }:
 let
+  # Try to import passwords, fall back to locked accounts if secrets are encrypted (CI)
+  passwordsFile = "${self}/secrets/passwords.nix";
+  passwords =
+    let
+      content = builtins.readFile passwordsFile;
+      # git-crypt encrypted files start with a binary header, not valid Nix
+      isEncrypted = !(lib.hasPrefix "#" content || lib.hasPrefix "{" content);
+    in
+    if isEncrypted then
+      # Return locked account markers when secrets are encrypted
+      {
+        ungood = "!";
+        trafficcone = "!";
+        abirdnamed = "!";
+      }
+    else
+      import passwordsFile;
 
   # Define user configurations directly
   systemUsers = {
@@ -20,7 +37,7 @@ let
       ];
       shell = pkgs.fish;
       group = "ungood";
-      hashedPassword = inputs.secrets.passwords.ungood;
+      hashedPassword = passwords.ungood;
     };
 
     trafficcone = {
@@ -29,7 +46,7 @@ let
       extraGroups = [ ];
       shell = pkgs.fish;
       group = "trafficcone";
-      hashedPassword = inputs.secrets.passwords.trafficcone;
+      hashedPassword = passwords.trafficcone;
     };
 
     abirdnamed = {
@@ -38,7 +55,7 @@ let
       extraGroups = [ ];
       shell = pkgs.fish;
       group = "abirdnamed";
-      hashedPassword = inputs.secrets.passwords.abirdnamed;
+      hashedPassword = passwords.abirdnamed;
     };
   };
 
