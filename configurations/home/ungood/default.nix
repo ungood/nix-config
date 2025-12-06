@@ -47,7 +47,7 @@
 
   # TODO: Move this somewhere more appropriate.
   targets.darwin = {
-    linkApps.enable = pkgs.stdenv.isLinux;
+    linkApps.enable = false;
     copyApps.enable = pkgs.stdenv.isDarwin;
   };
 
