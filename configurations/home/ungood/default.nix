@@ -47,8 +47,8 @@
 
   # TODO: Move this somewhere more appropriate.
   targets.darwin = {
-    linkApps.enable = false;
-    copyApps.enable = true;
+    linkApps.enable = lib.stdenv.isLinux;
+    copyApps.enable = lib.stdenv.isDarwin;
   };
 
   programs = {

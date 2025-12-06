@@ -111,6 +111,7 @@
       ];
 
       # Conditional includes for different directories
+      # TODO: this doesn't really do anything yet since I don't have a separate work config.
       includes = [
         {
           condition = "gitdir:~/personal/";
