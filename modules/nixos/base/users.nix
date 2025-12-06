@@ -52,7 +52,7 @@ let
 
     trafficcone = {
       isNormalUser = true;
-      description = "Brendan";
+      description = "Jayden";
       extraGroups = [ ];
       shell = pkgs.fish;
       group = "trafficcone";
