@@ -15,7 +15,8 @@
       # The order of these shaders does matter.
       custom-shader = [
         "${inputs.ghostty-shaders}/cursor_blaze.glsl"
-        "${inputs.ghostty-shaders}/tft.glsl"
+        # This looks pretty cool on a high res display, but not my widescreen monitor :(
+        # "${inputs.ghostty-shaders}/tft.glsl"
       ];
 
       window-padding-x = 10;
