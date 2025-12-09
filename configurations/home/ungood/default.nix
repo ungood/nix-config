@@ -24,12 +24,10 @@
     packages =
       with pkgs;
       [
-        element-desktop
         gum
         # Obsidian with HM is a PITA to use with community packages right now so I currently just install the package
         # See: https://github.com/nix-community/home-manager/pull/6487#issuecomment-2667166722
         obsidian
-        opencode
         todoist
       ]
       ++ lib.optionals stdenv.isDarwin [
