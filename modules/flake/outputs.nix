@@ -2,12 +2,19 @@
 let
   autowire = import "${self}/lib/autowire.nix" { inherit (inputs.nixpkgs) lib; };
   inherit (autowire) forAllNixFiles;
+
+  # Flake context passed to modules via importApply pattern
+  # See: https://flake.parts/dogfood-a-reusable-module.html
+  flake = { inherit inputs self; };
 in
 {
   flake = {
-    nixosModules = forAllNixFiles "${self}/modules/nixos" import;
-    darwinModules = forAllNixFiles "${self}/modules/darwin" import;
-    homeModules = forAllNixFiles "${self}/modules/home" import;
+    # NixOS, Darwin, and Home modules use importApply pattern for external consumption
+    nixosModules = forAllNixFiles "${self}/modules/nixos" (path: import path flake);
+    darwinModules = forAllNixFiles "${self}/modules/darwin" (path: import path flake);
+    homeModules = forAllNixFiles "${self}/modules/home" (path: import path flake);
+
+    # Shared modules and overlays don't need external flake context
     sharedModules = forAllNixFiles "${self}/modules/shared" import;
     overlays = forAllNixFiles "${self}/modules/overlays" import;
 

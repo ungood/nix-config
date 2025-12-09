@@ -1,6 +1,6 @@
 { inputs, ... }:
+{ ... }:
 {
-  # nix-index is usef
   imports = [ inputs.nix-index-database.nixosModules.nix-index ];
 
   programs.nix-index = {

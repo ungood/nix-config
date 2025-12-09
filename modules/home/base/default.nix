@@ -1,9 +1,5 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+flake@{ inputs, ... }:
+{ pkgs, lib, config, ... }:
 let
   homeRoot = if pkgs.stdenv.isDarwin then "Users" else "home";
 in
@@ -18,8 +14,8 @@ in
     ./firefox.nix
     ./helix.nix
     ./nix.nix
-    ./nix-index.nix
-    ./plasma.nix
+    (import ./nix-index.nix flake)
+    (import ./plasma.nix flake)
     ./ssh.nix
   ];
 

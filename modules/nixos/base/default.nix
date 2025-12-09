@@ -1,16 +1,13 @@
-{
-  inputs,
-  pkgs,
-  self,
-  ...
-}:
+flake@{ self, inputs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     inputs.stylix.nixosModules.stylix
     self.sharedModules.fonts
     self.sharedModules.stylix
     ./auth.nix
-    ./home-manager.nix
+    (import ./home-manager.nix flake)
+    (import ./nix-index.nix flake)
     ./nix.nix
     ./ssh.nix
     ./users.nix

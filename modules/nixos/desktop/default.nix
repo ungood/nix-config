@@ -1,4 +1,6 @@
-_: {
+{ ... }:
+{ ... }:
+{
   # Import all desktop modules
   imports = [
     ./plasma.nix
