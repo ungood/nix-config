@@ -1,7 +1,7 @@
 _: {
   programs = {
     zed-editor = {
-      enable = true;
+      enable = false; # Disabled for now
 
       extensions = [
         "just"
@@ -9,8 +9,8 @@ _: {
       ];
     };
 
-    fish.shellAbbrs = {
-      zed = "zeditor .";
-    };
+    #fish.shellAbbrs = {
+    #  zed = "zeditor .";
+    #};
   };
 }
