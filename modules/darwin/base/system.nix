@@ -46,6 +46,9 @@ _: {
       # File extensions
       AppleShowAllExtensions = true;
 
+      # Disable swiping with trackpad to navigate.
+      AppleEnableSwipeNavigateWithScrolls = false;
+
       # Disable auto-corrections
       NSAutomaticCapitalizationEnabled = false;
       NSAutomaticDashSubstitutionEnabled = false;
