@@ -1,16 +1,11 @@
-{
-  inputs,
-  pkgs,
-  config,
-  self,
-  ...
-}:
+flake@{ self, inputs, ... }:
+{ pkgs, config, ... }:
 {
   imports = [
     inputs.stylix.darwinModules.stylix
     self.sharedModules.fonts
     self.sharedModules.stylix
-    ./home-manager.nix
+    (import ./home-manager.nix flake)
     ./homebrew.nix
     ./nix.nix
     ./system.nix
