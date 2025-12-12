@@ -1,4 +1,4 @@
-_: {
+{ config, ... }: {
   homebrew = {
     enable = true;
 
@@ -11,14 +11,25 @@ _: {
       cleanup = "zap";
     };
 
+    taps = [
+      "browsers-software/tap"
+    ];
+
     brews = [
       "defaultbrowser"
     ];
 
     casks = [
-      "browsers-software/tap/browsers"
+      "browsers"
       "beeper"
+      # Installing firefox via Homebrew as nixpkgs firefox-bin is not available on aarch64-darwin
+      "firefox" 
       "spotify"
     ];
   };
+
+  # Source brew shellenv to add Homebrew to PATH
+  environment.shellInit = ''
+    eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
+  '';
 }

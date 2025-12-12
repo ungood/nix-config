@@ -11,8 +11,9 @@ in
   # TODO: Clean up this module.
   programs.firefox = {
     enable = true;
-    # TODO: Investigate using other firefox packages and/or moving policies into the wrapFirefox.
-    package = pkgs.wrapFirefox pkgs.firefox-unwrapped { };
+    # On Darwin, use null to let the system Firefox be used (installed via Homebrew or manually)
+    # On Linux, use firefox-bin from nixpkgs
+    package = if pkgs.stdenv.isDarwin then null else pkgs.firefox-bin;
 
     # System-wide policies for privacy and security
     # Check about:policies#documentation for options
