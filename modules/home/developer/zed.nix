@@ -1,4 +1,6 @@
 _: {
+  imports = [ ./languages.nix ];
+
   programs = {
     zed-editor = {
       enable = false; # Disabled for now
