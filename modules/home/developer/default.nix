@@ -2,12 +2,13 @@
 { pkgs, ... }:
 {
   imports = [
-    ./vscode.nix
+    ./cursor.nix
     ./devenv.nix
     ./direnv.nix
     ./git.nix
     ./python.nix
     ./television.nix
+    ./vscode.nix
     ./zed.nix
   ];
 

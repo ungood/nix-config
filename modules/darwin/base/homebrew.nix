@@ -22,7 +22,6 @@
     casks = [
       "browsers"
       "beeper"
-      "cursor"
       # Installing firefox via Homebrew as nixpkgs firefox-bin is not available on aarch64-darwin
       "firefox" 
       "spotify"
