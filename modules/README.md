@@ -6,7 +6,7 @@ This directory contains all reusable modules organized by module type. Modules a
 
 ### The `flake` Parameter
 
-NixOS, Darwin, and Home Manager modules in this repository use the **importApply pattern** to support external consumption. Each module receives a `flake` parameter as its first argument, containing this repository's context:
+NixOS and Home Manager modules in this repository use the **importApply pattern** to support external consumption. Each module receives a `flake` parameter as its first argument, containing this repository's context:
 
 ```nix
 { self, inputs, ... }:           # flake: this repository's context
@@ -31,11 +31,11 @@ args@{ config, pkgs, ... }:      # Capture as 'args' AND destructure
 | `inputs` | This repository's flake inputs (stylix, home-manager, etc.) |
 | `self` | Reference to this flake, for accessing sibling modules |
 
-This pattern ensures modules work correctly whether consumed internally (by this repository's configurations) or externally (by work-config or other flakes).
+This pattern ensures modules work correctly whether consumed internally (by this repository's configurations) or externally (by other flakes).
 
 ### Why This Pattern?
 
-Standard NixOS/Darwin/Home module arguments come from the **consuming flake**, not the flake that defines the module. When work-config imports `nix-config.darwinModules.base`, module arguments would refer to work-config's context (missing stylix, plasma-manager, etc.).
+Standard NixOS/Home module arguments come from the **consuming flake**, not the flake that defines the module. When another flake imports `nix-config.nixosModules.base`, module arguments would refer to that flake's context (missing stylix, plasma-manager, etc.).
 
 The `flake` parameter provides this repository's `inputs` and `self`, which are always available regardless of consumer.
 
@@ -106,42 +106,6 @@ NixOS system configuration modules exported via `self.nixosModules.*`.
   ];
 
   environment.systemPackages = [ pkgs.vim ];
-}
-```
-
-### Darwin Modules (`modules/darwin/`)
-
-macOS system configuration modules using nix-darwin, exported via `self.darwinModules.*`.
-
-#### Arguments
-
-```nix
-{ self, inputs, ... }:           # flake: this repository's context
-{ config, pkgs, lib, ... }:      # args: standard nix-darwin module arguments
-```
-
-**Standard nix-darwin arguments:**
-- `config` - System configuration options
-- `pkgs` - Nixpkgs package set
-- `lib` - Nixpkgs library functions
-
-**Via `flake` parameter:**
-- `inputs` - This repository's flake inputs
-- `self` - This flake (for `self.darwinModules.*`)
-
-#### Example
-
-```nix
-{ self, inputs, ... }:
-{ config, pkgs, lib, ... }:
-{
-  imports = [
-    inputs.stylix.darwinModules.stylix
-    inputs.home-manager.darwinModules.home-manager
-  ];
-
-  environment.systemPackages = [ pkgs.vim ];
-  system.defaults.dock.autohide = true;
 }
 ```
 

@@ -1,5 +1,6 @@
 # Install language servers common to extensions for various editors
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     nil
     nixd

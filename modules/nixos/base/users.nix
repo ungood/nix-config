@@ -9,9 +9,19 @@ let
   passwordsFile = "${self}/secrets/passwords.nix";
   passwords =
     let
-      content = builtins.readFile passwordsFile;
-      # git-crypt encrypted files start with a binary header, not valid Nix
-      isEncrypted = !(lib.hasPrefix "#" content || lib.hasPrefix "{" content);
+      # Try to read the file to check if it's encrypted
+      # git-crypt encrypted files cannot be read as a Nix string
+      readResult = builtins.tryEval (builtins.readFile passwordsFile);
+      # If readFile fails, the file is likely encrypted
+      # If we can read it, check if it starts with valid Nix syntax
+      isEncrypted =
+        if readResult.success then
+          let
+            content = readResult.value;
+          in
+          !(lib.hasPrefix "#" content || lib.hasPrefix "{" content)
+        else
+          true;
     in
     if isEncrypted then
       # Return locked account markers when secrets are encrypted

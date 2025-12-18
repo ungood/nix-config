@@ -4,7 +4,7 @@ This document describes how to build, test, and contribute to this NixOS configu
 
 ## Prerequisites
 
-- **Nix Installation**: [Lix](https://lix.systems) (recommended for better Darwin support)
+- **Nix Installation**: [Lix](https://lix.systems)
 
   **For macOS/Linux (non-NixOS):**
   ```bash
@@ -35,7 +35,7 @@ just -l
 
 ## Flake Organization
 
-This configuration uses [flake-parts](https://flake.parts) for modular flake organization and [nixos-unified](https://github.com/srid/nixos-unified) for unified NixOS/Darwin/Home Manager configuration.
+This configuration uses [flake-parts](https://flake.parts) for modular flake organization.
 
 ### Module System
 
@@ -47,8 +47,6 @@ Modules are organized in the `modules/` directory by type:
   - `desktop/` - Desktop environment (Plasma)
   - `development/` - Development tools (primarily Docker)
   - `gaming/` - Gaming-specific configuration
-- **`modules/darwin/`** - nix-darwin macOS system configuration modules
-  - `base/` - Core macOS system configuration
 - **`modules/home/`** - Home Manager user environment modules (cross-platform)
   - `base/` - Core user environment
   - `developer/` - Development-specific user configs
@@ -60,7 +58,6 @@ See [modules/README.md](modules/README.md) for detailed information about module
 Host configurations are organized by platform:
 
 - **`configurations/nixos/<hostname>/`** - NixOS host configurations with hardware and network settings
-- **`configurations/darwin/<hostname>/`** - Darwin (macOS) host configurations with system settings
 
 ### User Configuration
 
@@ -101,7 +98,6 @@ just test
 # 6. Run full validation
 just test                    # Run comprehensive test suite (flake check)
 just build                   # Build NixOS configuration
-just build-darwin macbook    # Build Darwin configuration (macOS)
 ```
 
 ### 3. Commit Guidelines
@@ -149,16 +145,6 @@ modules/nixos/mymodule/
 
 Tests are automatically included in `just test` runs.
 
-### Darwin Testing
-
-Darwin modules currently do not have automated tests. Manual testing should be performed:
-```bash
-# Build Darwin configuration
-just build-darwin macbook
-
-# On macOS, activate the configuration
-just activate-host macbook
-```
 
 ## Code Style
 

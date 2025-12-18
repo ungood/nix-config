@@ -9,4 +9,3 @@
     code = "cursor";
   };
 }
-
