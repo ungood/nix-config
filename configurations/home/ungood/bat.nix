@@ -1,7 +1,5 @@
-{
-  pkgs,
-  ...
-}:
+_:
+{ pkgs, ... }:
 {
   programs = {
     bat = {

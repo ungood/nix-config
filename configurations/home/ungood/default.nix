@@ -1,8 +1,8 @@
+flake@{ self, ... }:
 {
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 {
@@ -10,10 +10,10 @@
   imports = [
     self.homeModules.base
     self.homeModules.developer
-    ./bat.nix
-    ./claude.nix
-    ./ghostty.nix
-    ./git.nix
+    (import ./bat.nix flake)
+    (import ./claude.nix flake)
+    (import ./ghostty.nix flake)
+    (import ./git.nix flake)
   ];
 
   # Home-manager configuration

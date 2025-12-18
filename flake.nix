@@ -88,13 +88,16 @@
         {
           # NixOS and Home modules use importApply pattern for external consumption
           # See: https://flake.parts/dogfood-a-reusable-module.html
+          # TODO: Actually use the importApply function...
           nixosModules = forAllNixFiles "${self}/modules/nixos" (path: import path flake);
           homeModules = forAllNixFiles "${self}/modules/home" (path: import path flake);
           sharedModules = forAllNixFiles "${self}/modules/shared" (path: import path flake);
+          homeConfigurations = forAllNixFiles "${self}/configurations/home" (path: import path flake);
 
           overlays = forAllNixFiles "${self}/modules/overlays" import;
 
           # Auto-discover NixOS configurations from configurations/nixos/*/default.nix
+          # TODO: Migrate to importApply as well.
           nixosConfigurations = forAllNixFiles "${self}/configurations/nixos" (
             path:
             inputs.nixpkgs.lib.nixosSystem {

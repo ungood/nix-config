@@ -13,9 +13,9 @@
 
     # Map home configurations to NixOS users
     users = {
-      ungood.imports = [ (self + "/configurations/home/ungood") ];
-      trafficcone.imports = [ (self + "/configurations/home/trafficcone") ];
-      abirdnamed.imports = [ (self + "/configurations/home/abirdnamed") ];
+      ungood.imports = [ self.homeConfigurations.ungood ];
+      trafficcone.imports = [ self.homeConfigurations.trafficcone ];
+      abirdnamed.imports = [ self.homeConfigurations.abirdnamed ];
     };
   };
 }
