@@ -38,7 +38,7 @@ in
       sddm.fprintAuth = false;
 
       # Lock screen - allow biometric authentication
-      kde.fprintAuth = true;
+      kde.fprintAuth = lib.mkForce true;
 
       # Privileged operations - require second factor
       sudo = {

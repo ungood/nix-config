@@ -1,5 +1,10 @@
-flake@{ inputs, ... }:
-{ pkgs, lib, config, ... }:
+flake:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   homeRoot = if pkgs.stdenv.isDarwin then "Users" else "home";
 in

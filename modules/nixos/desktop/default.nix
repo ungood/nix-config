@@ -1,4 +1,4 @@
-{ ... }:
+_:
 { ... }:
 {
   # Import all desktop modules

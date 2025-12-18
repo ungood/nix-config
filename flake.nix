@@ -19,11 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -77,7 +72,6 @@
 
       imports = [
         ./modules/flake/outputs.nix
-        ./modules/flake/pkgs.nix
         ./modules/flake/devshell.nix
         ./modules/flake/omnix.nix
         # VM-based integration tests disabled pending issue #107

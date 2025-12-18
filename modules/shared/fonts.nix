@@ -1,3 +1,4 @@
+_:
 { pkgs, lib, ... }:
 {
   fonts = {

@@ -23,9 +23,6 @@ This repository was developed as a way to:
 * `logos`: Framework 13 laptop shared by everyone in the household.
 * `proxmox`: A mini-PC home lab running HA and other things, currently not managed by Nix, but hoping to do so.
 
-**Darwin Hosts:**
-* `macbook`: Work laptop running macOS (nix-darwin)
-
 ## Documentation
 
 - [CONTRIBUTING.md](CONTRIBUTING.md) - Development workflow and build instructions
@@ -37,8 +34,7 @@ This repository was developed as a way to:
 
 ### Install Nix
 
-This configuration uses [Lix](https://lix.systems), a community fork of Nix with better Darwin support
-and compatibility with nix-darwin.
+This configuration uses [Lix](https://lix.systems), a community fork of Nix.
 
 ```bash
 curl -sSf -L https://install.lix.systems/lix | sh -s -- install
@@ -50,21 +46,6 @@ To install a configuration on a new NixOS host, an install ISO can be built usin
 burned to a USB drive with `just burn-installer DEVICE`. Boot the new machine using this drive then
 run `sudo install-nixos`. Easy peasy.
 
-### MacOS Installation
-
-After installing Nix and cloning this repository:
-
-1. **Install Homebrew** (required for managing some macOS applications):
-   ```bash
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
-
-2. **Apply the nix-darwin configuration**:
-   ```bash
-   sudo nix run nix-darwin/master#darwin-rebuild -- switch
-   ```
-
-   This will automatically use Homebrew to install applications like Beeper and Ghostty that aren't available via Nix on macOS.
 
 ## References
 
@@ -72,7 +53,6 @@ This project depends on these fine tools:
 
 - **[flake-parts](https://flake.parts)** - Modular flake framework
 - **[NixOS](https://nixos.org)** - Declarative Linux distribution
-- **[nix-darwin](https://github.com/nix-darwin/nix-darwin)** - Declarative macOS configuration
 - **[home-manager](https://github.com/nix-community/home-manager)** - User environment management
 - **[nixos-hardware](https://github.com/NixOS/nixos-hardware)** - Hardware-specific configurations
 - **[stylix](https://github.com/danth/stylix)** - System-wide theming

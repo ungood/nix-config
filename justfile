@@ -45,15 +45,15 @@ run HOST: (build-vm HOST)
 format:
     treefmt
 
-# Activate the current system configuration (auto-detects NixOS/Darwin)
+# Build and activate the current NixOS system configuration
 [group('ops')]
-activate: git-add
-    sudo nix run .#activate
+switch: git-add
+    sudo nixos-rebuild switch --flake .
 
-# Activate configuration for a specific host (auto-detects NixOS/Darwin)
+# Activate NixOS configuration for a specific host
 [group('ops')]
-activate-host HOST: git-add
-    sudo nix run .#activate {{HOST}}
+swith-host HOST: git-add
+    sudo nixos-rebuild switch --flake .#{{HOST}}
 
 # Update flake inputs
 [group('ops')]
@@ -77,12 +77,6 @@ repair:
 build-vm HOST: git-add
     @echo "Building VM for host: {{HOST}}"
     nix build .#nixosConfigurations.{{HOST}}.config.system.build.vm
-
-# Build Darwin configuration for the specified host
-[group('build')]
-build-darwin HOST: git-add
-    @echo "Building Darwin configuration for host: {{HOST}}"
-    nix build .#darwinConfigurations.{{HOST}}.system
 
 # NixOS Commands
 

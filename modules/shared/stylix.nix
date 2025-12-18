@@ -1,6 +1,7 @@
 # Shared stylix configuration for NixOS and Darwin.
 # This module contains common theme settings; platform-specific modules
 # should import their respective stylix module and this shared config.
+_:
 { pkgs, ... }:
 {
   stylix = {
