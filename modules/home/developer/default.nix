@@ -6,7 +6,6 @@ _:
     ./devenv.nix
     ./direnv.nix
     ./git.nix
-    ./python.nix
     ./television.nix
     ./vscode.nix
     ./zed.nix
@@ -16,4 +15,6 @@ _:
     jq
     ripgrep
   ];
+
+  programs.uv.enable = true;
 }
