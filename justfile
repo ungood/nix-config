@@ -10,7 +10,7 @@ git-add:
 # Unlock encrypted secrets using 1Password
 [group('init')]
 unlock:
-    op document get 7c4alonnyk4je75qnoyjdibs6q | git-crypt unlock -
+    op document get "ungood/nix-config git-crypt key" | git-crypt unlock -
 
 ## Test Commands
 

@@ -8,6 +8,7 @@
 
     self.nixosModules.base
     self.nixosModules.desktop
+    self.nixosModules.gaming
     self.nixosModules.development
   ];
 
