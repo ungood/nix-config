@@ -4,7 +4,7 @@
   imports = [
     self.homeModules.base
     self.homeModules.developer
-    self.homeModules.gaming
+    self.nixosModules.gaming
   ];
 
   #Git
