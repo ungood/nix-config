@@ -41,7 +41,10 @@
     };
   };
 
-  onetrue.auth.authorizedUsers = [ "ungood" ];
+  onetrue.auth.authorizedUsers = [
+    "ungood"
+    "trafficcone"
+  ];
 
   system.stateVersion = "25.05";
 }
