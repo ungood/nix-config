@@ -4,6 +4,7 @@
   imports = [
     self.homeModules.base
     self.homeModules.developer
+    self.homeModules.gaming
   ];
 
   # Home-manager configuration
