@@ -66,30 +66,7 @@ flake@{ self, ... }:
       ];
     };
 
-    starship = {
-      enable = true;
-      settings = {
-        directory = {
-          truncate_to_repo = false;
-          truncation_symbol = "…/";
-        };
-
-        # Move cloud profiles to the right and we remove the "on " from the default formats
-        right_format = "$aws$gcloud$azure";
-
-        aws = {
-          format = "[$symbol($profile)(\\($region\\))(\\[$duration\\])]($style)";
-        };
-
-        gcloud = {
-          format = "[$symbol$account(@$domain)(\\($region\\))]($style)";
-        };
-
-        azure = {
-          format = "[$symbol($subscription)]($style)";
-        };
-      };
-    };
+    starship.enable = true;
   };
 
   onetrue = {

@@ -6,7 +6,7 @@ _:
     ./devenv.nix
     ./direnv.nix
     ./git.nix
-    ./nix-search-tv.nix
+    ./python.nix
     ./television.nix
     ./vscode.nix
     ./zed.nix
@@ -15,11 +15,5 @@ _:
   home.packages = with pkgs; [
     jq
     ripgrep
-    tldr
   ];
-
-  programs = {
-    fd.enable = true;
-    uv.enable = true;
-  };
 }
