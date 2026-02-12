@@ -3,19 +3,20 @@ _: {
     television = {
       enable = true;
       enableFishIntegration = true;
-    };
 
-    nix-search-tv = {
-      enable = true;
-      enableTelevisionIntegration = true;
+      channels = {
+        fish-history = {
+          metadata = {
+            name = "fish-history";
+          };
 
-      settings.indexes = [
-        "nixpkgs"
-        "nixos"
-        "darwin"
-        "home-manager"
-        "nur"
-      ];
+          source = {
+            command = "fish -c 'history'";
+            no_sort = true;
+            frecency = false;
+          };
+        };
+      };
     };
 
     # TODO: This would be interesting to replace/extend delta as a pager for git diffs
