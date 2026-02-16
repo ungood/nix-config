@@ -13,6 +13,7 @@ _: {
             repo = "ungood/claude";
           };
         };
+
       };
 
       enabledPlugins = {
