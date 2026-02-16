@@ -4,4 +4,6 @@ function fish_greeting
     else
       gum log -l warn "fastfetch is not installed"
     end
+
+    check_nixpkgs_age
 end
