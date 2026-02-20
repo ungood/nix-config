@@ -7,7 +7,7 @@ _:
     ./direnv.nix
     ./git.nix
     ./nix-search-tv.nix
-    ./opencode.nix
+    ./opencode
     ./python.nix
     ./television.nix
     ./vscode.nix
