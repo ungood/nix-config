@@ -31,7 +31,6 @@ flake@{ self, ... }:
         todoist
       ]
       ++ lib.optionals stdenv.isDarwin [
-        iterm2
         rectangle
       ]
       ++ lib.optionals stdenv.isLinux [
