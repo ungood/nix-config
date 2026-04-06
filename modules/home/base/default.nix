@@ -14,6 +14,7 @@ in
     ./_1password.nix
     ./avatar.nix
     ./browsers.nix
+    ./dotfiles.nix
     ./editor.nix
     ./fastfetch.nix
     ./firefox.nix

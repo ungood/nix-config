@@ -11,7 +11,7 @@ flake@{ self, ... }:
     self.homeModules.base
     self.homeModules.developer
     (import ./bat.nix flake)
-    (import ./claude.nix flake)
+    (import ./claude flake)
     (import ./ghostty.nix flake)
     (import ./git.nix flake)
   ];
