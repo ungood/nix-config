@@ -1,0 +1,54 @@
+{
+    "C_Cpp.clang_format_fallbackStyle": "Google",
+    "editor.wordWrapColumn": 120,
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, IndentWidth: 2, ColumnLimit: 120 }",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "editor.rulers": [
+        120
+    ],
+    "markdown.preview.fontSize": 16,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 5000,
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/**": true,
+        "**/.venv/**": true,
+        "**/__pychache/**": true,
+        "**/tmp/**": true,
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/bower_components": true,
+        "**/dist/**": true,
+        "**/log/**": true,
+        "**/logs/**": true,
+        "**/.fdk/**": true,
+        "**/env/**": true,
+        "**/repo/**": true,
+        "**/build/**": true
+    },
+    "git.confirmSync": false,
+    "editor.fontFamily": "'monospace', monospace",
+    "editor.fontWeight": "normal",
+    "nix.serverPath": "nixd",
+    "nix.enableLanguageServer": true,
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "window.zoomPerWindow": false,
+    "claudeCode.preferredLocation": "panel",
+    "settingsSync.ignoredSettings": [
+        "-window.zoomLevel"
+    ],
+    "workbench.colorTheme": "Monokai",
+    "search.useGlobalIgnoreFiles": true,
+    "search.useParentIgnoreFiles": true,
+    "nix.formatterPath": "nixfmt",
+    "jupyter.askForKernelRestart": false,
+    "jupyter.interactiveWindow.creationMode": "perFile",
+    "git.blame.editorDecoration.enabled": false,
+    "window.zoomLevel": 1
+}

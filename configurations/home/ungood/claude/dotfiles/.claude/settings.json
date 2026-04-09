@@ -31,7 +31,7 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "opus",
+  "model": "opus[1m]",
   "hooks": {},
   "statusLine": {
     "type": "command",
@@ -49,9 +49,9 @@
     }
   },
   "feedbackSurveyRate": 0,
+  "plansDirectory": ".claude/plans",
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": false,
   "skipAutoPermissionPrompt": true,
-  "theme": "dark",
-  "plansDirectory": ".claude/plans"
+  "theme": "dark"
 }

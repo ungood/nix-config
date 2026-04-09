@@ -1,15 +1,15 @@
 [cship]
 lines = [
-  "$starship_prompt",
+  "$all",
+  "$username$hostname$localip$shlvl$singularity$kubernetes$nats$directory$vcsh$fossil_branch$fossil_metrics$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$hg_state$pijul_channel$docker_context$package$bun$c$cmake$cobol$cpp$daml$dart$deno$dotnet$elixir$elm$erlang$fennel$fortran$gleam$golang$gradle$haskell$haxe$helm$java$julia$kotlin$lua$mojo$nim$nodejs$ocaml$odin$opa$perl$php$pulumi$purescript$python$quarto$raku$rlang$red$ruby$rust$scala$solidity$swift$terraform$typst$vlang$vagrant$xmake$zig$buf$guix_shell$nix_shell$conda$pixi$meson$spack$memory_usage$aws$gcloud$openstack$azure$direnv$env_var$mise$crystal$custom$sudo$cmd_duration$line_break$jobs$battery$time$status$container$netns$os$shell",
   "$cship.model $cship.cost $cship.context_bar $cship.usage_limits",
 ]
 
 [cship.model]
-symbol = " "
 style = "bold fg:#7aa2f7"
 
 [cship.cost]
-symbol = "💰 "
+symbol = "💰"
 style = "fg:#a9b1d6"
 warn_threshold = 2.0
 warn_style = "fg:#e0af68"
@@ -17,9 +17,8 @@ critical_threshold = 5.0
 critical_style = "bold fg:#f7768e"
 
 [cship.context_bar]
-symbol = " "
 format = "[$symbol$value]($style)"
-width = 10
+width = 20
 style = "fg:#7dcfff"
 warn_threshold = 40.0
 warn_style = "fg:#e0af68"
