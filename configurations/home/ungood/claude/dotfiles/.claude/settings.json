@@ -53,5 +53,6 @@
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": false,
   "skipAutoPermissionPrompt": true,
-  "theme": "dark"
+  "theme": "dark",
+  "autoDreamEnabled": true
 }
