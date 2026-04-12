@@ -1,5 +1,7 @@
-_: {
+{ inputs, ... }:
+{
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [ inputs.llm-agents.overlays.default ];
 
   nix = {
     settings = {

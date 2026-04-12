@@ -60,6 +60,8 @@
     };
 
     omnix.url = "github:juspay/omnix";
+
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs =

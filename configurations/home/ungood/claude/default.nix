@@ -35,11 +35,13 @@ let
   };
 in
 {
-  home.packages =
-    [ cship ]
-    ++ (with pkgs.llm-agents; [
-      claude-code
-    ]);
+  # Use llm-agents overlay for newer claude-code than nixpkgs
+  home.packages = [
+    cship
+  ]
+  ++ (with pkgs.llm-agents; [
+    claude-code
+  ]);
 
   # Symlink config files so Claude Code can self-manage its settings.
   home.file = symlink.mkSymlinkDir config ./dotfiles dotfilesAbsPath;

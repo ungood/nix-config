@@ -72,5 +72,6 @@ flake@{ self, ... }:
 
   onetrue = {
     avatar.path = ./metroid.png;
+    dotfiles.repoPath = "${config.home.homeDirectory}/nix-config";
   };
 }
