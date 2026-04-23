@@ -6,7 +6,6 @@ _:
   ...
 }:
 let
-  symlink = import ../../../../lib/symlink.nix { inherit lib; };
   dotfilesAbsPath = "${config.onetrue.dotfiles.repoPath}/configurations/home/ungood/claude/dotfiles";
 
   cship = pkgs.stdenv.mkDerivation rec {
@@ -35,7 +34,6 @@ let
   };
 in
 {
-  # Use llm-agents overlay for newer claude-code than nixpkgs
   home.packages = [
     cship
   ]
@@ -43,8 +41,22 @@ in
     claude-code
   ]);
 
-  # Symlink config files so Claude Code can self-manage its settings.
-  home.file = symlink.mkSymlinkDir config ./dotfiles dotfilesAbsPath;
+  # Symlink cship config (not profile-specific)
+  home.file.".config/cship.toml".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfilesAbsPath}/.config/cship.toml";
+
+  # Symlink global CLAUDE.md (lives at ~/.claude/, outside the profile system)
+  home.file.".claude/CLAUDE.md".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfilesAbsPath}/.claude/CLAUDE.md";
+
+  # Define personal profile with shared config files
+  onetrue.claude = {
+    profiles.personal = { };
+    defaultProfile = lib.mkDefault "personal";
+    sharedFiles = {
+      "settings.json" = "${dotfilesAbsPath}/.claude/settings.json";
+    };
+  };
 
   programs.git.ignores = [
     "settings.local.json"

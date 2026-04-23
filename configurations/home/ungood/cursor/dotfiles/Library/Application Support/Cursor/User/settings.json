@@ -50,5 +50,5 @@
     "jupyter.askForKernelRestart": false,
     "jupyter.interactiveWindow.creationMode": "perFile",
     "git.blame.editorDecoration.enabled": false,
-    "window.zoomLevel": 1
+    "window.zoomLevel": 1.2
 }

@@ -2,6 +2,7 @@ _:
 { pkgs, ... }:
 {
   imports = [
+    ./claude.nix
     ./cursor.nix
     ./devenv.nix
     ./direnv.nix
@@ -15,6 +16,7 @@ _:
   ];
 
   home.packages = with pkgs; [
+    gitify
     jq
     ripgrep
   ];

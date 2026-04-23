@@ -50,9 +50,9 @@
   },
   "feedbackSurveyRate": 0,
   "plansDirectory": ".claude/plans",
+  "autoDreamEnabled": true,
   "showThinkingSummaries": true,
-  "skipDangerousModePermissionPrompt": false,
+  "skipDangerousModePermissionPrompt": true,
   "skipAutoPermissionPrompt": true,
-  "theme": "dark",
-  "autoDreamEnabled": true
+  "theme": "dark"
 }
