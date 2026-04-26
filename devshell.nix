@@ -18,6 +18,7 @@
           deadnix.enable = true;
           statix.enable = true;
         };
+        settings.global.excludes = [ "secrets/*" ];
       };
 
       pre-commit.settings.hooks = {
