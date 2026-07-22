@@ -264,9 +264,8 @@ in
     };
   };
 
-  stylix.targets.firefox = {
-    enable = true;
-    profileNames = [ "default" ];
-    firefoxGnomeTheme.enable = false;
-  };
+  # Leave Firefox theming to Firefox itself. Enabling the stylix target
+  # rewrites the profile's font (and color) preferences on every switch,
+  # overriding Firefox's default fonts.
+  stylix.targets.firefox.enable = false;
 }
