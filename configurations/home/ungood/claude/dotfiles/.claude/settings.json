@@ -31,28 +31,34 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
   "hooks": {},
   "statusLine": {
     "type": "command",
     "command": "cship"
   },
   "enabledPlugins": {
-    "claude@ungood": true
+    "claude@ungood": true,
+    "cli@ungood": true,
+    "github@ungood": true,
+    "markdown@ungood": true,
+    "writing-style@ungood": true
   },
   "extraKnownMarketplaces": {
     "ungood": {
       "source": {
         "source": "github",
-        "repo": "ungood/claude"
+        "repo": "ungood/agents"
       }
     }
   },
   "feedbackSurveyRate": 0,
   "plansDirectory": ".claude/plans",
+  "tui": "fullscreen",
   "autoDreamEnabled": true,
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
-  "skipAutoPermissionPrompt": true,
-  "theme": "dark"
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark",
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true
 }

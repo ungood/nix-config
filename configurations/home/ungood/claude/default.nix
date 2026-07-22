@@ -14,29 +14,20 @@ let
         old.postFixup;
   });
 
-  cship = pkgs.stdenv.mkDerivation rec {
+  # Built from source at an unreleased main commit because the `cship.account`
+  # module (stephenleo/cship#153) is not yet in any tagged release.
+  cship = pkgs.rustPlatform.buildRustPackage {
     pname = "cship";
-    version = "1.4.1";
+    version = "1.7.1-unstable-2026-06-10";
 
-    src = pkgs.fetchurl {
-      url = "https://github.com/stephenleo/cship/releases/download/v${version}/cship-${
-        if pkgs.stdenv.hostPlatform.isDarwin then
-          "${pkgs.stdenv.hostPlatform.parsed.cpu.name}-apple-darwin"
-        else
-          "${pkgs.stdenv.hostPlatform.parsed.cpu.name}-unknown-linux-musl"
-      }";
-      hash =
-        if pkgs.stdenv.hostPlatform.system == "aarch64-darwin" then
-          "sha256-sPeIHyPOQRXR+BoONrkaSTwIGZ43IsatYjhEhhXg+Mo="
-        else
-          "sha256-s2CE6c62S7Y8bsIh3Y7jXKP0WZJsYUcSTrXaL05icmE=";
+    src = pkgs.fetchFromGitHub {
+      owner = "stephenleo";
+      repo = "cship";
+      rev = "44093b1f1aa99fd0ecb8fd65ec5f576ddb8ca4f5";
+      hash = "sha256-WYO9KlrRnOYtZ94V4uQ6/IVSEWlZUEHTCrmQp+PAKZk=";
     };
 
-    dontUnpack = true;
-
-    installPhase = ''
-      install -Dm755 $src $out/bin/cship
-    '';
+    cargoHash = "sha256-ESOW4kF2ExN+QpQtV49dQFOqhwy7kyM6HFw2IhIGDuc=";
   };
 in
 {

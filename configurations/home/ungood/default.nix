@@ -67,7 +67,10 @@ flake@{ self, ... }:
       ];
     };
 
-    starship.enable = true;
+    starship = {
+      enable = true;
+      settings.git_branch.truncation_length = 30;
+    };
   };
 
   onetrue = {
