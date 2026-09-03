@@ -11,10 +11,6 @@ flake@{ self, inputs, ... }:
     ./nix.nix
     ./ssh.nix
     ./users.nix
-
-    # Use Lix - a community fork of Nix with better Darwin support
-    # TODO: Re-enable once separateDebugInfo/__structuredAttrs issue is fixed
-    # inputs.lix-module.nixosModules.default
   ];
 
   i18n.defaultLocale = "en_US.UTF-8";
