@@ -26,9 +26,6 @@
       "Read(./.env)",
       "Read(./.env.*)"
     ],
-    "ask": [
-      "Bash(git push:*)"
-    ],
     "defaultMode": "auto"
   },
   "hooks": {},
