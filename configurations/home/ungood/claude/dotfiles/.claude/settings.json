@@ -22,12 +22,9 @@
       "WebFetch",
       "WebSearch"
     ],
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)"
-    ],
     "defaultMode": "auto"
   },
+  "model": "opus[1m]",
   "hooks": {},
   "statusLine": {
     "type": "command",
