@@ -19,6 +19,7 @@ in
     ./fastfetch.nix
     ./firefox.nix
     ./helix.nix
+    ./micro.nix
     ./nix.nix
     (import ./nix-index.nix flake)
     (import ./plasma.nix flake)
