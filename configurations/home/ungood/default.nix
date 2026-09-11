@@ -12,9 +12,9 @@ flake@{ self, ... }:
     self.homeModules.developer
     (import ./bat.nix flake)
     (import ./claude flake)
-    (import ./cursor flake)
     (import ./ghostty.nix flake)
     (import ./git.nix flake)
+    (import ./vscode flake)
   ];
 
   # Home-manager configuration

@@ -3,7 +3,6 @@ _:
 {
   imports = [
     ./claude.nix
-    ./cursor.nix
     ./devenv.nix
     ./direnv.nix
     ./git.nix

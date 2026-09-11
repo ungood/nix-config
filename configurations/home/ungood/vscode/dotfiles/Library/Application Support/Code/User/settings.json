@@ -8,7 +8,6 @@
     "editor.rulers": [
         120
     ],
-    "markdown.preview.fontSize": 16,
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 5000,
     "files.watcherExclude": {
@@ -40,19 +39,14 @@
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "window.zoomPerWindow": false,
     "claudeCode.preferredLocation": "panel",
+    "update.mode": "none",
+    "window.zoomLevel": 1,
     "settingsSync.ignoredSettings": [
         "-window.zoomLevel"
     ],
     "workbench.colorTheme": "Monokai",
     "search.useGlobalIgnoreFiles": true,
     "search.useParentIgnoreFiles": true,
-    "nix.formatterPath": "nixfmt",
-    "jupyter.askForKernelRestart": false,
-    "jupyter.interactiveWindow.creationMode": "perFile",
-    "git.blame.editorDecoration.enabled": false,
-    "window.zoomLevel": 1.2,
-    "extensions.autoUpdate": "onlyEnabledExtensions",
-    "update.mode": "none",
-    "window.autoDetectColorScheme": false,
-    "extensions.installCooldownHours": 6
+    "chat.disableAIFeatures": true,
+    "telemetry.telemetryLevel": "off"
 }
