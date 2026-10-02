@@ -95,6 +95,9 @@ in
           "browser.startup.homepage" = "https://kagi.com";
           "browser.newtabpage.enabled" = false;
 
+          # Disable the Nova UX redesign
+          "browser.nova.enabled" = false;
+
           # Firefox 75+ remembers the last workspace it was opened on as part of its session management.
           # This is annoying, because I can have a blank workspace, click Firefox from the launcher, and
           # then have Firefox open on some other workspace.
