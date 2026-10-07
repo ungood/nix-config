@@ -125,3 +125,16 @@ build-installer: git-add
 burn-installer DEVICE:
     @echo "WARNING This will overwrite all data on {{DEVICE}}"
     gum confirm "Proceed?" && sudo dd if=result/iso/nixos-installer.iso of={{DEVICE}} bs=4M status=progress oflag=sync;
+
+## macOS Commands
+
+# Capture user-scope macOS preferences that differ from defaults as Nix (read-only).
+# Pass `--against <file.nix>` to print only what changed since that capture.
+[group('darwin')]
+capture-prefs OUT="prefs.nix" *FLAGS:
+    nix run .#capture-prefs -- {{OUT}} --scope user {{FLAGS}}
+
+# Print user-scope macOS preferences that differ from a previous capture (read-only).
+[group('darwin')]
+prefs-diff FILE="prefs.nix":
+    nix run .#capture-prefs -- --scope user --against {{FILE}}

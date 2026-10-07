@@ -57,6 +57,13 @@
     omnix.url = "github:juspay/omnix";
 
     llm-agents.url = "github:numtide/llm-agents.nix";
+
+    # Only its `current` app is used (see apps.nix), to capture macOS
+    # preferences as Nix. The module itself is not adopted yet.
+    nix-plist-manager = {
+      url = "github:sushydev/nix-plist-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -68,6 +75,7 @@
       ];
 
       imports = [
+        ./apps.nix
         ./devshell.nix
         # VM-based integration tests disabled pending issue #107
         # ./checks.nix
