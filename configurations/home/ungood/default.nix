@@ -31,9 +31,6 @@ flake@{ self, ... }:
         obsidian
         todoist
       ]
-      ++ lib.optionals stdenv.isDarwin [
-        rectangle
-      ]
       ++ lib.optionals stdenv.isLinux [
         beeper
       ];
