@@ -6,7 +6,7 @@
   ];
 
   # TODO: Detect if KDE Plasma is enabled instead of installing on all Linux.
-  programs.plasma = lib.mkIf pkgs.stdenv.isLinux {
+  programs.plasma = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     enable = true;
 
     workspace = {

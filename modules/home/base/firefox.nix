@@ -13,7 +13,7 @@ in
     enable = true;
     # On Darwin, use null to let the system Firefox be used (installed via Homebrew or manually)
     # On Linux, use firefox-bin from nixpkgs
-    package = if pkgs.stdenv.isDarwin then null else pkgs.firefox-bin;
+    package = if pkgs.stdenv.hostPlatform.isDarwin then null else pkgs.firefox-bin;
 
     # System-wide policies for privacy and security
     # Check about:policies#documentation for options

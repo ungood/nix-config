@@ -10,7 +10,7 @@ _:
       nerd-fonts.dejavu-sans-mono
     ];
   }
-  // lib.optionalAttrs pkgs.stdenv.isLinux {
+  // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
     # Install some default fonts
     enableDefaultPackages = true;
   };

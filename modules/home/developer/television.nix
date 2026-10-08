@@ -53,8 +53,8 @@ let
   ];
 
   platformChannels =
-    lib.optionalAttrs pkgs.stdenv.isLinux (mkChannels linuxChannels)
-    // lib.optionalAttrs pkgs.stdenv.isDarwin (mkChannels darwinChannels);
+    lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux (mkChannels linuxChannels)
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin (mkChannels darwinChannels);
 in
 {
   # Channel dependencies not provided by other modules.

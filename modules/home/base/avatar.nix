@@ -23,7 +23,7 @@ in
 
     # Linux-specific: Grant SDDM permission to the user's home directory
     # Darwin doesn't need this since it doesn't use SDDM
-    home.activation.setupSddmAvatar = lib.mkIf pkgs.stdenv.isLinux (
+    home.activation.setupSddmAvatar = lib.mkIf pkgs.stdenv.hostPlatform.isLinux (
       lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         echo "Setting sddm permissions for user icon"
         run ${pkgs.acl}/bin/setfacl -m u:sddm:x ${config.home.homeDirectory}

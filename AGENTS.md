@@ -61,6 +61,6 @@ This configuration uses **Lix** (a community fork of Nix). The Lix module is imp
 ### Cross-Platform Patterns
 - **Maximize Home Manager usage**: Platform-agnostic configuration should live in Home Manager modules
 - **Minimal system modules**: NixOS modules should only contain platform-specific system configuration
-- **Platform detection**: Use `pkgs.stdenv.isLinux` for Linux-specific configuration in Home Manager modules
+- **Platform detection**: Use `pkgs.stdenv.hostPlatform.isLinux` for Linux-specific configuration in Home Manager modules
 - **Conditional imports**: Use `lib.optionals` to conditionally import platform-specific modules
-- Use pkgs.stdenv.isLinux for OS detection. Do NOT rely on osConfig argument in home-manager.
+- Use pkgs.stdenv.hostPlatform.isLinux for OS detection. Do NOT rely on osConfig argument in home-manager.

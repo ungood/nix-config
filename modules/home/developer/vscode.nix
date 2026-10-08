@@ -9,7 +9,7 @@
   home.packages = [
     # Use FHS version on Linux for better extension compatibility
     # Use regular version on Darwin (FHS not available)
-    (if pkgs.stdenv.isLinux then pkgs.vscode.fhs else pkgs.vscode)
+    (if pkgs.stdenv.hostPlatform.isLinux then pkgs.vscode.fhs else pkgs.vscode)
   ];
 
   programs.git.ignores = [

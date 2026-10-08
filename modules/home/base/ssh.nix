@@ -14,10 +14,10 @@
     enable = true;
     enableDefaultConfig = false;
 
-    matchBlocks = {
+    settings = {
       "*" = {
-        forwardAgent = true;
-        identityAgent = "${config.home.homeDirectory}/.1password/agent.sock";
+        ForwardAgent = true;
+        IdentityAgent = "${config.home.homeDirectory}/.1password/agent.sock";
       };
     };
 

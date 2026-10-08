@@ -174,9 +174,9 @@ Use `pkgs.stdenv` for cross-platform Home Manager modules:
 { ... }:
 { pkgs, lib, ... }:
 {
-  home.packages = lib.optionals pkgs.stdenv.isLinux [
+  home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux [
     pkgs.linux-only-package
-  ] ++ lib.optionals pkgs.stdenv.isDarwin [
+  ] ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
     pkgs.macos-only-package
   ];
 }

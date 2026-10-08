@@ -31,7 +31,7 @@ flake@{ self, ... }:
         obsidian
         todoist
       ]
-      ++ lib.optionals stdenv.isLinux [
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
         beeper
       ];
 
@@ -58,7 +58,7 @@ flake@{ self, ... }:
   # TODO: Move this somewhere more appropriate.
   targets.darwin = {
     linkApps.enable = false;
-    copyApps.enable = pkgs.stdenv.isDarwin;
+    copyApps.enable = pkgs.stdenv.hostPlatform.isDarwin;
   };
 
   programs = {

@@ -49,7 +49,7 @@
       '';
     in
     {
-      checks = lib.optionalAttrs pkgs.stdenv.isLinux {
+      checks = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
         nixos-modules = pkgs.testers.runNixOSTest {
           name = "nixos-modules";
 

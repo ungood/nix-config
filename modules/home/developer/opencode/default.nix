@@ -47,7 +47,7 @@ in
     }
     (lib.mkIf cfg.enable (
       lib.mkMerge [
-        (lib.mkIf pkgs.stdenv.isDarwin {
+        (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
           launchd.agents.opencode-web = {
             enable = true;
             config = {
@@ -65,7 +65,7 @@ in
             };
           };
         })
-        (lib.mkIf pkgs.stdenv.isLinux {
+        (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
           systemd.user.services.opencode-web = {
             Unit = {
               Description = "OpenCode Web Server";
