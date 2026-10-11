@@ -16,6 +16,10 @@
         # "${inputs.ghostty-shaders}/tft.glsl"
       ];
 
+      # Nix manages the Ghostty version, so don't let it update itself. Without
+      # this, Ghostty asks on macOS whether to enable automatic updates.
+      auto-update = "off";
+
       window-padding-x = 10;
       window-padding-y = 10;
     };
