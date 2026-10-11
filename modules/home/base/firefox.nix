@@ -90,6 +90,29 @@ in
     };
   };
 
+  options.onetrue.firefox.search = lib.mkOption {
+    type = lib.types.attrsOf lib.types.anything;
+    description = "Search engine configuration for the default profile, reusable by other Firefox-based browsers.";
+    default = {
+      force = true;
+      default = "kagi";
+      privateDefault = "ddg";
+      order = [
+        "kagi"
+        "ddg"
+        "google"
+      ];
+      engines = {
+        kagi = {
+          name = "Kagi";
+          urls = [ { template = "https://kagi.com/search?q={searchTerms}"; } ];
+          icon = "https://kagi.com/favicon.ico";
+        };
+        bing.metaData.hidden = true;
+      };
+    };
+  };
+
   # TODO: Clean up this module.
   config.programs.firefox = {
     enable = true;
@@ -152,24 +175,7 @@ in
         name = "default";
         isDefault = true;
 
-        search = {
-          force = true;
-          default = "kagi";
-          privateDefault = "ddg";
-          order = [
-            "kagi"
-            "ddg"
-            "google"
-          ];
-          engines = {
-            kagi = {
-              name = "Kagi";
-              urls = [ { template = "https://kagi.com/search?q={searchTerms}"; } ];
-              icon = "https://kagi.com/favicon.ico";
-            };
-            bing.metaData.hidden = true;
-          };
-        };
+        inherit (cfg) search;
         settings = cfg.profileSettings // {
           # Set homepage to Kagi
           "browser.startup.homepage" = "https://kagi.com";
