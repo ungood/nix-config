@@ -8,6 +8,7 @@ _:
     ./git.nix
     ./nix-search-tv.nix
     ./opencode
+    ./paseo.nix
     ./python.nix
     ./television.nix
     ./vscode.nix
