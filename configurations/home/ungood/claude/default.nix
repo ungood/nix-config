@@ -32,8 +32,6 @@ let
 
   # SessionStart hook that prints the model in big colored letters, so a
   # session that came up on the wrong model (e.g. an org default) is obvious.
-  # Also runs on PreModelSwitch, whose message is flattened to one line with
-  # no ANSI colors, so that one gets a plain one-liner instead of the banner.
   claude-model-banner = pkgs.writeShellApplication {
     name = "claude-model-banner";
     runtimeInputs = [
@@ -41,27 +39,30 @@ let
       pkgs.figlet
     ];
     text = ''
-      input=$(cat)
-      event=$(jq -r '.hook_event_name // empty' <<<"$input")
-      model=$(jq -r '.model // .to_model // empty' <<<"$input")
+      model=$(jq -r '.model // empty')
       [ -n "$model" ] || exit 0
 
       # claude-opus-5-5[1m] -> OPUS 5.5
       label=$(sed -E 's/^claude-//; s/\[.*\]$//; s/-([0-9]+)-([0-9]+).*$/ \1.\2/' <<<"$model" | tr '[:lower:]' '[:upper:]')
-      if [ "$event" != SessionStart ]; then
-        jq -n --arg msg "⇢ Switching to $label" '{systemMessage: $msg}'
-        exit 0
-      fi
 
-      case "$model" in
-        *opus*) color=32 ;;   # green
-        *sonnet*) color=31 ;; # red
-        *haiku*) color=33 ;;  # yellow
-        *) color=35 ;;        # magenta
+      # Hash the family (opus, sonnet, ...) onto a 30-step hue wheel in the
+      # 256-color cube, so each family keeps one saturated color across versions.
+      family=$(sed -E 's/^claude-//; s/-.*//' <<<"$model")
+      hash=$(cksum <<<"$family" | cut -d' ' -f1)
+      hue=$((hash % 30))
+      step=$((hue % 5))
+      case $((hue / 5)) in
+        0) r=5 g=$step b=0 ;;
+        1) r=$((5 - step)) g=5 b=0 ;;
+        2) r=0 g=5 b=$step ;;
+        3) r=0 g=$((5 - step)) b=5 ;;
+        4) r=$step g=0 b=5 ;;
+        *) r=5 g=0 b=$((5 - step)) ;;
       esac
+      color=$((16 + 36 * r + 6 * g + b))
 
       # The TUI resets the color at each line, so color every line.
-      banner=$(figlet -w 120 "$label" | sed "s/^/"$'\e'"[1;''${color}m/; s/\$/"$'\e'"[0m/")
+      banner=$(figlet -w 120 "$label" | sed "s/^/"$'\e'"[1;38;5;''${color}m/; s/\$/"$'\e'"[0m/")
 
       jq -n --arg msg "Model: $model"$'\n\n'"$banner" '{systemMessage: $msg}'
     '';

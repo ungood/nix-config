@@ -35,16 +35,6 @@
           }
         ]
       }
-    ],
-    "PreModelSwitch": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claude-model-banner"
-          }
-        ]
-      }
     ]
   },
   "statusLine": {
