@@ -29,11 +29,32 @@ let
 
     cargoHash = "sha256-ESOW4kF2ExN+QpQtV49dQFOqhwy7kyM6HFw2IhIGDuc=";
   };
+
+  # SessionStart hook that prints the session's model in big letters, so a
+  # session that came up on the wrong model (e.g. an org default) is obvious.
+  claude-model-banner = pkgs.writeShellApplication {
+    name = "claude-model-banner";
+    runtimeInputs = [
+      pkgs.jq
+      pkgs.figlet
+    ];
+    text = ''
+      model=$(jq -r '.model // empty')
+      [ -n "$model" ] || exit 0
+
+      # claude-opus-5-5[1m] -> OPUS 5.5
+      label=$(sed -E 's/^claude-//; s/\[.*\]$//; s/-([0-9]+)-([0-9]+).*$/ \1.\2/' <<<"$model" | tr '[:lower:]' '[:upper:]')
+      banner=$(figlet -w 120 "$label")
+
+      jq -n --arg msg "Model: $model"$'\n\n'"$banner" '{systemMessage: $msg}'
+    '';
+  };
 in
 {
   home.packages = [
     cship
     claude-code
+    claude-model-banner
   ];
 
   # Symlink cship config (not profile-specific)

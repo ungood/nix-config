@@ -25,7 +25,18 @@
     "defaultMode": "auto"
   },
   "model": "opus[1m]",
-  "hooks": {},
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-model-banner"
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "cship"
