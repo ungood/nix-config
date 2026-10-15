@@ -30,8 +30,10 @@ let
     cargoHash = "sha256-ESOW4kF2ExN+QpQtV49dQFOqhwy7kyM6HFw2IhIGDuc=";
   };
 
-  # SessionStart hook that prints the session's model in big letters, so a
+  # SessionStart hook that prints the model in big colored letters, so a
   # session that came up on the wrong model (e.g. an org default) is obvious.
+  # Also runs on PreModelSwitch, whose message is flattened to one line with
+  # no ANSI colors, so that one gets a plain one-liner instead of the banner.
   claude-model-banner = pkgs.writeShellApplication {
     name = "claude-model-banner";
     runtimeInputs = [
@@ -39,12 +41,27 @@ let
       pkgs.figlet
     ];
     text = ''
-      model=$(jq -r '.model // empty')
+      input=$(cat)
+      event=$(jq -r '.hook_event_name // empty' <<<"$input")
+      model=$(jq -r '.model // .to_model // empty' <<<"$input")
       [ -n "$model" ] || exit 0
 
       # claude-opus-5-5[1m] -> OPUS 5.5
       label=$(sed -E 's/^claude-//; s/\[.*\]$//; s/-([0-9]+)-([0-9]+).*$/ \1.\2/' <<<"$model" | tr '[:lower:]' '[:upper:]')
-      banner=$(figlet -w 120 "$label")
+      if [ "$event" != SessionStart ]; then
+        jq -n --arg msg "⇢ Switching to $label" '{systemMessage: $msg}'
+        exit 0
+      fi
+
+      case "$model" in
+        *opus*) color=32 ;;   # green
+        *sonnet*) color=31 ;; # red
+        *haiku*) color=33 ;;  # yellow
+        *) color=35 ;;        # magenta
+      esac
+
+      # The TUI resets the color at each line, so color every line.
+      banner=$(figlet -w 120 "$label" | sed "s/^/"$'\e'"[1;''${color}m/; s/\$/"$'\e'"[0m/")
 
       jq -n --arg msg "Model: $model"$'\n\n'"$banner" '{systemMessage: $msg}'
     '';
