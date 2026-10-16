@@ -6,6 +6,7 @@ _:
     ./devenv.nix
     ./direnv.nix
     ./git.nix
+    ./kubernetes.nix
     ./nix-search-tv.nix
     ./opencode
     ./python.nix
