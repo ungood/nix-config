@@ -34,11 +34,5 @@
 
   onetrue.auth.authorizedUsers = [ "ungood" ];
 
-  # Paseo host for the work MacBook, reached over SSH. Lingering keeps the
-  # daemon and its agents running without a login session.
-  users.users.ungood.linger = true;
-
-  home-manager.users.ungood.onetrue.paseo.daemon.enable = true;
-
   system.stateVersion = "25.05";
 }
